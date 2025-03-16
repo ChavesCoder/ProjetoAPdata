@@ -1,0 +1,1212 @@
+/* TODOS OS TAMANHOS */
+
+* {
+    font-family: "Montserrat";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+.menuTransparente {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+
+}
+
+.menuBranco {
+    background-color: rgb(255, 255, 255);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 23px 40px #0000001e;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.close-icon {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+/* Menu Mobile */
+.mobile-menu {
+    z-index: 1000;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: -100vw; /* Escondido por padrão */
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease-in-out;
+    padding: 20px 0px;
+    justify-content: space-between;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.mobile-menu ul li {
+    padding: 15px;
+    width: 100%;
+}
+.mobile-menu ul li:hover {
+    cursor: pointer;
+    background-color: #d2b831;
+    padding: 15px;
+    width: 100%;
+}
+.mobile-menu ul li:hover a{
+   color: #ffffff;
+}
+
+
+.mobile-menu ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+/* Classe para mostrar o menu */
+.menu-aberto {
+    right: 0 !important;
+}
+
+nav {
+    width: 100%;
+    z-index: 99;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.entrar {
+    border: #d2b831 solid 2px;
+}
+
+.entrar:hover {
+    background-color: #D2B831;
+    color: #ffffff;
+}
+
+nav ul a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+nav ul a:hover {
+    font-weight: 600;
+}
+
+header {
+    height: 100vh;
+    background-image: url("../assets/imgs/CidadeSaoPaulo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+}
+
+.container-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 60px 20% 60px;
+
+}
+
+.header-titulo {
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-titulo h1 {
+    font-weight: 400;
+}
+
+.header-titulo b {
+    font-weight: 800;
+}
+
+.header-bolinhas {
+    display: flex;
+    margin: auto;
+}
+
+.bolinha {
+    border-radius: 1000px;
+}
+
+.header-bolinhas :nth-child(1) {
+    background-color: #D2B831;
+}
+
+.header-bolinhas :nth-child(2) {
+    background-color: #E9DC4F;
+}
+
+.header-bolinhas :nth-child(3) {
+    background-color: #FEFD6B;
+}
+
+/* SOBRE NOS ESTILIZACAO */
+#container-sobrenos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#container-sobrenos h2 {
+    font-weight: 400;
+    color: #121212;
+}
+
+#container-sobrenos b {
+    font-weight: 400;
+}
+
+#container-sobrenos p {
+    color: #121212;
+    font-weight: 300;
+    width: 100%;
+}
+
+.container-card {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+.card .material-symbols-outlined {
+    font-variation-settings: 
+        'wght' 100,
+}
+.card span {
+    color: #d2b831;
+    font-weight: 300;
+}
+.card h3{
+    color: #d2b831;
+    font-weight: 600;
+}
+
+/* ESTILIZACAO SOLUCOES */
+#container-solucoes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #121212;
+    color: white;
+}
+
+#container-solucoes h2 {
+    font-weight: 400;
+}
+
+#container-solucoes p {
+    font-weight: 300;
+    width: 100%;
+}
+
+.container-explicacaoSolucao {
+    display: flex;
+}
+
+/* ESTILIZACAO CONTATO */
+#container-contato {
+}
+
+#container-contato h2 {
+    color: #121212;
+    font-weight: 400;
+}
+
+.container-canaisComunicacao {
+    display: flex;
+}
+
+.container-canaisComunicacao p {
+    color: #121212;
+}
+
+.container-canaisComunicacao b {
+    font-weight: 600;
+}
+
+.container-canaisComunicacao form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-canaisComunicacao textarea {
+    resize: none;
+}
+
+.container-canaisComunicacao button {
+    font-weight: 600;
+    color: white;
+    background-color: #D2B831;
+    border: none;
+}
+
+.container-canaisComunicacao button:hover {
+    cursor: pointer;
+    background-color: #a4902a;
+}
+
+.formulario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+}
+
+.linha {
+    background: linear-gradient(to right, #D2B831, #FEFD6B);
+}
+
+/* FOOTER */
+.container-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+/* ANIMAÇÃO DE SURGIR */
+.hidden {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateX(-100%);
+    transition: all 1.2s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+    transition: all 1.2s;
+}
+
+.header-bolinhas :nth-child(1) {
+    transition-delay: 100ms;
+}
+
+.header-bolinhas :nth-child(2) {
+    transition-delay: 300ms;
+}
+
+.header-bolinhas :nth-child(3) {
+    transition-delay: 500ms;
+}
+
+.container-card :nth-child(1) {
+    transition-delay: 200ms;
+}
+
+.container-card :nth-child(2) {
+    transition-delay: 400ms;
+}
+
+.container-card :nth-child(3) {
+    transition-delay: 700ms;
+}
+
+/* SESSÃO QUE COMEÇA A RESPONSIVIDADE */
+
+/* TELAS MAIORES QUE 1200px DE LARGURA (DESKTOPS E MONITORES GRANDES) */
+
+@media (min-width: 1200px) {
+    nav {
+        padding: 0px 10%;
+        height: 64px;
+    }
+
+    nav div {
+        width: 40%;
+    }
+
+    nav ul {
+        width: 60%;
+        gap: 68px;
+        font-size: 18px;
+    }
+    nav img{
+        width: 26%;
+        padding-top: 6px;
+    }
+    .entrar {
+        padding: 10px 14px;
+    }
+
+    .container-header {
+        padding: 60px 20% 60px;
+    }
+
+    .header-titulo {
+        width: 50%;
+    }
+
+    .header-titulo h1 {
+        font-size: 4rem;
+    }
+
+    .header-titulo p {
+        font-size: 20px;
+    }
+
+    .header-bolinhas {
+        gap: 16px;
+    }
+
+    .bolinha {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* SOBRE NOS ESTILIZACAO */
+
+    #container-sobrenos {
+        padding: 100px 15%;
+    }
+
+    #container-sobrenos h2 {
+        font-size: 36px;
+    }
+
+    #container-sobrenos b {
+        border-bottom: 5px solid #d2b831;
+    }
+
+    #container-sobrenos p {
+        font-size: 18px;
+        margin: 20px 0px;
+    }
+
+    .card {
+        padding: 44px 25px;
+        width: 29%;
+        box-shadow: 0px 23px 40px #0000001e;
+    }
+
+    .card span {
+        font-size: 72px;
+    }
+
+    /* ESTILIZACAO SOLUCOES */
+    #container-solucoes {
+        padding: 100px 16%;
+    }
+
+    #container-solucoes h2 {
+        font-size: 36px;
+        width: 70%;
+    }
+
+    #container-solucoes p {
+        font-size: 18px;
+        padding-right: 20px;
+    }
+
+    .container-explicacaoSolucao {
+        margin-top: 24px;
+    }
+
+    .container-explicacaoSolucao img {
+        width: 50%;
+        box-shadow: -10px 10px #d2b831;
+        margin-right: 40px;
+    }
+
+    /* ESTILIZACAO CONTATO */
+    #container-contato {
+        padding: 100px 16% 0px;
+    }
+
+    #container-contato h2 {
+        font-size: 36px;
+        width: 70%;
+    }
+
+    .container-canaisComunicacao {
+        margin-top: 40px;
+    }
+
+    .container-canaisComunicacao p {
+        font-size: 20px;
+        margin-bottom: 28px;
+    }
+
+    .container-canaisComunicacao b {
+        font-weight: 600;
+    }
+
+    .container-canaisComunicacao form {
+        gap: 16px;
+    }
+
+    .container-canaisComunicacao input {
+        height: 40px;
+        padding-left: 10px;
+    }
+
+    .container-canaisComunicacao textarea {
+        height: 180px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .container-canaisComunicacao button {
+        height: 40px;
+        width: 25%;
+    }
+
+    .contatos {
+        width: 50%;
+    }
+
+    .formulario {
+        width: 50%;
+        padding: 40px 28px;
+    }
+
+    .linha {
+        height: 10px;
+        width: 80%;
+    }
+
+    /* FOOTER */
+    .container-footer {
+        padding: 30px 10%;
+    }
+
+    .container-footer p {
+        font-size: 10px;
+    }
+}
+
+/* TELAS ENTRE QUE 1199.99px e 992px */
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    nav {
+        padding: 0px 10%;
+        height: 64px;
+    }
+
+    nav div {
+        width: 40%;
+    }
+
+    nav ul {
+        width: 60%;
+        gap: 60px;
+        font-size: 16px;
+    }
+    nav img{
+        width: 30%;
+        padding-top: 4px;
+    }
+
+    .entrar {
+        padding: 10px 12px;
+    }
+
+    .container-header {
+        padding: 60px 20% 60px;
+    }
+
+    .header-titulo {
+        width: 50%;
+    }
+
+    .header-titulo h1 {
+        font-size: 3.75rem;
+    }
+
+    .header-titulo p {
+        font-size: 18px;
+    }
+
+    .header-bolinhas {
+        gap: 14px;
+    }
+
+    .bolinha {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* SOBRE NOS ESTILIZACAO */
+
+    #container-sobrenos {
+        padding: 100px 12%;
+    }
+
+    #container-sobrenos h2 {
+        font-size: 32px;
+    }
+
+    #container-sobrenos b {
+        border-bottom: 5px solid #d2b831;
+    }
+
+    #container-sobrenos p {
+        font-size: 16px;
+        margin: 20px 0px;
+    }
+
+    .card {
+        padding: 36px 12px;
+        width: 28%;
+        box-shadow: 0px 23px 40px #0000001e;
+    }
+
+    .card span {
+        font-size: 68px;
+    }
+
+    /* ESTILIZACAO SOLUCOES */
+    #container-solucoes {
+        padding: 100px 12%;
+    }
+
+    #container-solucoes h2 {
+        font-size: 32px;
+        width: 70%;
+    }
+
+    #container-solucoes p {
+        font-size: 16px;
+        padding-right: 20px;
+    }
+
+    .container-explicacaoSolucao {
+        margin-top: 24px;
+    }
+
+    .container-explicacaoSolucao img {
+        width: 52%;
+        box-shadow: -10px 10px #d2b831;
+        margin-right: 40px;
+    }
+
+    /* ESTILIZACAO CONTATO */
+    #container-contato {
+        padding: 100px 12% 0px;
+    }
+
+    #container-contato h2 {
+        font-size: 32px;
+        width: 70%;
+    }
+
+    .container-canaisComunicacao {
+        margin-top: 40px;
+    }
+
+    .container-canaisComunicacao p {
+        font-size: 18px;
+        margin-bottom: 28px;
+    }
+
+    .container-canaisComunicacao b {
+        font-weight: 600;
+    }
+
+    .container-canaisComunicacao form {
+        gap: 16px;
+    }
+
+    .container-canaisComunicacao input {
+        height: 40px;
+        padding-left: 10px;
+    }
+
+    .container-canaisComunicacao textarea {
+        height: 180px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .container-canaisComunicacao button {
+        height: 40px;
+        width: 25%;
+    }
+
+    .contatos {
+        width: 50%;
+    }
+
+    .formulario {
+        width: 50%;
+        padding: 40px 28px;
+    }
+
+    .linha {
+        height: 10px;
+        width: 80%;
+    }
+
+    /* FOOTER */
+    .container-footer {
+        padding: 30px 10%;
+    }
+
+    .container-footer p {
+        font-size: 10px;
+    }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+    nav {
+        padding: 0px 8%;
+        height: 64px;
+    }
+
+    nav div {
+        width: 40%;
+    }
+
+    nav ul {
+        width: 62%;
+        gap: 44px;
+        font-size: 14px;
+    }
+    nav img{
+        width: 30%;
+        padding-top: 4px;
+    }
+
+    .entrar {
+        padding: 10px 12px;
+    }
+
+    .container-header {
+        padding: 40px 15% 40px;
+    }
+
+    .header-titulo {
+        width: 50%;
+    }
+
+    .header-titulo h1 {
+        font-size: 3.25rem;
+    }
+
+    .header-titulo p {
+        font-size: 16px;
+    }
+
+    .header-bolinhas {
+        gap: 10px;
+    }
+
+    .bolinha {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* SOBRE NOS ESTILIZACAO */
+
+    #container-sobrenos {
+        padding: 100px 10%;
+    }
+
+    #container-sobrenos h2 {
+        font-size: 28px;
+    }
+
+    #container-sobrenos b {
+        border-bottom: 4px solid #d2b831;
+    }
+
+    #container-sobrenos p {
+        font-size: 14px;
+        margin: 20px 0px;
+    }
+
+    .card {
+        padding: 36px 12px;
+        width: 30%;
+        box-shadow: 0px 23px 40px #0000001e;
+    }
+
+    .card span {
+        font-size: 64px;
+    }
+
+    /* ESTILIZACAO SOLUCOES */
+    #container-solucoes {
+        padding: 100px 10%;
+    }
+
+    #container-solucoes h2 {
+        font-size: 28px;
+        width: 70%;
+    }
+
+    #container-solucoes p {
+        font-size: 14px;
+        padding-right: 20px;
+    }
+
+    .container-explicacaoSolucao {
+        margin-top: 24px;
+    }
+
+    .container-explicacaoSolucao img {
+        width: 52%;
+        box-shadow: -10px 10px #d2b831;
+        margin-right: 40px;
+    }
+
+    /* ESTILIZACAO CONTATO */
+    #container-contato {
+        padding: 100px 10% 10px;
+    }
+
+    #container-contato h2 {
+        font-size: 28px;
+        width: 70%;
+    }
+
+    .container-canaisComunicacao {
+        margin-top: 40px;
+    }
+
+    .container-canaisComunicacao p {
+        font-size: 16px;
+        margin-bottom: 28px;
+    }
+
+    .container-canaisComunicacao b {
+        font-weight: 600;
+    }
+
+    .container-canaisComunicacao form {
+        gap: 14px;
+    }
+
+    .container-canaisComunicacao input {
+        height: 36px;
+        padding-left: 8px;
+    }
+
+    .container-canaisComunicacao textarea {
+        height: 150px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .container-canaisComunicacao button {
+        height: 40px;
+        width: 25%;
+    }
+
+    .contatos {
+        width: 50%;
+        padding-left: 10px;
+    }
+
+    .formulario {
+        width: 50%;
+        padding: 28px 28px;
+    }
+
+    .linha {
+        height: 10px;
+        width: 80%;
+    }
+
+    /* FOOTER */
+    .container-footer {
+        padding: 30px 10%;
+    }
+
+    .container-footer p {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+
+    nav {
+        padding: 0px 8%;
+        height: 64px;
+    }
+
+    nav div {
+        display: flex;
+        align-items: end;
+    }
+
+    nav ul {
+        display: none; /* Esconder o menu tradicional */
+    }
+    
+    .menu-icon {
+        display: block; /* Exibir o ícone do menu hambúrguer */
+    }
+
+    nav img{
+        width: 25%;
+        padding-top: 4px;
+    }
+
+    .container-header {
+        padding: 40px 10% 40px;
+    }
+
+    .header-titulo {
+        width: 60%;
+    }
+
+    .header-titulo h1 {
+        font-size: 3rem;
+    }
+
+    .header-titulo p {
+        font-size: 14px;
+    }
+
+    .header-bolinhas {
+        display: none;
+    }
+
+    /* SOBRE NOS ESTILIZACAO */
+
+    #container-sobrenos {
+        padding: 80px 8%;
+    }
+
+    #container-sobrenos h2 {
+        font-size: 24px;
+    }
+
+    #container-sobrenos b {
+        border-bottom: 4px solid #d2b831;
+    }
+
+    #container-sobrenos p {
+        font-size: 12px;
+        margin: 20px 0px;
+    }
+
+    .card {
+        padding: 22px 12px;
+        width: 30%;
+        box-shadow: 0px 23px 40px #0000001e;
+    }
+
+    .card span {
+        font-size: 52px;
+    }
+
+    /* ESTILIZACAO SOLUCOES */
+    #container-solucoes {
+        padding: 80px 8%;
+    }
+
+    #container-solucoes h2 {
+        font-size: 24px;
+        width: 100%;
+    }
+
+    #container-solucoes p {
+        font-size: 14px;
+        padding-top: 30px;
+    }
+
+    .container-explicacaoSolucao {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-explicacaoSolucao img {
+        width: 70%;
+        box-shadow: -10px 10px #d2b831;
+        margin: auto;
+    }
+
+    /* ESTILIZACAO CONTATO */
+    #container-contato {
+        padding: 80px 8% 10px;
+    }
+
+    #container-contato h2 {
+        font-size: 24px;
+        width: 100%;
+    }
+
+    .container-canaisComunicacao {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container-canaisComunicacao p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .container-canaisComunicacao b {
+        font-weight: 600;
+    }
+
+    .container-canaisComunicacao form {
+        gap: 14px;
+    }
+
+    .container-canaisComunicacao input {
+        height: 36px;
+        padding-left: 8px;
+    }
+
+    .container-canaisComunicacao textarea {
+        height: 150px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .container-canaisComunicacao button {
+        height: 40px;
+        width: 25%;
+    }
+
+    .contatos {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .formulario {
+        width: 70%;
+        margin-top: 20px;
+        padding: 28px 28px;
+        margin: auto;
+    }
+
+    .linha {
+        height: 10px;
+        width: 80%;
+        display: none;
+    }
+
+    /* FOOTER */
+    .container-footer {
+        padding: 30px 10%;
+    }
+
+    .container-footer p {
+        font-size: 10px;
+    }
+}
+
+
+@media (max-width: 575.98px) {
+    nav {
+        padding: 0px 8%;
+        height: 64px;
+    }
+
+    nav div {
+        display: flex;
+        align-items: end;
+    }
+
+    nav ul {
+        display: none; /* Esconder o menu tradicional */
+    }
+    
+    .menu-icon {
+        display: block; /* Exibir o ícone do menu hambúrguer */
+    }
+
+    nav img{
+        width: 25%;
+        padding-top: 4px;
+    }
+
+    .container-header {
+        padding: 20px 8% 20px;
+    }
+
+    .header-titulo {
+        width: 60%;
+    }
+
+    .header-titulo h1 {
+        font-size: 2.5rem;
+    }
+
+    .header-titulo p {
+        font-size: 12px;
+    }
+
+    .header-bolinhas {
+        display: none;
+    }
+
+    /* SOBRE NOS ESTILIZACAO */
+
+    #container-sobrenos {
+        padding: 50px 5%;
+    }
+
+    #container-sobrenos h2 {
+        font-size: 20px;
+    }
+
+    #container-sobrenos b {
+        border-bottom: 3px solid #d2b831;
+    }
+
+    #container-sobrenos p {
+        font-size: 12px;
+        margin: 20px 0px;
+    }
+
+    .container-card{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+    }
+    .card {
+        padding: 60px 12px;
+        width: 50%;
+        box-shadow: 0px 15px 40px #0000001e;
+    }
+
+    .card span {
+        font-size: 52px;
+    }
+
+    /* ESTILIZACAO SOLUCOES */
+    #container-solucoes {
+        padding: 50px 5%;
+    }
+
+    #container-solucoes h2 {
+        font-size: 18px;
+        width: 100%;
+    }
+
+    #container-solucoes p {
+        font-size: 12px;
+        padding-top: 30px;
+    }
+
+    .container-explicacaoSolucao {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-explicacaoSolucao img {
+        width: 70%;
+        box-shadow: -10px 10px #d2b831;
+        margin: auto;
+    }
+
+    /* ESTILIZACAO CONTATO */
+    #container-contato {
+        padding: 50px 5% 10px;
+    }
+
+    #container-contato h2 {
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .container-canaisComunicacao {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .container-canaisComunicacao p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .container-canaisComunicacao b {
+        font-weight: 600;
+    }
+
+    .container-canaisComunicacao form {
+        gap: 14px;
+    }
+
+    .container-canaisComunicacao input {
+        height: 30px;
+        padding-left: 8px;
+    }
+
+    .container-canaisComunicacao textarea {
+        height: 130px;
+        padding-left: 10px;
+        padding-top: 10px;
+    }
+
+    .container-canaisComunicacao button {
+        height: 40px;
+        width: 30%;
+    }
+
+    .contatos {
+        width: 100%;
+        padding-left: 10px;
+    }
+
+    .formulario {
+        width: 80%;
+        padding: 28px 28px;
+        margin: 20px auto;
+    }
+
+    .linha {
+        height: 10px;
+        width: 80%;
+        display: none;
+    }
+
+    /* FOOTER */
+    .container-footer {
+        padding: 30px 10%;
+    }
+
+    .container-footer p {
+        font-size: 10px;
+    }
+}

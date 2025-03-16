@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imgs/iconeLogo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="js/script.js" defer></script>
+    <title>APdata</title>
+</head>
+<header>
+    <nav id="menu">
+        <div><img src="assets/imgs/logoBranco-semfundo.png" alt=""></div>
+        <ul>
+            <li><a href="#container-sobrenos">Sobre nós</a></li>
+            <li><a href="#container-solucoes">Soluções</a></li>
+            <li><a href="#container-contato">Contato</a></li>
+            <li><a href="#" class="entrar">Entrar</a></li>
+        </ul>
+
+        <div class="menu-icon">
+            <span class="material-symbols-outlined" onclick="toggleMenu()">
+                menu
+            </span>
+        </div>
+    </nav>
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="close-icon">
+            <span class="material-symbols-outlined" onclick="toggleMenu()">
+                close
+            </span>
+        </div>
+        <ul>
+            <li><a href="#container-sobrenos" onclick="toggleMenu()">Sobre nós</a></li>
+            <li><a href="#container-solucoes" onclick="toggleMenu()">Soluções</a></li>
+            <li><a href="#container-contato" onclick="toggleMenu()">Contato</a></li>
+            <li><a href="#" onclick="toggleMenu()">Entrar</a></li>
+        </ul>
+        <div style="height: 24px;"></div>
+    </div>
+    <div class="container-header">
+        <div class="header-titulo">
+            <h1>Entenda o
+                futuro imobiliario,
+                com a <b>ap</b></h1>
+            <p>Uma <b>solucão tecnologica</b> com <br>
+                solidez do setor imobiliario</p>
+        </div>
+        <div class="header-bolinhas">
+            <div class="bolinha hidden"></div>
+            <div class="bolinha hidden"></div>
+            <div class="bolinha hidden"></div>
+        </div>
+    </div>
+</header>
+
+<body>
+    <section id="container-sobrenos">
+        <h2>
+            Somos <b>modernidade</b>, não<br> deixando de lado a segurança
+        </h2>
+        <p>Somos uma iniciativa dedicada a transformar a tomada de decisões no mercado imobiliário por meio da análise
+            inteligente de dados. Nosso projeto nasceu a partir da identificação de um grande desafio no setor: a falta
+            de informações regionais detalhadas e o impacto disso na viabilidade de novos empreendimentos.
+            <br><br>
+            Acreditamos que dados bem estruturados são a chave para decisões estratégicas mais seguras e eficientes. Por
+            isso, integramos diversas bases de dados do mercado imobiliário e desenvolvemos um dashboard interativo que
+            oferece KPIs, gráficos e tabelas detalhadas sobre diferentes regiões. Nosso objetivo é fornecer insights
+            precisos para construtoras, incorporadoras e investidores, ajudando-os a identificar o melhor local para
+            novos empreendimentos e minimizar riscos.
+            <br><br>
+            Com tecnologia, análise avançada e visualizações intuitivas, estamos revolucionando a forma como as empresas
+            acessam e utilizam informações imobiliárias. Mais do que dados, entregamos inteligência para um mercado mais
+            transparente e eficiente.
+            <br><br>
+            Entenda mais sobre nossa missão, visão e valores abaixo:
+        </p>
+        <div class="container-card">
+            <div class="card hidden">
+                <h3>Missão</h3>
+                <span class="material-symbols-outlined">
+                    target
+                </span>
+                <p> Transformar a tomada de decisões no mercado imobiliário por meio da inteligência de dados. </p>
+            </div>
+            <div class="card hidden">
+                <h3>Visão</h3>
+                <span class="material-symbols-outlined">
+                    visibility
+                </span>
+                <p> Ser a principal referência em análise de dados imobiliários. </p>
+            </div>
+            <div class="card hidden">
+                <h3>Valores</h3>
+                <span class="material-symbols-outlined">
+                    diamond
+                </span>
+                <p>Transparência <br><br>
+                    Inovação<br><br>
+                    Eficiência</p>
+            </div>
+        </div>
+    </section>
+    <section id="container-solucoes">
+        <div>
+            <h2>
+                Descomplicamos dados do setor imobiliario, para te auxiliar nas decições
+            </h2>
+            <div class="container-explicacaoSolucao">
+                <img src="assets/imgs/telaDashBoards.png" alt="" class="hidden">
+                <p>Reunimos e integramos diversos datasets do mercado imobiliário, contendo informações estratégicas
+                    como valorização regional, volume de vendas, taxas de transação e outros indicadores essenciais.
+                    Esses dados são processados e transformados em um ambiente interativo dentro do nosso site,
+                    permitindo que os usuários tenham acesso a análises detalhadas e atualizadas do setor.
+                    <br><br>
+                    Ao se cadastrar, o usuário pode explorar dashboards dinâmicos e KPIs personalizáveis, filtrando
+                    dados conforme suas necessidades. 
+                </p>
+            </div>
+            <p style="margin-top: 30px;"> 
+                Seja para avaliar a viabilidade de um novo empreendimento,
+                    analisar tendências de mercado ou otimizar a precificação de um imóvel, nossa plataforma fornece
+                    insights valiosos que auxiliam na tomada de decisão de forma estratégica e embasada em dados
+                    concretos.
+                <br></br>
+                Além disso, nossa solução reduz a incerteza no mercado imobiliário ao disponibilizar informações
+                claras, confiáveis e acessíveis, promovendo mais segurança para negócios e investimentos. Ao
+                transformar grandes volumes de dados em conhecimento acionável, ajudamos a criar um setor mais
+                transparente, eficiente e preparado para os desafios do futuro.</p>
+        </div>
+    </section>
+    <section id="container-contato">
+        <h2>Queremos te ouvimos, para te entregar a melhor experiencia</h2>
+        <div class="container-canaisComunicacao">
+            <div class="contatos">
+                <p>Entre em contato em nossos <br>canais de comunicação</p>
+                <p><b>(11)99999-9999</b><br>
+                    <b>emailteste@ap.com</b> <br>
+                    <b>@apdata</b> em todas redes sociais
+                </p>
+                <p>Se preferir envie-nos uma mensagem </p>
+                <div class="linha"></div>
+            </div>
+            <div class="formulario hidden">
+                <form action="">
+                    <input type="text" placeholder="Nome">
+                    <input type="text" placeholder="Email">
+                    <textarea name="" id="" placeholder="Mensagem"></textarea>
+                    <button>Enviar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+<footer>
+    <img src="assets/imgs/prediosFooter.png" alt="" width="100%" style="margin-top: -1px;">
+    <div class="container-footer">
+        <p>apdata ©</p>
+        <p>Todos os direitos reservados</p>
+        <img src="assets/imgs/logoBranco.png" alt="" width="12%">
+    </div>
+</footer>
+
+</html>
