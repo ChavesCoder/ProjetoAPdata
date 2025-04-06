@@ -42,11 +42,18 @@ public class LeitorExcel {
 
             List<Indice> indicesExtraidas = new ArrayList<>();
 
+            // VARIÁVEL APENAS PARA FACILITAR A INSERÇÃO NO BANCO POSTERIORMENTE
+            int incrementoID = 1000;
+
             for (int i = paginaInicial; i < 19; i++) {
                 Sheet sheet = workbook.getSheetAt(i);
                 System.out.println(">>> Lendo aba: " + sheet.getSheetName());
 
                 String regiao = sheet.getSheetName();
+
+                if (i != 3) {
+                    incrementoID += 1000;
+                }
 
                 for (int j = linhaInicial; j <= sheet.getLastRowNum(); j++) {
 
@@ -56,11 +63,12 @@ public class LeitorExcel {
                         continue;
                     }
 
+
                     Indice indice = new Indice();
 
                     try {
 
-                        indice.setId((j - 3));
+                        indice.setId((j - 3) + incrementoID);
                         indice.setRegiao(regiao);
 
                         indice.setData(converterDate(row.getCell(1).getDateCellValue()));
@@ -98,11 +106,8 @@ public class LeitorExcel {
                     } catch (Exception e) {
                         System.out.println("Erro na linha " + j + ": " + e.getMessage());
                     }
-
                 }
-
             }
-
 
             workbook.close();
 
