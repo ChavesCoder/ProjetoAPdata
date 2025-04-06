@@ -1,11 +1,12 @@
 package school.sptech;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+//import org.apache.poi.ss.usermodel.*;
 
 
 import java.io.IOException;
@@ -16,10 +17,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.apache.poi.ss.usermodel.CellType.BLANK;
+import static org.apache.poi.ss.usermodel.CellType.STRING;
+
 public class LeitorExcel {
     public List<Indice> extrairIndice(String nomeArquivo, InputStream arquivo) {
         try {
-            System.out.println("\nIniciando leitura do aqruivo %s\n".formatted(nomeArquivo));
+            System.out.printf("\nIniciando leitura do arquivo %s\n%n", nomeArquivo);
 
             Workbook workbook;
 
@@ -29,44 +33,17 @@ public class LeitorExcel {
                 workbook = new HSSFWorkbook(arquivo);
             }
 
-            Sheet sheet = workbook.getSheetAt(3);
-
-
-
-
-            // TESTES SE OS CAMPOS E TABELAS SÃO VALIDOS
-//            if (sheet == null) {
-//                System.out.println("A planilha é nula");
-//            }
-//
-//            Row row = sheet.getRow(0); // linha 1 (índice começa em 0)
-//            if (row == null) {
-//                System.out.println("A linha está nula.");
-//            }
-//
-//            Cell cell = row.getCell(0); // coluna A
-//            if (cell == null) {
-//                System.out.println("A célula está nula.");
-//            } else {
-//                System.out.println("Tipo da célula: " + cell.getCellType());
-//            }
-//
-//
-            // FOR QUE PRINTA A TABELA INTEIRA USAR COM CUIDADO!
-//            for (Row linha : sheet) {
-//                for (Cell celula : linha) {
-//                    System.out.println("Linha " + linha.getRowNum() + " Coluna " + celula.getColumnIndex() +
-//                            " -> Valor: " + celula.toString());
-//                }
-//            }
+            // SELECIONA A PAGINA QUE A LEITURA SE INICIA
+            int paginaInicial = 4;
+            Sheet sheet = workbook.getSheetAt(paginaInicial);
 
 
             List<Indice> indicesExtraidas = new ArrayList<>();
 
 
-            String regiao = sheet.getRow(0).getCell(1).getStringCellValue();
+            String regiao = sheet.getSheetName();
 
-
+//          FAZ COM QUE O CABEÇALHO SEJA IGNORADO E COMECE A LEITURA DOS DADOS A PARTIR DE ONDE IMPORTA
             int linhaInicial = 4;
 
             for (int i = linhaInicial; i <= sheet.getLastRowNum(); i++) {
@@ -85,12 +62,37 @@ public class LeitorExcel {
 
                     indice.setId((i - 3));
                     indice.setRegiao(regiao);
+
                     indice.setData(converterDate(row.getCell(1).getDateCellValue()));
-                    indice.setTotal(row.getCell(2).getNumericCellValue());
-                    indice.setD1(row.getCell(3).getNumericCellValue());
-                    indice.setD2(row.getCell(4).getNumericCellValue());
-                    indice.setD3(row.getCell(5).getNumericCellValue());
-                    indice.setD4(row.getCell(6).getNumericCellValue());
+                    if (!row.getCell(2).getCellType().equals(STRING)) {
+                        indice.setTotal(row.getCell(2).getNumericCellValue());
+                    } else {
+                        indice.setTotal(null);
+                    }
+
+                    if (!row.getCell(3).getCellType().equals(STRING)) {
+                        indice.setD1(row.getCell(3).getNumericCellValue());
+                    } else {
+                        indice.setD1(null);
+                    }
+
+                    if (!row.getCell(4).getCellType().equals(STRING)){
+                        indice.setD2(row.getCell(4).getNumericCellValue());
+                    } else {
+                        indice.setD2(null);
+                    }
+
+                    if (!row.getCell(5).getCellType().equals(STRING)){
+                        indice.setD3(row.getCell(5).getNumericCellValue());
+                    } else {
+                        indice.setD3(null);
+                    }
+
+                    if (!row.getCell(6).getCellType().equals(STRING)){
+                        indice.setD4(row.getCell(6).getNumericCellValue());
+                    } else {
+                        indice.setD4(null);
+                    }
 
                     indicesExtraidas.add(indice);
                 } catch (Exception e) {
