@@ -42,7 +42,7 @@ public class LeitorExcel {
 
             List<Indice> indicesExtraidas = new ArrayList<>();
 
-            for (int i = paginaInicial; i < workbook.getNumberOfSheets(); i++) {
+            for (int i = paginaInicial; i < 19; i++) {
                 Sheet sheet = workbook.getSheetAt(i);
                 System.out.println(">>> Lendo aba: " + sheet.getSheetName());
 
@@ -57,7 +57,6 @@ public class LeitorExcel {
                     }
 
                     Indice indice = new Indice();
-
 
                     try {
 
