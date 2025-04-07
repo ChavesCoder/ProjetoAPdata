@@ -1,5 +1,8 @@
 package school.sptech;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -13,12 +16,14 @@ public class Main {
 
         Path caminho = Path.of(nomeArquivo);
         InputStream arquivo = Files.newInputStream(caminho);
+        Workbook workbook = WorkbookFactory.create(arquivo);
+
         System.out.println("Arquivo carregado com sucesso!");
 
         LeitorExcel leitorExcel = new LeitorExcel();
-        List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, arquivo);
+        List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, workbook);
+        List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo, workbook);
 
-        arquivo.close();
 
         for (Indice indice : indicesExtraidas){
             System.out.println(indice);
@@ -26,5 +31,12 @@ public class Main {
 
         System.out.println("Indices extraidos");
 
+        for (Variacao variacao : variacoesExtraidas){
+            System.out.println(variacao);
+        }
+
+        System.out.println("Variações extraidas");
+
+        arquivo.close();
     }
 }
