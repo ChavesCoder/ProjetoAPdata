@@ -23,6 +23,7 @@ public class Main {
         LeitorExcel leitorExcel = new LeitorExcel();
         List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, workbook);
         List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo, workbook);
+        List<PrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo, workbook);
 
 
         for (Indice indice : indicesExtraidas){
@@ -37,6 +38,13 @@ public class Main {
 
         System.out.println("Variações extraidas");
 
+        for (PrecoMedio precoMedio : precoMediosExtraidos){
+            System.out.println(precoMedio);
+        }
+
+        System.out.println("Preço medio extraido");
+
+        System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
     }
 }
