@@ -260,32 +260,32 @@ public class LeitorExcel {
                         precoMedio.setRegiao(regiao);
 
                         precoMedio.setData(converterDate(row.getCell(1).getDateCellValue()));
-                        if (!row.getCell(12).getCellType().equals(STRING)) {
-                            precoMedio.setTotal(row.getCell(12).getNumericCellValue());
+                        if (!row.getCell(17).getCellType().equals(STRING)) {
+                            precoMedio.setTotal(row.getCell(17).getNumericCellValue());
                         } else {
                             precoMedio.setTotal(null);
                         }
 
-                        if (!row.getCell(13).getCellType().equals(STRING)) {
-                            precoMedio.setD1(row.getCell(13).getNumericCellValue());
+                        if (!row.getCell(18).getCellType().equals(STRING)) {
+                            precoMedio.setD1(row.getCell(18).getNumericCellValue());
                         } else {
                             precoMedio.setD1(null);
                         }
 
-                        if (!row.getCell(14).getCellType().equals(STRING)){
-                            precoMedio.setD2(row.getCell(14).getNumericCellValue());
+                        if (!row.getCell(19).getCellType().equals(STRING)){
+                            precoMedio.setD2(row.getCell(19).getNumericCellValue());
                         } else {
                             precoMedio.setD2(null);
                         }
 
-                        if (!row.getCell(15).getCellType().equals(STRING)){
-                            precoMedio.setD3(row.getCell(15).getNumericCellValue());
+                        if (!row.getCell(20).getCellType().equals(STRING)){
+                            precoMedio.setD3(row.getCell(20).getNumericCellValue());
                         } else {
                             precoMedio.setD3(null);
                         }
 
-                        if (!row.getCell(16).getCellType().equals(STRING)){
-                            precoMedio.setD4(row.getCell(16).getNumericCellValue());
+                        if (!row.getCell(21).getCellType().equals(STRING)){
+                            precoMedio.setD4(row.getCell(21).getNumericCellValue());
                         } else {
                             precoMedio.setD4(null);
                         }
