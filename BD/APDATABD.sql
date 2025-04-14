@@ -1,67 +1,3 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
-
-/*
-comandos para mysql server
-*/
-
-
-/*CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
-
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
-);
-
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
-);
-
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
-
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2); */
-
 -- Criação do banco de dados
 CREATE DATABASE APDATABD;
 
@@ -132,3 +68,40 @@ CREATE TABLE log (
     especificacao VARCHAR(45), 
     descricao TEXT
 );
+
+
+-- Inserts para empresa
+INSERT INTO empresa (nomeEmpresa, nomeFicticio, cnpj, endereco, email, senha, telefone)
+VALUES 
+('Construtora Brasil LTDA', 'Construbras', '12345678000199', 'Rua das Palmeiras, 100', 'contato@construbras.com', 'senha123', '(11) 99999-9999'),
+('Imobiliária Alpha', 'Alpha Imóveis', '98765432000155', 'Av. Central, 200', 'suporte@alphaimoveis.com', 'alpha456', '(21) 98888-8888');
+
+-- Inserts para usuario
+INSERT INTO usuario (nome, email, senha, cpf, perfil, fkEmpresa)
+VALUES 
+('João Silva', 'joao@construbras.com', '1234', '11122233344', 'admin', 1),
+('Maria Oliveira', 'maria@alphaimoveis.com', '5678', '55566677788', 'analista', 2);
+
+-- Inserts para regiao
+INSERT INTO regiao (estado, municipio, zona, condicaoDomicilio, ano, qtdRegistros)
+VALUES 
+('SP', 'São Paulo', 'Zona Sul', 'ProprioMorador', '2023-01-01', 150),
+('SP', 'Barueri', 'Zona Norte', 'Alugado', '2023-01-01', 120);
+
+-- Inserts para precoDormitorio
+INSERT INTO precoDormitorio (dormitorios, precoMedio)
+VALUES 
+(2, 53.8),
+(3, 48.9);
+
+-- Inserts para indicadoresMercado
+INSERT INTO indicadoresMercado (numIndice, variacaoMensal, rentabilidadeMensal, qtdMoradores, fkRegiao, fkprecoDormitorio)
+VALUES 
+(268.5, 0.41, 0.52, 3, 1, 1),
+(269.6, 0.40, 0.51, 4, 2, 2);
+
+-- Inserts para log
+INSERT INTO log (tipo, especificacao, descricao)
+VALUES 
+('INSERT', 'usuario', 'Usuário João Silva cadastrado no sistema'),
+('INSERT', 'indicadoresMercado', 'Indicador de mercado adicionado para São Paulo e 2 dormitórios');
