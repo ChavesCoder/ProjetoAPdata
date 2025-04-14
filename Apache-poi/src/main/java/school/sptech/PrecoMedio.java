@@ -1,6 +1,7 @@
 package school.sptech;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class PrecoMedio {
     private Integer id;
@@ -92,15 +93,11 @@ public class PrecoMedio {
 
     @Override
     public String toString() {
-        return "PrecoMedio{" +
-                "id=" + id +
-                ", regiao='" + regiao + '\'' +
-                ", data=" + data +
-                ", total=" + total +
-                ", d1=" + d1 +
-                ", d2=" + d2 +
-                ", d3=" + d3 +
-                ", d4=" + d4 +
-                '}';
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return String.format(
+                "%s | (informação) | \"registroPrecoMedio\" - Preço médio registrado para a região '%s'. Valores:\n" +
+                        "   • Total: %.2f | Econômico: %.2f | Acessibilidade: %.2f | Segurança: %.2f | Qualidade de vida: %.2f",
+                data.format(formatter), regiao, total, d1, d2, d3, d4
+        );
     }
 }

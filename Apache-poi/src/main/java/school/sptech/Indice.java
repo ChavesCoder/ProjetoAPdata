@@ -1,6 +1,7 @@
 package school.sptech;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Indice {
     private Integer id;
@@ -11,7 +12,6 @@ public class Indice {
     private Double d2;
     private Double d3;
     private Double d4;
-
 
     public Indice() {
     }
@@ -26,7 +26,6 @@ public class Indice {
         this.d3 = d3;
         this.d4 = d4;
     }
-
 
     public Integer getId() {
         return id;
@@ -92,18 +91,13 @@ public class Indice {
         this.d4 = d4;
     }
 
-
     @Override
     public String toString() {
-        return "Indice{" +
-                "id=" + id +
-                ", regiao='" + regiao + '\'' +
-                ", data=" + data +
-                ", total=" + total +
-                ", d1=" + d1 +
-                ", d2=" + d2 +
-                ", d3=" + d3 +
-                ", d4=" + d4 +
-                '}';
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return String.format(
+                "%s | (informação) | \"registroIndice\" - Índice registrado para a região '%s'. Valores:\n" +
+                        "   • Total: %.2f | Econômico: %.2f | Acessibilidade: %.2f | Segurança: %.2f | Qualidade de vida: %.2f",
+                data.format(formatter), regiao, total, d1, d2, d3, d4
+        );
     }
 }
