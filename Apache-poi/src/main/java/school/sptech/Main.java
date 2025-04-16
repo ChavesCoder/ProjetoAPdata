@@ -13,12 +13,17 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         String nomeArquivo = "fipezap-serieshistoricas.xlsx";
+        String nomeArquivo2 = "Sidra.xlsx";
 
         Path caminho = Path.of(nomeArquivo);
         InputStream arquivo = Files.newInputStream(caminho);
         Workbook workbook = WorkbookFactory.create(arquivo);
 
-        System.out.println("Arquivo carregado com sucesso!");
+        Path caminho2 = Path.of(nomeArquivo2);
+        InputStream arquivo2 = Files.newInputStream(caminho2);
+        Workbook workbookSidra = WorkbookFactory.create(arquivo2);
+
+        System.out.println("Arquivos carregados com sucesso!");
 
         LeitorExcel leitorExcel = new LeitorExcel();
         List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, workbook);
