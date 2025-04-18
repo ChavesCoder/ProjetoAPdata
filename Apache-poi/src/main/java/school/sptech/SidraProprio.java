@@ -81,7 +81,8 @@ public class SidraProprio {
     @Override
     public String toString() {
         return "SidraProprio{" +
-                "regiao='" + regiao + '\'' +
+                "id=" + id +
+                ", regiao='" + regiao + '\'' +
                 ", total=" + total +
                 ", umMorador=" + umMorador +
                 ", doisMoradores=" + doisMoradores +

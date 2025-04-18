@@ -54,6 +54,10 @@ public class Main {
             System.out.println(sidraProprio);
         }
 
+        for (SidraAlugado sidraAlugado : sidraAlugadosExtraidos){
+            System.out.println(sidraAlugado);
+        }
+
 
         System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
