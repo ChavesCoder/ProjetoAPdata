@@ -29,27 +29,38 @@ public class Main {
         List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, workbook);
         List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo, workbook);
         List<PrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo, workbook);
+        List<SidraProprio> sidraPropriosExtraidos = leitorExcel.extrairSidraProprio(nomeArquivo2, workbookSidra);
+        List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
 
+//
+//        for (Indice indice : indicesExtraidas){
+//            System.out.println(indice);
+//        }
+//
+//        System.out.println("Indices extraidos");
+//
+//        for (Variacao variacao : variacoesExtraidas){
+//            System.out.println(variacao);
+//        }
+//
+//        System.out.println("Variações extraidas");
+//
+//        for (PrecoMedio precoMedio : precoMediosExtraidos){
+//            System.out.println(precoMedio);
+//
+//        System.out.println("Preço medio extraido");
 
-        for (Indice indice : indicesExtraidas){
-            System.out.println(indice);
+        for (SidraProprio sidraProprio : sidraPropriosExtraidos){
+            System.out.println(sidraProprio);
         }
 
-        System.out.println("Indices extraidos");
-
-        for (Variacao variacao : variacoesExtraidas){
-            System.out.println(variacao);
+        for (SidraAlugado sidraAlugado : sidraAlugadosExtraidos){
+            System.out.println(sidraAlugado);
         }
 
-        System.out.println("Variações extraidas");
-
-        for (PrecoMedio precoMedio : precoMediosExtraidos){
-            System.out.println(precoMedio);
-        }
-
-        System.out.println("Preço medio extraido");
 
         System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
+        arquivo2.close();
     }
 }
