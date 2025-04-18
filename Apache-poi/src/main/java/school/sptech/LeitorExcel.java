@@ -310,6 +310,90 @@ public class LeitorExcel {
 
         }
 
+    }public List<SidraProprio> extrairSidraProprio(String nomeArquivo2, Workbook workbookSidra){
+        try {
+            System.out.printf("\nIniciando leitura do arquivo %s\n%n", nomeArquivo2);
+
+
+            // SELECIONA A PAGINA QUE A LEITURA SE INICIA
+            int paginaInicial = 0;
+
+            // FAZ COM QUE O CABEÇALHO SEJA IGNORADO E COMECE A LEITURA DOS DADOS A PARTIR DE ONDE IMPORTA
+            int linhaInicial = 7;
+
+            // VARIÁVEL APENAS PARA FACILITAR A INSERÇÃO NO BANCO POSTERIORMENTE
+            int incrementoID = 1000;
+
+            List<SidraProprio> sidraPropriosExtraidos = new ArrayList<>();
+
+                Sheet sheet = workbookSidra.getSheetAt(0);
+
+                for (int i = linhaInicial; i <= sheet.getLastRowNum(); i++) {
+
+                    Row row = sheet.getRow(i);
+
+                    if (row == null) {
+                        continue;
+                    }
+
+
+                    SidraProprio domiciliosProprios = new SidraProprio();
+
+                    try {
+
+                        domiciliosProprios.setId((i - 6) + incrementoID);
+
+                        domiciliosProprios.setRegiao(row.getCell(0).getStringCellValue());
+
+                        if (!row.getCell(3).getCellType().equals(STRING)) {
+                            domiciliosProprios.setTotal(row.getCell(3).getNumericCellValue());
+                        } else {
+                            domiciliosProprios.setTotal(null);
+                        }
+
+                        if (!row.getCell(5).getCellType().equals(STRING)) {
+                            domiciliosProprios.setUmMorador(row.getCell(4).getNumericCellValue());
+                        } else {
+                            domiciliosProprios.setUmMorador(null);
+                        }
+
+                        if (!row.getCell(5).getCellType().equals(STRING)){
+                            domiciliosProprios.setDoisMoradores(row.getCell(5).getNumericCellValue());
+                        } else {
+                            domiciliosProprios.setDoisMoradores(null);
+                        }
+
+                        if (!row.getCell(6).getCellType().equals(STRING)){
+                            domiciliosProprios.setTresMoradores(row.getCell(6).getNumericCellValue());
+                        } else {
+                            domiciliosProprios.setTresMoradores(null);
+                        }
+
+                        if (!row.getCell(7).getCellType().equals(STRING)){
+                            domiciliosProprios.setQuatroMoradoresOuMais(row.getCell(7).getNumericCellValue());
+                        } else {
+                            domiciliosProprios.setQuatroMoradoresOuMais(null);
+                        }
+                        contadorLinhas++;
+
+                        sidraPropriosExtraidos.add(domiciliosProprios);
+                    } catch (Exception e) {
+                        System.out.println("Erro na linha " + i + ": " + e.getMessage());
+                    }
+                }
+
+            workbookSidra.close();
+
+            System.out.println("\nLeitura do arquivo finalizado\n");
+
+            return sidraPropriosExtraidos;
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
     }
     private LocalDate converterDate(Date data) {
         return data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

@@ -1,6 +1,7 @@
 package school.sptech;
 
 public class SidraProprio {
+    private Integer id;
     private String regiao;
     private Double total;
     private Double umMorador;
@@ -8,13 +9,25 @@ public class SidraProprio {
     private Double tresMoradores;
     private Double quatroMoradoresOuMais;
 
-    public SidraProprio(String regiao, Double total, Double umMorador, Double doisMoradores, Double tresMoradores, Double quatroMoradoresOuMais) {
+    public SidraProprio() {
+    }
+
+    public SidraProprio(Integer id, String regiao, Double total, Double umMorador, Double doisMoradores, Double tresMoradores, Double quatroMoradoresOuMais) {
+        this.id = id;
         this.regiao = regiao;
         this.total = total;
         this.umMorador = umMorador;
         this.doisMoradores = doisMoradores;
         this.tresMoradores = tresMoradores;
         this.quatroMoradoresOuMais = quatroMoradoresOuMais;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getRegiao() {
