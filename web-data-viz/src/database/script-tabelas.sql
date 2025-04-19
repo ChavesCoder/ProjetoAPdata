@@ -6,7 +6,8 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+
+/*CREATE DATABASE aquatech;
 
 USE aquatech;
 
@@ -59,4 +60,75 @@ create table medida (
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
 insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2); */
+
+-- Criação do banco de dados
+CREATE DATABASE APDATABD;
+
+-- Utilizando o banco APDATABD
+USE APDATABD;
+
+-- Tabela de empresas
+CREATE TABLE empresa (
+    idEmpresa INT AUTO_INCREMENT PRIMARY KEY,
+    nomeEmpresa VARCHAR(45),
+    nomeFicticio VARCHAR(45),
+    cnpj CHAR(14) UNIQUE,
+    endereco VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(45),
+    telefone VARCHAR(20)
+);
+
+-- Tabela de usuários/funcionários
+CREATE TABLE usuario(
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(45),
+    cpf CHAR(11) UNIQUE,
+    perfil ENUM('admin', 'analista', 'gerente', 'outro') DEFAULT 'analista',
+    fkEmpresa INT,
+    FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
+-- Tabela de regiões
+CREATE TABLE regiao (
+    idRegiao INT AUTO_INCREMENT PRIMARY KEY,
+    estado VARCHAR(45),
+    municipio VARCHAR(45),
+    zona VARCHAR(45),
+    condicaoDomicilio VARCHAR(45),
+    ano DATE,
+    qtdRegistros INT
+);
+
+-- Tabela separada para preços por dormitório (flexível para mais tipos no futuro)
+CREATE TABLE precoDormitorio (
+    idPreco INT AUTO_INCREMENT PRIMARY KEY,
+    dormitorios TINYINT, -- 1, 2, 3, 4...
+    precoMedio DECIMAL(12,2)
+);
+
+
+-- Tabela de indicadores de mercado
+CREATE TABLE indicadoresMercado (
+    idIndicador INT AUTO_INCREMENT PRIMARY KEY,
+    numIndice INT,
+    variacaoMensal DECIMAL(5,2),
+    rentabilidadeMensal DECIMAL(5,2),
+    qtdMoradores INT,
+    fkRegiao INT,
+    fkprecoDormitorio INT, 
+    FOREIGN KEY (fkRegiao) REFERENCES regiao(idRegiao),
+    FOREIGN KEY (fkprecoDormitorio) REFERENCES precoDormitorio(idPreco)
+);
+
+-- Tabela de logs (ligada ao usuário que realizou a ação)
+CREATE TABLE log (
+    id_log INT AUTO_INCREMENT PRIMARY KEY,
+    datetime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    tipo VARCHAR(45),
+    especificacao VARCHAR(45), 
+    descricao TEXT
+);
