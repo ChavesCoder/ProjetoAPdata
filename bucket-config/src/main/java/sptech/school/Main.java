@@ -17,20 +17,20 @@ public class Main {
     public static void main(String[] args) {
         // Instanciando o cliente S3 via S3Provider
         S3Client s3Client = new S3Provider().getS3Client();
-        String bucketName = "bucket-teste";
+        String bucketName = "apdata-bucket";
 
         // *************************************
         // *   Criando um novo bucket no S3    *
         // *************************************
-        try {
-            CreateBucketRequest createBucketRequest = CreateBucketRequest.builder()
-                    .bucket(bucketName)
-                    .build();
-            s3Client.createBucket(createBucketRequest);
-            System.out.println("Bucket criado com sucesso: " + bucketName);
-        } catch (S3Exception e) {
-            System.err.println("Erro ao criar o bucket: " + e.getMessage());
-        }
+//        try {
+//            CreateBucketRequest createBucketRequest = CreateBucketRequest.builder()
+//                    .bucket(bucketName)
+//                    .build();
+//            s3Client.createBucket(createBucketRequest);
+//            System.out.println("Bucket criado com sucesso: " + bucketName);
+//        } catch (S3Exception e) {
+//            System.err.println("Erro ao criar o bucket: " + e.getMessage());
+//        }
 
         // *************************************
         // *   Listando todos os buckets       *
@@ -65,20 +65,20 @@ public class Main {
         // *************************************
         // *   Fazendo upload de arquivo       *
         // *************************************
-        try {
-            String uniqueFileName = UUID.randomUUID().toString();
-            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(uniqueFileName)
-                    .build();
-
-            File file = new File("file.txt");
-            s3Client.putObject(putObjectRequest, RequestBody.fromFile(file));
-
-            System.out.println("Arquivo '" + file.getName() + "' enviado com sucesso com o nome: " + uniqueFileName);
-        } catch (S3Exception e) {
-            System.err.println("Erro ao fazer upload do arquivo: " + e.getMessage());
-        }
+//        try {
+//            String uniqueFileName = UUID.randomUUID().toString();
+//            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+//                    .bucket(bucketName)
+//                    .key(uniqueFileName)
+//                    .build();
+//
+//            File file = new File("file.txt");
+//            s3Client.putObject(putObjectRequest, RequestBody.fromFile(file));
+//
+//            System.out.println("Arquivo '" + file.getName() + "' enviado com sucesso com o nome: " + uniqueFileName);
+//        } catch (S3Exception e) {
+//            System.err.println("Erro ao fazer upload do arquivo: " + e.getMessage());
+//        }
 
         // *************************************
         // *   Fazendo download de arquivos    *
@@ -102,17 +102,17 @@ public class Main {
         // *************************************
         // *   Deletando um objeto do bucket   *
         // *************************************
-        try {
-            String objectKeyToDelete = "identificador-do-arquivo";
-            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKeyToDelete)
-                    .build();
-            s3Client.deleteObject(deleteObjectRequest);
-
-            System.out.println("Objeto deletado com sucesso: " + objectKeyToDelete);
-        } catch (S3Exception e) {
-            System.err.println("Erro ao deletar objeto: " + e.getMessage());
-        }
+//        try {
+//            String objectKeyToDelete = "identificador-do-arquivo";
+//            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+//                    .bucket(bucketName)
+//                    .key(objectKeyToDelete)
+//                    .build();
+//            s3Client.deleteObject(deleteObjectRequest);
+//
+//            System.out.println("Objeto deletado com sucesso: " + objectKeyToDelete);
+//        } catch (S3Exception e) {
+//            System.err.println("Erro ao deletar objeto: " + e.getMessage());
+//        }
     }
 }
