@@ -32,23 +32,23 @@ public class Main {
         List<SidraProprio> sidraPropriosExtraidos = leitorExcel.extrairSidraProprio(nomeArquivo2, workbookSidra);
         List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
 
-//
-//        for (Indice indice : indicesExtraidas){
-//            System.out.println(indice);
-//        }
-//
-//        System.out.println("Indices extraidos");
-//
-//        for (Variacao variacao : variacoesExtraidas){
-//            System.out.println(variacao);
-//        }
-//
-//        System.out.println("Variações extraidas");
-//
-//        for (PrecoMedio precoMedio : precoMediosExtraidos){
-//            System.out.println(precoMedio);
-//
-//        System.out.println("Preço medio extraido");
+
+        for (Indice indice : indicesExtraidas){
+            System.out.println(indice);
+        }
+
+        System.out.println("Indices extraidos");
+
+        for (Variacao variacao : variacoesExtraidas){
+            System.out.println(variacao);
+        }
+
+        System.out.println("Variações extraidas");
+
+        for (PrecoMedio precoMedio : precoMediosExtraidos) {
+            System.out.println(precoMedio);
+        }
+        System.out.println("Preço medio extraido");
 
         for (SidraProprio sidraProprio : sidraPropriosExtraidos){
             System.out.println(sidraProprio);
@@ -62,5 +62,10 @@ public class Main {
         System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
         arquivo2.close();
+
+        S3Main s3 = new S3Main();
+        s3.listarBucket();
+        s3.listarObj();
+        s3.downloadArquivos();
     }
 }
