@@ -15,15 +15,11 @@ public class PrecoMedio {
     public PrecoMedio() {
     }
 
-    public PrecoMedio(Integer id, String regiao, LocalDate data, Double total, Double d1, Double d2, Double d3, Double d4) {
+    public PrecoMedio(Integer id, String regiao, LocalDate data) {
         this.id = id;
         this.regiao = regiao;
         this.data = data;
-        this.total = total;
-        this.d1 = d1;
-        this.d2 = d2;
-        this.d3 = d3;
-        this.d4 = d4;
+
     }
 
     public Integer getId() {
@@ -92,15 +88,11 @@ public class PrecoMedio {
 
     @Override
     public String toString() {
-        return "PrecoMedio{" +
+        return "PrecoMedio {" +
                 "id=" + id +
                 ", regiao='" + regiao + '\'' +
                 ", data=" + data +
                 ", total=" + total +
-                ", d1=" + d1 +
-                ", d2=" + d2 +
-                ", d3=" + d3 +
-                ", d4=" + d4 +
                 '}';
     }
 }
