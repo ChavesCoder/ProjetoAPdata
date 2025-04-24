@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/entrar.css">
     
     <script src="js/script.js" defer></script>
+    <script src="js/validarEntrada.js"defer></script>
     <title>APdata</title>
 </head>
 
@@ -31,15 +32,16 @@
         </div>
         <div class="container-entrarDIR">
             <div class="conteudoEntrarDir EntrarEnvio">
-                <h1>Entrar</h1>
-                <!-- <p>Não possui conta? <a href="cadastrar.html">Criar conta</a></p> -->
-                <input class="Entrar-campos" type="text" placeholder="Email" id="email_input">
-                <input class="Entrar-campos" type="password" placeholder="Senha" id="senha_input">
-                <div class="btnEntrar">
-                    <button onclick="entrar()" >Entrar</button>
-                    <a href="">Esqueceu a senha?</a>
-                </div>
-            </div>
+    <h1>Entrar</h1>
+    <!-- <p>Não possui conta? <a href="cadastrar.html">Criar conta</a></p> -->
+    <input oninput="validarEmail()" class="Entrar-campos" type="text" placeholder="Email" id="email_input">
+    <div id="emailError" class="error-message">E-mail inválido</div>
+    <input class="Entrar-campos" type="password" placeholder="Senha" id="senha_input">
+    <div class="btnEntrar">
+        <button onclick="entrar()">Entrar</button>
+        <a href="">Esqueceu a senha?</a>
+    </div>
+</div>
         </div>
     </main>
 </body>

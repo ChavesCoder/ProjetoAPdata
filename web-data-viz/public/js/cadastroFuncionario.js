@@ -68,7 +68,7 @@ function cadastrar2() {
 
   var TipoUser = inp_tipo.value;
 
-  var senhaAleatoria = [];
+ 
   var letras = 'abcdefghijklmnopqrstuvwxyz';
 
   for (var contador = 1; contador <= 10; contador++) {
@@ -118,10 +118,10 @@ function cadastrar() {
   // Agora vá para o método fetch logo abaixo
   var nomeVar = Nome;
   var emailVar = Email;
-  var senhaVar = `${senhaAleatoria[0] + senhaAleatoria[1] + senhaAleatoria[2] + senhaAleatoria[3] + senhaAleatoria[4] + senhaAleatoria[5] + senhaAleatoria[6] + senhaAleatoria[7] + senhaAleatoria[8] + senhaAleatoria[9]}`;
+  var senhaVar = senhaAleatoria.join('');
   var telefoneVar = Telefone;
   var tipoVar = TipoUser;
-  var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+  //var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
   // Enviando o valor da nova input
   fetch("/usuarios/cadastrar", {
@@ -136,8 +136,8 @@ function cadastrar() {
       emailServer: emailVar,
       telefoneServer: telefoneVar,
       senhaServer: senhaVar,
-      tipoServer: tipoVar,
-      fkEmpresaServer: fkEmpresaVar
+      tipoServer: tipoVar
+   //   fkEmpresaServer: fkEmpresaVar
     }),
   })
     .then(function (resposta) {
@@ -150,7 +150,7 @@ function cadastrar() {
           "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
         setTimeout(() => {
-          window.location = "login.html";
+          window.location = "entrar.html";
         }, "2000");
 
         limparFormulario();
@@ -166,61 +166,61 @@ function cadastrar() {
 
   return false;
 }
-function listarFunc() {
-  var fkEmpresa = sessionStorage.FK_EMPRESA;
-
-  fetch(`/funcionarios/listarFunc/${fkEmpresa}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    },
-
-  }).then(function (resposta) {
-    console.log("ESTOU NO THEN DO entrar()!")
-
-    if (resposta.ok) {
-      console.log(resposta);
-
-      resposta.json().then(json => {
-        console.log(json);
-        console.log(JSON.stringify(json));
-
-
-        for (var i = 0; i < json.length; i++) {
-          var idUser = json[i].idUsuario;
-          var TipoUser = json[i].tipoUsuario;
-          var Nome = json[i].nome;
-          var Email = json[i].email;
-          var Telefone = json[i].telefone;
-
-          tabelaFunc.innerHTML += ` <tr>
-                <td>${idUser}</td>
-                <td>${TipoUser}</td>
-                <td>${Nome}</td>
-                <td>${Email}</td>
-                <td>${Telefone}</td>
-                <td><button class="delete-btn"><img src="./Imagens/tabler--trash.png"></button></td>
-            </tr>`
-        }
-
-      });
-
-    } else {
-
-      console.log("Houve um erro ao tentar realizar a busca da quantidade de horas!");
-
-      resposta.text().then(texto => {
-        console.error(texto);
-        // finalizarAguardar(texto);
-      });
-    }
-
-  }).catch(function (erro) {
-    console.log(erro);
-  })
-
-  return false;
-}
+//function listarFunc() {
+//  var fkEmpresa = sessionStorage.FK_EMPRESA;
+//
+//  fetch(`/funcionarios/listarFunc/${fkEmpresa}`, {
+//    method: "GET",
+//    headers: {
+//      "Content-Type": "application/json"
+//    },
+//
+//  }).then(function (resposta) {
+//    console.log("ESTOU NO THEN DO entrar()!")
+//
+//    if (resposta.ok) {
+//      console.log(resposta);
+//
+//      resposta.json().then(json => {
+//        console.log(json);
+//        console.log(JSON.stringify(json));
+//
+//
+//        for (var i = 0; i < json.length; i++) {
+//          var idUser = json[i].idUsuario;
+//          var TipoUser = json[i].tipoUsuario;
+//          var Nome = json[i].nome;
+//          var Email = json[i].email;
+//          var Telefone = json[i].telefone;
+//
+//          tabelaFunc.innerHTML += ` <tr>
+//                <td>${idUser}</td>
+//                <td>${TipoUser}</td>
+//                <td>${Nome}</td>
+//                <td>${Email}</td>
+//                <td>${Telefone}</td>
+//                <td><button class="delete-btn"><img src="./Imagens/tabler--trash.png"></button></td>
+//            </tr>`
+//        }
+//
+//      });
+//
+//    } else {
+//
+//      console.log("Houve um erro ao tentar realizar a busca da quantidade de horas!");
+//
+//      resposta.text().then(texto => {
+//        console.error(texto);
+//        // finalizarAguardar(texto);
+//      });
+//    }
+//
+//  }).catch(function (erro) {
+//    console.log(erro);
+//  })
+//
+//  return false;
+//}
 
 
 

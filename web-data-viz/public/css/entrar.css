@@ -128,3 +128,17 @@
     color: #3c3c3c;
   }
   
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin: -20px 0 15px 0;
+  display: none;
+}
+
+.Entrar-campos.error {
+  border: solid 1.5px red !important;
+}
+
+.Entrar-campos.valid {
+  border: solid 1.5px #4CAF50 !important;
+}

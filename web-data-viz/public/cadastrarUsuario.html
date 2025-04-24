@@ -11,13 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <script src="./js/sessao.js"></script>
+    <script src="./js/cadastroFuncionario.js" ></script>
     <link rel="stylesheet" href="css/styleCadastrarUsuario.css">
     <title>apdata</title>
 </head>
 <script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
 data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
 
-<body onload="validarSessao(); listarFunc()">
+<body onload=" listarFunc()">
     <main>
         <div class="sidebar">
             <img src="./assets/imgs/logoBranco-semfundo.png" style=" padding: 20px 20px 0px 20px;">
@@ -57,14 +58,14 @@ data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassi
                         id="inp_email">
                         <select id="inp_tipo">
                             <option value="0" disabled selected>Tipo de Usuário</option>
-                            <option value="Admin">Administrador</option>
+                            <option value="Administrador">Administrador</option>
                             <option value="Comum">Comum</option>
                         </select>
                     </div>
                 </div>
                 <div class="class_btnCadastroFunc">
                     <!-- <button id="btn_buscarFunc"><img src="Imagens/ic--outline-search.png">Buscar</button> -->
-                    <button id="btn_CadastrarFunc" onclick="cadastrar2()">
+                    <button id="btn_CadastrarFunc" onclick="cadastrar2()" >
                         <!-- <img src="Imagens/ic--round-plus.png">  -->
                         Cadastrar</button>
                 </div>
@@ -91,4 +92,3 @@ data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassi
 </body>
 
 </html>
-<script src="./js/cadastroFuncionario.js" ></script>
