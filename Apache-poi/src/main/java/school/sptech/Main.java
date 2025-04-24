@@ -18,6 +18,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
+
         String nomeArquivo = "fipezap-serieshistoricas.xlsx";
         String nomeArquivo2 = "Sidra.xlsx";
 
@@ -84,10 +85,20 @@ public class Main {
         System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
         arquivo2.close();
+
+
+        S3Main s3Main = new S3Main();
+        s3Main.listarBucket();
+        s3Main.listarObj();
+        s3Main.downloadArquivos();
     }
 
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
     }
+
+
+
+
 }
