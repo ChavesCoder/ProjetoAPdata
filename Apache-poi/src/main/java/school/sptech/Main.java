@@ -19,6 +19,18 @@ public class Main {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     public static void main(String[] args) throws IOException {
+
+        Conexao conexao = new Conexao();
+        try (Connection conn = conexao.getConexao().getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Conexão bem-sucedida!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Uso do JdbcTemplate
+        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
 
@@ -96,16 +108,6 @@ public class Main {
 //        s3Main.downloadArquivos();
 //
 
-            Conexao conexao = new Conexao();
-        try (Connection conn = conexao.getConexao().getConnection()) {
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("Conexão bem-sucedida!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-            // Uso do JdbcTemplate
-            JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
 
         template.update("INSERT INTO empresa (nome)\n " +
                 "VALUES \n" +

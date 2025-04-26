@@ -1,4 +1,4 @@
-		-- Criação do banco de dados
+        -- Criação do banco de dados
 		CREATE DATABASE APDATABD;
 		-- Utilizando o banco APDATABD
 		USE APDATABD;
@@ -31,7 +31,7 @@
 		-- Tabela separada para variação mensal
 		CREATE TABLE varMensal (
 			idVarMensal INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2), 
+			total DECIMAL(12,2),
 			umDormitorio DECIMAL(12,2),
 			doisDormitorios DECIMAL(12,2),
 			tresDormitorios DECIMAL(12,2),
@@ -41,21 +41,33 @@
 
 		CREATE TABLE precoMedio (
 			idPrecoMedio INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2), 
+			total DECIMAL(12,2),
 			umDormitorio DECIMAL(12,2),
 			doisDormitorios DECIMAL(12,2),
 			tresDormitorios DECIMAL(12,2),
 			quatroDormitorios DECIMAL(12,2)
 		);
-        
+
+
+        CREATE TABLE indice (
+			idIndice INT AUTO_INCREMENT PRIMARY KEY,
+			total DECIMAL(12,2),
+			umDormitorio DECIMAL(12,2),
+			doisDormitorios DECIMAL(12,2),
+			tresDormitorios DECIMAL(12,2),
+			quatroDormitorios DECIMAL(12,2)
+		);
+
         	-- Tabela de periodo
 		CREATE TABLE periodo (
 			idPeriodo INT AUTO_INCREMENT PRIMARY KEY,
 			periodo DATE,
 			fkPrecoMedio INT,
 			fkVarMensal INT,
+			fkIndice INT,
 			FOREIGN KEY (fkPrecoMedio) REFERENCES precoMedio(idPrecoMedio),
-			FOREIGN KEY (fkVarMensal) REFERENCES varMensal(idVarMensal)
+			FOREIGN KEY (fkVarMensal) REFERENCES varMensal(idVarMensal),
+			FOREIGN KEY (fkIndice) REFERENCES indice(idIndice)
 		);
         
 		-- Tabela de regiões
