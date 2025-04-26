@@ -20,7 +20,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(indicesExtraidas.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO indice (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO Indice (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     indicesExtraidas.get(i).getData(), indicesExtraidas.get(i).getTotal(), indicesExtraidas.get(i).getD1(),
                     indicesExtraidas.get(i).getD2(), indicesExtraidas.get(i).getD3(), indicesExtraidas.get(i).getD4(),
                     fkRegiao

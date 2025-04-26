@@ -13,7 +13,7 @@ public class Conexao {
 
         driver.setUrl("jdbc:mysql://localhost:3306/APDATABD");
         driver.setUsername("root");
-        driver.setPassword("v10t07p98");
+        driver.setPassword("basquete14");
         driver.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         // Abaixo tem uma conexao H2, um banco armazenado na memoria

@@ -94,6 +94,7 @@ function entrar() {
                 sessionStorage.EMAIL_USUARIO = json.email;
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.ID_USUARIO = json.idUsuario;
+                sessionStorage.FK_EMPRESA = json.idEmpresa
                 
                 setTimeout(function () {
                     window.location = "../cadastrarUsuario.html";
