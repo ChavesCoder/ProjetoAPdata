@@ -110,10 +110,23 @@ public class Main {
 //        s3Main.listarObj();
 //        s3Main.downloadArquivos();
 //
+        System.out.println("Iniciando a inserção de dados");
 
-        persistenciaService.insertVariacao(indicesExtraidas);
+        persistenciaService.insertIndice(indicesExtraidas);
+        System.out.print("Indices Inseridos\n");
+        persistenciaService.insertVariacao(variacoesExtraidas);
+        System.out.print("Variações Inseridas\n");
+        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+        System.out.print("Preços médios Inseridos\n");
+        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+        System.out.print("Sidra Proprio Inserido\n");
+        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+        System.out.print("Sidra Alugado Inserido\n");
 
-
+//        for (SidraProprio sidraProprio : sidraPropriosExtraidos){
+//            System.out.println(sidraProprio);
+//
+//        }
 
     }
 
