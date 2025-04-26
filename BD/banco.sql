@@ -44,11 +44,11 @@
 		CREATE TABLE VarMensal (
 			idVarMensal INT AUTO_INCREMENT PRIMARY KEY,
             periodo DATE,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2),
+			total DECIMAL(23,20),
+			umDormitorio DECIMAL(23,20),
+			doisDormitorios DECIMAL(23,20),
+			tresDormitorios DECIMAL(23,20),
+			quatroDormitorios DECIMAL(23,20),
             fkRegiao INT,
             FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
 		);
@@ -57,11 +57,11 @@
 		CREATE TABLE PrecoMedio (
 			idPrecoMedio INT AUTO_INCREMENT PRIMARY KEY,
             periodo DATE,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2),
+			total DOUBLE,
+			umDormitorio DOUBLE,
+			doisDormitorios DOUBLE,
+			tresDormitorios DOUBLE,
+			quatroDormitorios DOUBLE,
             fkRegiao INT,
             FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
 		);
@@ -70,11 +70,11 @@
         CREATE TABLE Indice (
 			idIndice INT AUTO_INCREMENT PRIMARY KEY,
             periodo DATE,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2),
+			total DECIMAL(23,20),
+			umDormitorio DECIMAL(23,20),
+			doisDormitorios DECIMAL(23,20),
+			tresDormitorios DECIMAL(23,20),
+			quatroDormitorios DECIMAL(23,20),
             fkRegiao INT,
             FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
 		);
@@ -82,24 +82,24 @@
 
 		CREATE TABLE SidraProprio (
 			idSidraProprio INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2),
-			umMorador DECIMAL(12,2),
-			doisMoradores DECIMAL(12,2),
-			tresMoradores DECIMAL(12,2),
-			quatroMoradoresOuMais DECIMAL(12,2),
+			total DECIMAL(5,2),
+			umMorador DECIMAL(5,2),
+			doisMoradores DECIMAL(5,2),
+			tresMoradores DECIMAL(5,2),
+			quatroMoradoresOuMais DECIMAL(5,2),
             fkRegiao INT,
-            FOREIGN KEY (fkRegiao) REFERENCES regiao(idRegiao)
+            FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
 		);
 
 		CREATE TABLE SidraAlugado (
 			idSidraProprio INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2),
-			umMorador DECIMAL(12,2),
-			doisMoradores DECIMAL(12,2),
-			tresMoradores DECIMAL(12,2),
-			quatroMoradoresOuMais DECIMAL(12,2),
+			total DECIMAL(5,2),
+			umMorador DECIMAL(5,2),
+			doisMoradores DECIMAL(5,2),
+			tresMoradores DECIMAL(5,2),
+			quatroMoradoresOuMais DECIMAL(5,2),
             fkRegiao INT,
-            FOREIGN KEY (fkRegiao) REFERENCES regiao(idRegiao)
+            FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
 		);
 
 		-- Tabela de logs (ligada ao usuário que realizou a ação)
@@ -112,7 +112,7 @@
 		);
 
         -- Inserts na tabela regiao (cidades da sua imagem)
-INSERT INTO regiao (municipio, qtdRegistros) VALUES
+INSERT INTO Regiao (municipio, qtdRegistros) VALUES
 ('São Paulo', 100),
 ('Barueri', 80),
 ('Campinas', 90),
@@ -130,4 +130,4 @@ INSERT INTO regiao (municipio, qtdRegistros) VALUES
 ('São José dos Campos', 74),
 ('São Vicente', 63);
 
-        SELECT * FROM indice LIMIT 0, 10000000;
+        SELECT * FROM PrecoMedio LIMIT 0, 10000000;

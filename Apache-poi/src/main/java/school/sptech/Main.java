@@ -123,10 +123,6 @@ public class Main {
         persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
         System.out.print("Sidra Alugado Inserido\n");
 
-//        for (SidraProprio sidraProprio : sidraPropriosExtraidos){
-//            System.out.println(sidraProprio);
-//
-//        }
 
     }
 
