@@ -31,6 +31,9 @@ public class Main {
         // Uso do JdbcTemplate
         JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
 
+        PersistenciaService persistenciaService = new PersistenciaService(template);
+
+
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
 
@@ -108,10 +111,9 @@ public class Main {
 //        s3Main.downloadArquivos();
 //
 
+        persistenciaService.insertVariacao(indicesExtraidas);
 
-        template.update("INSERT INTO empresa (nome)\n " +
-                "VALUES \n" +
-                "('TESTE');");
+
 
     }
 

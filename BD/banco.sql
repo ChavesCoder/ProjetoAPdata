@@ -1,3 +1,5 @@
+	DROP database apdatabd;
+
         -- Criação do banco de dados
 		CREATE DATABASE APDATABD;
 		-- Utilizando o banco APDATABD
@@ -28,59 +30,57 @@
 		);
 
 
-		-- Tabela separada para variação mensal
-		CREATE TABLE varMensal (
-			idVarMensal INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2)
-		);
-
-
-		CREATE TABLE precoMedio (
-			idPrecoMedio INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2)
-		);
-
-
-        CREATE TABLE indice (
-			idIndice INT AUTO_INCREMENT PRIMARY KEY,
-			total DECIMAL(12,2),
-			umDormitorio DECIMAL(12,2),
-			doisDormitorios DECIMAL(12,2),
-			tresDormitorios DECIMAL(12,2),
-			quatroDormitorios DECIMAL(12,2)
-		);
-
-        	-- Tabela de periodo
-		CREATE TABLE periodo (
-			idPeriodo INT AUTO_INCREMENT PRIMARY KEY,
-			periodo DATE,
-			fkPrecoMedio INT,
-			fkVarMensal INT,
-			fkIndice INT,
-			FOREIGN KEY (fkPrecoMedio) REFERENCES precoMedio(idPrecoMedio),
-			FOREIGN KEY (fkVarMensal) REFERENCES varMensal(idVarMensal),
-			FOREIGN KEY (fkIndice) REFERENCES indice(idIndice)
-		);
-        
 		-- Tabela de regiões
-		CREATE TABLE regiao (
+		CREATE TABLE Regiao (
 			idRegiao INT AUTO_INCREMENT PRIMARY KEY,
 			municipio VARCHAR(45),
-			qtdRegistros INT,
-            fkPeriodo INT,
-            FOREIGN KEY (fkPeriodo) REFERENCES periodo(idPeriodo)
+			qtdRegistros INT
 		);
 
 
-		CREATE TABLE sidraProprio (
+
+
+		-- Tabela separada para variação mensal
+		CREATE TABLE VarMensal (
+			idVarMensal INT AUTO_INCREMENT PRIMARY KEY,
+            periodo DATE,
+			total DECIMAL(12,2),
+			umDormitorio DECIMAL(12,2),
+			doisDormitorios DECIMAL(12,2),
+			tresDormitorios DECIMAL(12,2),
+			quatroDormitorios DECIMAL(12,2),
+            fkRegiao INT,
+            FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
+		);
+
+
+		CREATE TABLE PrecoMedio (
+			idPrecoMedio INT AUTO_INCREMENT PRIMARY KEY,
+            periodo DATE,
+			total DECIMAL(12,2),
+			umDormitorio DECIMAL(12,2),
+			doisDormitorios DECIMAL(12,2),
+			tresDormitorios DECIMAL(12,2),
+			quatroDormitorios DECIMAL(12,2),
+            fkRegiao INT,
+            FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
+		);
+
+
+        CREATE TABLE Indice (
+			idIndice INT AUTO_INCREMENT PRIMARY KEY,
+            periodo DATE,
+			total DECIMAL(12,2),
+			umDormitorio DECIMAL(12,2),
+			doisDormitorios DECIMAL(12,2),
+			tresDormitorios DECIMAL(12,2),
+			quatroDormitorios DECIMAL(12,2),
+            fkRegiao INT,
+            FOREIGN KEY (fkRegiao) REFERENCES Regiao(idRegiao)
+		);
+
+
+		CREATE TABLE SidraProprio (
 			idSidraProprio INT AUTO_INCREMENT PRIMARY KEY,
 			total DECIMAL(12,2),
 			umMorador DECIMAL(12,2),
@@ -91,7 +91,7 @@
             FOREIGN KEY (fkRegiao) REFERENCES regiao(idRegiao)
 		);
 
-		CREATE TABLE sidraAlugado (
+		CREATE TABLE SidraAlugado (
 			idSidraProprio INT AUTO_INCREMENT PRIMARY KEY,
 			total DECIMAL(12,2),
 			umMorador DECIMAL(12,2),
@@ -107,6 +107,27 @@
 			id_log INT AUTO_INCREMENT PRIMARY KEY,
 			dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
 			tipo VARCHAR(45),
-			especificacao VARCHAR(45), 
+			especificacao VARCHAR(45),
 			descricao TEXT
 		);
+
+        -- Inserts na tabela regiao (cidades da sua imagem)
+INSERT INTO regiao (municipio, qtdRegistros) VALUES
+('São Paulo', 100),
+('Barueri', 80),
+('Campinas', 90),
+('Diadema', 70),
+('Guarujá', 60),
+('Guarulhos', 85),
+('Osasco', 75),
+('Praia Grande', 65),
+('Ribeirão Preto', 95),
+('Santo André', 88),
+('Santos', 77),
+('São Bernardo do Campo', 83),
+('São Caetano do Sul', 79),
+('São José do Rio Preto', 68),
+('São José dos Campos', 74),
+('São Vicente', 63);
+
+        SELECT * FROM indice LIMIT 0, 10000000;
