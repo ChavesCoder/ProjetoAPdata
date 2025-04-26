@@ -2,11 +2,14 @@ package school.sptech;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.banco.Conexao;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Connection;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,8 +22,8 @@ public class Main {
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
 
-        String nomeArquivo = "fipezap-serieshistoricas.xlsx";
-        String nomeArquivo2 = "Sidra.xlsx";
+        String nomeArquivo = "Apache-poi/fipezap-serieshistoricas.xlsx";
+        String nomeArquivo2 = "Apache-poi/Sidra.xlsx";
 
         Path caminho = Path.of(nomeArquivo);
         InputStream arquivo = Files.newInputStream(caminho);
@@ -86,16 +89,37 @@ public class Main {
         arquivo.close();
         arquivo2.close();
 
+//
+//        S3Main s3Main = new S3Main();
+//        s3Main.listarBucket();
+//        s3Main.listarObj();
+//        s3Main.downloadArquivos();
+//
 
-        S3Main s3Main = new S3Main();
-        s3Main.listarBucket();
-        s3Main.listarObj();
-        s3Main.downloadArquivos();
+            Conexao conexao = new Conexao();
+        try (Connection conn = conexao.getConexao().getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Conexão bem-sucedida!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            // Uso do JdbcTemplate
+            JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+
+        template.update("INSERT INTO empresa (nome)\n " +
+                "VALUES \n" +
+                "('TESTE');");
+
     }
+
+
 
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
+
+
     }
 
 
