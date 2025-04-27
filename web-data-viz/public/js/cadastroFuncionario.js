@@ -122,8 +122,8 @@ function cadastrar() {
   var telefoneVar = Telefone;
   var tipoVar = TipoUser;
   // caso der erro olhe aqui a fkEmpresa
-  var fkEmpresaVar = req.params.fkEmpresa;
-  //var fkEmpresaVar = sessionStorage.FK_EMPRESA;
+  // var fkEmpresaVar = req.params.fkEmpresa;
+  var fkEmpresaVar = sessionStorage.FK_EMPRESA;
 
   // Enviando o valor da nova input
   fetch("/usuarios/cadastrar", {

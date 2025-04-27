@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var dashboardControllers = require("../controllers/dashboardControllers")
+var dashboardControllers = require("../controllers/dashboardController")
 
 
 // router.post("/buscarUltimosDadosPrecoMedio", dashboardController.buscarUltimosDadosPrecoMedio);

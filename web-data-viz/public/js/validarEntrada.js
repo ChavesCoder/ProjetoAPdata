@@ -55,8 +55,8 @@ function entrar() {
     if (!emailValido) {
         // E-mail inválido
         email.classList.add('error');
-        erro.style.display = 'block';
         alert("E-mail inválido! Por favor, verifique o e-mail digitado.");
+        erro.style.display = 'block';
         return false;
     }
     
@@ -94,7 +94,7 @@ function entrar() {
                 sessionStorage.EMAIL_USUARIO = json.email;
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.ID_USUARIO = json.idUsuario;
-                sessionStorage.FK_EMPRESA = json.idEmpresa
+                sessionStorage.FK_EMPRESA = json.fkEmpresa;
                 
                 setTimeout(function () {
                     window.location = "../cadastrarUsuario.html";

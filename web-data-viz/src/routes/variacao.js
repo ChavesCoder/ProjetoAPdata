@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var variacaoControllers = require("../controllers/variacaoControllers")
+var variacaoControllers = require("../controllers/variacaoController")
 
 
 // router.post("/variacaoMedia", variacaoController.variacaoMedia);
