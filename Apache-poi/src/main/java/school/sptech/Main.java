@@ -79,23 +79,6 @@ public class Main {
         List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
         logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
 
-//
-//        for (Indice indice : indicesExtraidas){
-//            System.out.println(indice);
-//        }
-//
-//        System.out.println("Indices extraidos");
-//
-//        for (Variacao variacao : variacoesExtraidas){
-//            System.out.println(variacao);
-//        }
-//
-//        System.out.println("Variações extraidas");
-//
-//        for (PrecoMedio precoMedio : precoMediosExtraidos){
-//            System.out.println(precoMedio);
-//
-//        System.out.println("Preço medio extraido");
 
         sidraAlugadosExtraidos.stream()
                 .map(SidraAlugado::getRegiao)
@@ -109,24 +92,24 @@ public class Main {
         arquivo.close();
         arquivo2.close();
 
-//
-//        S3Main s3Main = new S3Main();
-//        s3Main.listarBucket();
-//        s3Main.listarObj();
-//        s3Main.downloadArquivos();
-//
+
+        S3Main s3Main = new S3Main();
+        s3Main.listarBucket();
+        s3Main.listarObj();
+        s3Main.downloadArquivos();
+
         System.out.println("Iniciando a inserção de dados");
 
-//        persistenciaService.insertIndice(indicesExtraidas);
-//        System.out.print("Indices Inseridos\n");
-//        persistenciaService.insertVariacao(variacoesExtraidas);
-//        System.out.print("Variações Inseridas\n");
-//        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
-//        System.out.print("Preços médios Inseridos\n");
-//        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
-//        System.out.print("Sidra Proprio Inserido\n");
-//        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
-//        System.out.print("Sidra Alugado Inserido\n");
+        persistenciaService.insertIndice(indicesExtraidas);
+        System.out.print("Indices Inseridos\n");
+        persistenciaService.insertVariacao(variacoesExtraidas);
+        System.out.print("Variações Inseridas\n");
+        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+        System.out.print("Preços médios Inseridos\n");
+        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+        System.out.print("Sidra Proprio Inserido\n");
+        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+        System.out.print("Sidra Alugado Inserido\n");
 
 
     }
