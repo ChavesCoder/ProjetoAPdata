@@ -79,7 +79,6 @@ public class Main {
         List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
         logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
 
-
         sidraAlugadosExtraidos.stream()
                 .map(SidraAlugado::getRegiao)
                 .distinct()
