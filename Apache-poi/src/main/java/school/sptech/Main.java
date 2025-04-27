@@ -79,8 +79,6 @@ public class Main {
         List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
         logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
 
-
-
         sidraAlugadosExtraidos.stream()
                 .map(SidraAlugado::getRegiao)
                 .distinct()
@@ -93,12 +91,12 @@ public class Main {
         arquivo.close();
         arquivo2.close();
 
-//
-//        S3Main s3Main = new S3Main();
-//        s3Main.listarBucket();
-//        s3Main.listarObj();
-//        s3Main.downloadArquivos();
-//
+
+        S3Main s3Main = new S3Main();
+        s3Main.listarBucket();
+        s3Main.listarObj();
+        s3Main.downloadArquivos();
+
         System.out.println("Iniciando a inserção de dados");
 
         persistenciaService.insertIndice(indicesExtraidas);
