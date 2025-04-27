@@ -107,7 +107,6 @@
 			id_log INT AUTO_INCREMENT PRIMARY KEY,
 			dataHora DATETIME DEFAULT CURRENT_TIMESTAMP,
 			tipo VARCHAR(45),
-			especificacao VARCHAR(45),
 			descricao TEXT
 		);
 
@@ -130,4 +129,4 @@ INSERT INTO Regiao (municipio, qtdRegistros) VALUES
 ('São José dos Campos', 74),
 ('São Vicente', 63);
 
-        SELECT * FROM PrecoMedio LIMIT 0, 10000000;
+        SELECT * FROM log LIMIT 0, 10000000;
