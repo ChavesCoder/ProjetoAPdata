@@ -17,6 +17,7 @@ import java.util.List;
 public class Main {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private static LogService logService;
 
     public static void main(String[] args) throws IOException {
 
@@ -31,7 +32,12 @@ public class Main {
         // Uso do JdbcTemplate
         JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
 
+        logService = new LogService(template);
+
+        // Persistencia de dados em banco
         PersistenciaService persistenciaService = new PersistenciaService(template);
+
+
 
 
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
@@ -100,7 +106,6 @@ public class Main {
         logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
 
 
-        System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
         arquivo2.close();
 
@@ -112,34 +117,26 @@ public class Main {
 //
         System.out.println("Iniciando a inserção de dados");
 
-        persistenciaService.insertIndice(indicesExtraidas);
-        System.out.print("Indices Inseridos\n");
-        persistenciaService.insertVariacao(variacoesExtraidas);
-        System.out.print("Variações Inseridas\n");
-        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
-        System.out.print("Preços médios Inseridos\n");
-        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
-        System.out.print("Sidra Proprio Inserido\n");
-        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
-        System.out.print("Sidra Alugado Inserido\n");
+//        persistenciaService.insertIndice(indicesExtraidas);
+//        System.out.print("Indices Inseridos\n");
+//        persistenciaService.insertVariacao(variacoesExtraidas);
+//        System.out.print("Variações Inseridas\n");
+//        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+//        System.out.print("Preços médios Inseridos\n");
+//        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+//        System.out.print("Sidra Proprio Inserido\n");
+//        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+//        System.out.print("Sidra Alugado Inserido\n");
 
-//        for (SidraProprio sidraProprio : sidraPropriosExtraidos){
-//            System.out.println(sidraProprio);
-//
-//        }
 
     }
-
-
-
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
 
+        if (logService != null) {
+            logService.salvarLog(mensagem);
+        }
 
     }
-
-
-
-
 }
