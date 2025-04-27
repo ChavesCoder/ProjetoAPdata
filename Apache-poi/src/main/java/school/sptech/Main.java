@@ -130,9 +130,6 @@ public class Main {
 
 
     }
-
-
-
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
@@ -142,8 +139,4 @@ public class Main {
         }
 
     }
-
-
-
-
 }
