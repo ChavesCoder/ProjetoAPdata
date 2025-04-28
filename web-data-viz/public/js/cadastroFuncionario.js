@@ -97,8 +97,8 @@ function cadastrar2() {
     <td>${Nome}</td>
     <td>${Email}</td>
     <td>${Telefone}</td>
-    <td><button class="delete-btn"><span class="material-symbols-outlined">delete</span></button></td>
 </tr>`
+{/* <td><button class="delete-btn"><span class="material-symbols-outlined">delete</span></button></td> */}
 
     // window.location.reload()
 
