@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.banco.Conexao;
+import school.sptech.client.S3Provider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,11 +40,16 @@ public class Main {
 
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
+        S3Main s3 = new S3Main();
+        s3.listarBucket();
+        s3.listarObj();
+        s3.downloadArquivos();
+
 
 
         // Arquivos a serem lidos
-        String nomeArquivo1 = "C:\\Users\\Victor\\Documents\\2° Semestre ADS\\ProjetoAPdata\\APdataJava\\fipezap-serieshistoricas.xlsx";
-        String nomeArquivo2 = "C:\\Users\\Victor\\Documents\\2° Semestre ADS\\ProjetoAPdata\\APdataJava\\Sidra.xlsx";
+        String nomeArquivo1 = "fipezap-serieshistoricas.xlsx";
+        String nomeArquivo2 = "Sidra.xlsx";
 
         System.out.println(nomeArquivo1);
         System.out.println(nomeArquivo2);
