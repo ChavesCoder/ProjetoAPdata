@@ -29,89 +29,85 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // Uso do JdbcTemplate
         JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
-
         logService = new LogService(template);
 
-        // Persistencia de dados em banco
+        // Persistência de dados em banco
         PersistenciaService persistenciaService = new PersistenciaService(template);
-
-
-
 
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
 
-        String nomeArquivo = "Apache-poi/fipezap-serieshistoricas.xlsx";
-        String nomeArquivo2 = "Apache-poi/Sidra.xlsx";
 
-        Path caminho = Path.of(nomeArquivo);
-        InputStream arquivo = Files.newInputStream(caminho);
-        Workbook workbook = WorkbookFactory.create(arquivo);
+        // Arquivos a serem lidos
+        String nomeArquivo1 = "C:\\Users\\Victor\\Documents\\2° Semestre ADS\\ProjetoAPdata\\APdataJava\\fipezap-serieshistoricas.xlsx";
+        String nomeArquivo2 = "C:\\Users\\Victor\\Documents\\2° Semestre ADS\\ProjetoAPdata\\APdataJava\\Sidra.xlsx";
 
-        Path caminho2 = Path.of(nomeArquivo2);
-        InputStream arquivo2 = Files.newInputStream(caminho2);
-        Workbook workbookSidra = WorkbookFactory.create(arquivo2);
+        System.out.println(nomeArquivo1);
+        System.out.println(nomeArquivo2);
+        // Carregamento dos arquivos Excel
+        try (Workbook workbook = carregarWorkbook(nomeArquivo1);
+             Workbook workbookSidra = carregarWorkbook(nomeArquivo2)) {
 
-        logInfo("Arquivos carregados com sucesso - 'fipezap-serieshistoricas.xlsx' e 'Sidra.xlsx'.");
+            logInfo("Arquivos carregados com sucesso - 'fipezap-serieshistoricas.xlsx' e 'Sidra.xlsx'.");
 
-        LeitorExcel leitorExcel = new LeitorExcel();
+            LeitorExcel leitorExcel = new LeitorExcel();
 
-        logInfo("Extração - Iniciando extração dos dados de FIPEZAP.");
-        List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo, workbook);
-        List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo, workbook);
-        List<PrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo, workbook);
-        logInfo("Extração - Dados de FIPEZAP extraídos com sucesso.");
-
-        precoMediosExtraidos.stream()
-                .map(PrecoMedio::getRegiao)
-                .distinct()
-                .forEach(regiao -> logInfo("Extração - Região '" + regiao + "' extraída com sucesso (FIPEZAP)."));
-
-        logInfo("Resumo - FIPEZAP: " +
-                indicesExtraidas.size() + " índices, " +
-                variacoesExtraidas.size() + " variações, " +
-                precoMediosExtraidos.size() + " preços médios extraídos.");
-
-        logInfo("Extração - Iniciando extração dos dados de SIDRA.");
-        List<SidraProprio> sidraPropriosExtraidos = leitorExcel.extrairSidraProprio(nomeArquivo2, workbookSidra);
-        List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
-        logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
-
-        sidraAlugadosExtraidos.stream()
-                .map(SidraAlugado::getRegiao)
-                .distinct()
-                .forEach(regiao -> logInfo("Extração - Região '" + regiao + "' extraída com sucesso (SIDRA - Alugado)."));
-
-        logInfo("Extração - Impressão dos dados concluída.");
-        logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
+            logInfo("Extração - Iniciando extração dos dados de FIPEZAP.");
+            List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo1, workbook);
+            List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo1, workbook);
+            List<PrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo1, workbook);
+            logInfo("Extração - Dados de FIPEZAP extraídos com sucesso.");
 
 
-        arquivo.close();
-        arquivo2.close();
+            precoMediosExtraidos.stream()
+                    .map(PrecoMedio::getRegiao)
+                    .distinct()
+                    .forEach(regiao -> logInfo("Extração - Região '" + regiao + "' extraída com sucesso (FIPEZAP)."));
 
+            logInfo("Resumo - FIPEZAP: " +
+                    indicesExtraidas.size() + " índices, " +
+                    variacoesExtraidas.size() + " variações, " +
+                    precoMediosExtraidos.size() + " preços médios extraídos.");
 
-        S3Main s3Main = new S3Main();
-        s3Main.listarBucket();
-        s3Main.listarObj();
-        s3Main.downloadArquivos();
+            logInfo("Extração - Iniciando extração dos dados de SIDRA.");
+            List<SidraProprio> sidraPropriosExtraidos = leitorExcel.extrairSidraProprio(nomeArquivo2, workbookSidra);
+            List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
+            logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
 
-        System.out.println("Iniciando a inserção de dados");
+            sidraAlugadosExtraidos.stream()
+                    .map(SidraAlugado::getRegiao)
+                    .distinct()
+                    .forEach(regiao -> logInfo("Extração - Região '" + regiao + "' extraída com sucesso (SIDRA - Alugado)."));
 
-        persistenciaService.insertIndice(indicesExtraidas);
-        System.out.print("Indices Inseridos\n");
-        persistenciaService.insertVariacao(variacoesExtraidas);
-        System.out.print("Variações Inseridas\n");
-        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
-        System.out.print("Preços médios Inseridos\n");
-        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
-        System.out.print("Sidra Proprio Inserido\n");
-        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
-        System.out.print("Sidra Alugado Inserido\n");
+            logInfo("Extração - Impressão dos dados concluída.");
+            logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
 
+            // Persistência dos dados extraídos
+            logInfo("Iniciando a inserção de dados");
+            persistenciaService.insertIndice(indicesExtraidas);
+            persistenciaService.insertVariacao(variacoesExtraidas);
+            persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+            persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+            persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
 
+            System.out.println("Dados inseridos com sucesso!");
+
+        } catch (Exception e) {
+            logInfo("Erro ao carregar ou processar os arquivos: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
+    private static Workbook carregarWorkbook(String caminhoArquivo) throws IOException {
+        Path path = Path.of(caminhoArquivo);
+        try (InputStream is = Files.newInputStream(path)) {
+            return WorkbookFactory.create(is);
+        }
+    }
+
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
@@ -119,6 +115,5 @@ public class Main {
         if (logService != null) {
             logService.salvarLog(mensagem);
         }
-
     }
 }
