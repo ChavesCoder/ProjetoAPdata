@@ -17,31 +17,31 @@
 
 
    
-  function validarEmail() {
-    const email = document.getElementById('email_input');
-    const erro = document.getElementById('erro');
-    
-    // Validação do e-mail
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const emailValido = emailRegex.test(email.value);
-    
-    if (email.value === "") {
-        // Campo vazio - remove estilos de erro/validação
-        email.classList.remove('error');
-        email.classList.remove('valid');
-        erro.style.display = 'none';
-    } else if (!emailValido) {
-        // E-mail inválido
-        email.classList.add('error');
-        email.classList.remove('valid');
-        erro.style.display = 'block';
-    } else {
-        // E-mail válido
-        email.classList.remove('error');
-        email.classList.add('valid');
-        erro.style.display = 'none';
-    }
-}
+//   function validarEmail() {
+//     const email = document.getElementById('email_input');
+//     const erro = document.getElementById('erro');
+//     
+//     // Validação do e-mail
+//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     const emailValido = emailRegex.test(email.value);
+//     
+//     if (email.value === "") {
+//         // Campo vazio - remove estilos de erro/validação
+//         email.classList.remove('error');
+//         email.classList.remove('valid');
+//         erro.style.display = 'none';
+//     } else if (!emailValido) {
+//         // E-mail inválido
+//         email.classList.add('error');
+//         email.classList.remove('valid');
+//         erro.style.display = 'block';
+//     } else {
+//         // E-mail válido
+//         email.classList.remove('error');
+//         email.classList.add('valid');
+//         erro.style.display = 'none';
+//     }
+// }
 
 function entrar() {
     const email = document.getElementById('email_input');
@@ -97,7 +97,7 @@ function entrar() {
                 sessionStorage.FK_EMPRESA = json.fkEmpresa;
                 
                 setTimeout(function () {
-                    window.location = "../cadastrarUsuario.html";
+                    window.location = "../dashboard.html";
                 }, 1000);
             });
             
