@@ -11,9 +11,6 @@ target/
 *.iws
 *.iml
 *.ipr
-src/main/java/school/sptech/banco/Conexao.java
-school.sptech.banco.Conexao
-Apache-poi/src/main/java/school/sptech/banco/Conexao.java
 ### Eclipse ###
 .apt_generated
 .classpath
