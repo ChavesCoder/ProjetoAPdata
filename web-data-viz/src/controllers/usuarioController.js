@@ -45,7 +45,7 @@ function cadastrar(req, res) {
     var senhaVar = req.body.senhaServer;
     var telefoneVar = req.body.telefoneServer;
     var tipoVar = req.body.tipoServer;
-   // var fkEmpresaVar = req.body.fkEmpresaServer;
+    var fkEmpresaVar = req.body.fkEmpresaServer;
 
     // Faça as validações dos valores
     if (nomeVar == undefined) {
@@ -59,13 +59,13 @@ function cadastrar(req, res) {
     } else if (tipoVar == undefined) {
         res.status(400).send("Sua tipo usuario está undefined!");
     }
-    //else if (fkEmpresaVar == undefined) {
-      //  res.status(400).send("Sua fkEmpresa está undefined!");
-   // }
+    else if (fkEmpresaVar == undefined) {
+      res.status(400).send("Sua fkEmpresa está undefined!");
+     }
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nomeVar, emailVar, senhaVar, telefoneVar, tipoVar/*, fkEmpresaVar*/ )
+        usuarioModel.cadastrar(nomeVar, emailVar, senhaVar, telefoneVar, tipoVar, fkEmpresaVar )
             .then(
                 function (resultado) {
                     res.json(resultado);

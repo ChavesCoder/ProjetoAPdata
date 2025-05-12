@@ -17,8 +17,29 @@ import java.util.List;
 public class Main {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private static LogService logService;
 
     public static void main(String[] args) throws IOException {
+
+        Conexao conexao = new Conexao();
+        try (Connection conn = conexao.getConexao().getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Conexão bem-sucedida!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Uso do JdbcTemplate
+        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+
+        logService = new LogService(template);
+
+        // Persistencia de dados em banco
+        PersistenciaService persistenciaService = new PersistenciaService(template);
+
+
+
+
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
 
@@ -58,24 +79,6 @@ public class Main {
         List<SidraAlugado> sidraAlugadosExtraidos = leitorExcel.extrairSidraAlugado(nomeArquivo2, workbookSidra);
         logInfo("Extração - Dados de SIDRA extraídos com sucesso.");
 
-//
-//        for (Indice indice : indicesExtraidas){
-//            System.out.println(indice);
-//        }
-//
-//        System.out.println("Indices extraidos");
-//
-//        for (Variacao variacao : variacoesExtraidas){
-//            System.out.println(variacao);
-//        }
-//
-//        System.out.println("Variações extraidas");
-//
-//        for (PrecoMedio precoMedio : precoMediosExtraidos){
-//            System.out.println(precoMedio);
-//
-//        System.out.println("Preço medio extraido");
-
         sidraAlugadosExtraidos.stream()
                 .map(SidraAlugado::getRegiao)
                 .distinct()
@@ -85,44 +88,37 @@ public class Main {
         logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
 
 
-        System.out.println("Total de linhas extraidas: " + leitorExcel.getContadorLinhas());
         arquivo.close();
         arquivo2.close();
 
-//
-//        S3Main s3Main = new S3Main();
-//        s3Main.listarBucket();
-//        s3Main.listarObj();
-//        s3Main.downloadArquivos();
-//
 
-            Conexao conexao = new Conexao();
-        try (Connection conn = conexao.getConexao().getConnection()) {
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("Conexão bem-sucedida!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-            // Uso do JdbcTemplate
-            JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+        S3Main s3Main = new S3Main();
+        s3Main.listarBucket();
+        s3Main.listarObj();
+        s3Main.downloadArquivos();
 
-        template.update("INSERT INTO empresa (nome)\n " +
-                "VALUES \n" +
-                "('TESTE');");
+        System.out.println("Iniciando a inserção de dados");
+
+       persistenciaService.insertIndice(indicesExtraidas);
+        System.out.print("Indices Inseridos\n");
+        persistenciaService.insertVariacao(variacoesExtraidas);
+        System.out.print("Variações Inseridas\n");
+        persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+        System.out.print("Preços médios Inseridos\n");
+        persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+        System.out.print("Sidra Proprio Inserido\n");
+        persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+        System.out.print("Sidra Alugado Inserido\n");
+
 
     }
-
-
-
     private static void logInfo(String mensagem) {
         String timestamp = LocalDateTime.now().format(FORMATTER);
         System.out.println(timestamp + " | (INFO) | " + mensagem);
 
+        if (logService != null) {
+            logService.salvarLog(mensagem);
+        }
 
     }
-
-
-
-
 }

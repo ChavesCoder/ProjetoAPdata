@@ -79,7 +79,8 @@
 }
 
 body {
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
+    background-color: #ebebeb;
 }
 
 /* nav {
@@ -226,14 +227,15 @@ main {
     padding-top: 30px;
     width: 84%;
     margin-left: 17%;
-    background-color: #ffffff;
 }
 
 .class_CadastroFunc{
     margin: auto;
     width: 92%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) ;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2) ; */
     padding: 40px;
+    background-color: white;
+    border-radius: 4px;
 }
 .class_CadastroFunc h1{
     color: #000000;
@@ -251,6 +253,7 @@ main {
     background-color: #ffffff;
     margin-bottom: 14px;
     font-size: 16px;
+    border-radius: 4px;
 }
 .class_iptsCadastroFunc input::placeholder{
     color: #000000;
@@ -276,6 +279,7 @@ main {
     /* border-radius: 5px; */
     margin-right: 8px;
     color: #FFFEFA;
+    border-radius: 4px;
 }
 /* #btn_buscarFunc{
     background-color: #FF9800;
@@ -300,8 +304,7 @@ main {
     margin: 30px auto;
     background-color: #ffffff;
     padding: 20px;
-    border-radius: 0px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
 }
 
 h1 {
