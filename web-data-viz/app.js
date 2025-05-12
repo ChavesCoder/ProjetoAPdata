@@ -18,7 +18,6 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var dashboardRouter = require("./src/routes/dashboard")
-var variacaoRouter = require("./src/routes/variacao")
 //var empresasRouter = require("./src/routes/empresas");
 
 app.use(express.json());
@@ -29,8 +28,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
-app.use("/dashboard", dashboardRouter)
-app.use("/variacao", variacaoRouter)
+app.use("/dashboard", dashboardRouter);
 //app.use("/empresas", empresasRouter);
 
 app.listen(PORTA_APP, function () {

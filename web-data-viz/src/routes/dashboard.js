@@ -3,11 +3,8 @@ var router = express.Router();
 
 var dashboardControllers = require("../controllers/dashboardController")
 
-
-// router.post("/buscarUltimosDadosPrecoMedio", dashboardController.buscarUltimosDadosPrecoMedio);
-router.get("/buscarUltimosDadosPrecoMedio/:idUsuario", function (req, res) {
-    dashboardControllers.buscarUltimosDadosPrecoMedio(req, res);
-    //  res.render("dashboard");
-});
+router.get("/dadosCidade/:cidade", function (req, res) {
+    dashboardControllers.buscarDadosKPIS(req, res);
+  });
 
 module.exports = router;

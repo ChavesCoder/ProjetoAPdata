@@ -1,13 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
-var variacaoControllers = require("../controllers/variacaoController")
+var variacaoController = require("../controllers/variacaoController");
 
-
-// router.post("/variacaoMedia", variacaoController.variacaoMedia);
-router.get("/variacaoMedia/:idUsuario", function (req, res) {
-    variacaoControllers.variacaoMedia(req, res);
-    //  res.render("variacao");
-});
+// Rota para buscar a variação por ano e cidades
+router.get("/:ano", variacaoController.listarVariacao);
 
 module.exports = router;

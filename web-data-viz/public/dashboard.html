@@ -19,7 +19,7 @@
 <script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
     data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
 
-<body onload="GerarGrafico()">
+<body onload="buscarDadosCidade(); buscarDados();">
     <main>
         <div class="sidebar">
             <img src="./assets/imgs/logoBranco-semfundo.png" style=" padding: 20px 20px 0px 20px;">
@@ -30,14 +30,14 @@
                     <span class="material-symbols-outlined">monitoring</span>
                     <span>Dashboards</span>
                 </a>
-                <a href="#" class="menu-item">
+                <a href="cadastrarUsuario.html" class="menu-item">
                     <span class="material-symbols-outlined">add_circle</span>
                     <span>Cadastrar</span>
                 </a>
-                <a href="#" class="menu-item">
+                <!-- <a href="#" class="menu-item">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>Perfil</span>
-                </a>
+                </a> -->
                 <a href="entrar.html" class="menu-item logout">
                     <span class="material-symbols-outlined">logout</span>
                     <span>Sair</span>
@@ -49,8 +49,23 @@
                 <div class="kpis-S1">
                     <div class="kpi-1">
                         <span>Você está visualizando os dados de <span>
-                                <select>
-                                    <option value="" id="regiao">Barueri</option>
+                                <select id="select_cidade" onchange="buscarDadosCidade()">
+                                    <option value="São Paulo">São Paulo</option>
+                                    <option value="Barueri">Barueri</option>
+                                    <option value="Campinas">Campinas</option>
+                                    <option value="Diadema">Diadema</option>
+                                    <option value="Guarujá">Guarujá</option>
+                                    <option value="Guarulhos">Guarulhos</option>
+                                    <option value="Osasco">Osasco</option>
+                                    <option value="Praia Grande">Praia Grande</option>
+                                    <option value="Ribeirão Preto">Ribeirão Preto</option>
+                                    <option value="Santo André">Santo André</option>
+                                    <option value="Santos">Santos</option>
+                                    <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                                    <option value="São Caetano do Sul">São Caetano do Sul</option>
+                                    <option value="São José do Rio Preto">São José do Rio Preto</option>
+                                    <option value="São José dos Campos">São José dos Campos</option>
+                                    <option value="São Vicente">São Vicente</option>
                                 </select>
                     </div>
                     <div class="kpi-2">
@@ -92,51 +107,90 @@
             <div class="container-inferior">
                 <div class="container-selects">
                     <label for="">
-                        <select id="select">
-                            <option value="" id="variacaoAnual/Semestral">Anual/Semestral</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
+                        <select id="selectAno" onchange=buscarDados()>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024" selected>2024</option>
                         </select>
                     </label>
                     <label for="">
-                        <select id="select">
-                            <option value="" id="anoData">2024.1</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
+                        <select id="selectCidade1" onchange=buscarDados()>
+                            <option value="São Paulo" selected>São Paulo</option>
+                            <option value="Barueri">Barueri</option>
+                            <option value="Campinas">Campinas</option>
+                            <option value="Diadema">Diadema</option>
+                            <option value="Guarujá">Guarujá</option>
+                            <option value="Guarulhos">Guarulhos</option>
+                            <option value="Osasco">Osasco</option>
+                            <option value="Praia Grande">Praia Grande</option>
+                            <option value="Ribeirão Preto">Ribeirão Preto</option>
+                            <option value="Santo André">Santo André</option>
+                            <option value="Santos">Santos</option>
+                            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                            <option value="São Caetano do Sul">São Caetano do Sul</option>
+                            <option value="São José do Rio Preto">São José do Rio Preto</option>
+                            <option value="São José dos Campos">São José dos Campos</option>
+                            <option value="São Vicente">São Vicente</option>
                         </select>
                     </label>
                     <label for="">
-                        <select id="select">
-                            <option value="" >Cidade 1</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
+                        <select id="selectCidade2" onchange=buscarDados()>
+                            <option value="São Paulo">São Paulo</option>
+                            <option value="Barueri">Barueri</option>
+                            <option value="Campinas" selected>Campinas</option>
+                            <option value="Diadema">Diadema</option>
+                            <option value="Guarujá">Guarujá</option>
+                            <option value="Guarulhos">Guarulhos</option>
+                            <option value="Osasco">Osasco</option>
+                            <option value="Praia Grande">Praia Grande</option>
+                            <option value="Ribeirão Preto">Ribeirão Preto</option>
+                            <option value="Santo André">Santo André</option>
+                            <option value="Santos">Santos</option>
+                            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                            <option value="São Caetano do Sul">São Caetano do Sul</option>
+                            <option value="São José do Rio Preto">São José do Rio Preto</option>
+                            <option value="São José dos Campos">São José dos Campos</option>
+                            <option value="São Vicente">São Vicente</option>
                         </select>
                     </label>
                     <label for="">
-                        <select id="select">
-                            <option value="">Cidade 2</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
+                        <select id="selectCidade3" onchange=buscarDados()>
+                            <option value="São Paulo">São Paulo</option>
+                            <option value="Barueri" selected>Barueri</option>
+                            <option value="Campinas">Campinas</option>
+                            <option value="Diadema">Diadema</option>
+                            <option value="Guarujá">Guarujá</option>
+                            <option value="Guarulhos">Guarulhos</option>
+                            <option value="Osasco">Osasco</option>
+                            <option value="Praia Grande">Praia Grande</option>
+                            <option value="Ribeirão Preto">Ribeirão Preto</option>
+                            <option value="Santo André">Santo André</option>
+                            <option value="Santos">Santos</option>
+                            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                            <option value="São Caetano do Sul">São Caetano do Sul</option>
+                            <option value="São José do Rio Preto">São José do Rio Preto</option>
+                            <option value="São José dos Campos">São José dos Campos</option>
+                            <option value="São Vicente">São Vicente</option>
                         </select>
                     </label>
                     <label for="">
-                        <select id="select">
-                            <option value="">Cidade 3</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
-                        </select>
-                    </label>
-                    <label for="">
-                        <select id="select">
-                            <option value="">Cidade 4</option>
-                            <option value="1">Opção 1</option>
-                            <option value="2">Opção 2</option>
-                            <option value="3">Opção 3</option>
+                        <select id="selectCidade4" onchange="buscarDados()">
+                            <option value="São Paulo">São Paulo</option>
+                            <option value="Barueri">Barueri</option>
+                            <option value="Campinas">Campinas</option>
+                            <option value="Diadema">Diadema</option>
+                            <option value="Guarujá">Guarujá</option>
+                            <option value="Guarulhos">Guarulhos</option>
+                            <option value="Osasco" selected>Osasco</option>
+                            <option value="Praia Grande">Praia Grande</option>
+                            <option value="Ribeirão Preto">Ribeirão Preto</option>
+                            <option value="Santo André">Santo André</option>
+                            <option value="Santos">Santos</option>
+                            <option value="São Bernardo do Campo">São Bernardo do Campo</option>
+                            <option value="São Caetano do Sul">São Caetano do Sul</option>
+                            <option value="São José do Rio Preto">São José do Rio Preto</option>
+                            <option value="São José dos Campos">São José dos Campos</option>
+                            <option value="São Vicente">São Vicente</option>
                         </select>
                     </label>
                 </div>
@@ -145,23 +199,19 @@
                         <canvas id="meuGrafico" width="800" height="300"></canvas>
                     </div>
                     <div class="container-valorizacao">
-                        <h3>Var mensal</h3>
+                        <h3 style="font-size: 14px; font-weight: 600;">Variação Anual Acumulada (%)</h3>
                         <div class="container-indicadores">
                             <div>
-                                <span>Cidade 1</span>
-                                <span> +1,04%</span>
+                                <span id="somaCidade1"> +1,04%</span>
                             </div>
                             <div>
-                                <span>Cidade 2</span>
-                                <span> +1,04%</span>
+                                <span id="somaCidade2"> +1,04%</span>
                             </div>
                             <div>
-                                <span>Cidade 3</span>
-                                <span> +1,04%</span>
+                                <span id="somaCidade3"> +1,04%</span>
                             </div>
                             <div>
-                                <span>Cidade 4</span>
-                                <span> +1,04%</span>
+                                <span id="somaCidade4"> +1,04%</span>
                             </div>
                         </div>
                     </div>

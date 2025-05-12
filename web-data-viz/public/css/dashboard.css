@@ -117,7 +117,7 @@
     font-size: 18px;
 }
 .kpi-1 select{
-  width: 200px ;
+  width: 260px ;
   outline: none;
   border: none;
   border-bottom: 2px solid #00000036;
@@ -222,7 +222,7 @@
 
 .container-selects label {
     /* background-color: aqua; */
-    width: 16%;
+    width: 20%;
     height: 45px;
 }
 

@@ -1,32 +1,26 @@
 var database = require("../database/config");
 
+function buscarVariacao(ano, cidades) {
+    var instrucaoSql = `
+        SELECT 
+            r.municipio,
+            DATE_FORMAT(v.periodo, '%d-%m-%Y') AS data,
+            ROUND(v.total * 100, 2) AS totalMultiplicadoPor100
+        FROM 
+            VarMensal v
+        JOIN 
+            Regiao r ON v.fkRegiao = r.idRegiao
+        WHERE 
+            YEAR(v.periodo) = ?
+            AND r.municipio IN (?)
+        ORDER BY 
+            r.municipio, v.periodo;
+    `;
 
-function variacaoMedia(municipio) {
-    console.log(
-        "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
-
-    );
-    var instrucao = `
-  SELECT 
-    r.municipio AS 'Cidade',
-    CONCAT(
-        CASE WHEN vm.total > 0 THEN '+' ELSE '' END, 
-        FORMAT(vm.total, 2), '%'
-    ) AS 'Variação Mensal'
-FROM VarMensal vm
-JOIN Regiao r ON vm.fkRegiao = r.idRegiao
-WHERE r.municipio IN ('${municipio}', '${municipio}', '${municipio}', '${municipio}')
-AND vm.periodo = (SELECT MAX(periodo) FROM VarMensal)
-ORDER BY vm.total DESC;
-`;
-    //WHERE idUsuario = ${idUsuario}
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    console.log("Executando SQL: \n" + instrucaoSql);
+    return database.query(instrucaoSql, [ano, cidades]);
 }
 
-
-
 module.exports = {
-    variacaoMedia
+    buscarVariacao
 };
-
