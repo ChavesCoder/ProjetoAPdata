@@ -1,4 +1,4 @@
-	DROP database apdatabd;
+	-- DROP database apdatabd;
 
         -- Criação do banco de dados
 		CREATE DATABASE APDATABD;
