@@ -2,9 +2,11 @@ package school.sptech;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.banco.Conexao;
 import school.sptech.client.S3Provider;
+import school.sptech.notify.Slack;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,34 +24,34 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Conexao conexao = new Conexao();
-        try (Connection conn = conexao.getConexao().getConnection()) {
-            if (conn != null && !conn.isClosed()) {
-                System.out.println("Conexão bem-sucedida!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Uso do JdbcTemplate
-        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
-        logService = new LogService(template);
-
-        // Persistência de dados em banco
-        PersistenciaService persistenciaService = new PersistenciaService(template);
+//        Conexao conexao = new Conexao();
+//        try (Connection conn = conexao.getConexao().getConnection()) {
+//            if (conn != null && !conn.isClosed()) {
+//                System.out.println("Conexão bem-sucedida!");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Uso do JdbcTemplate
+//        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+//        logService = new LogService(template);
+//
+//        // Persistência de dados em banco
+//        PersistenciaService persistenciaService = new PersistenciaService(template);
 
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
-        S3Main s3 = new S3Main();
-        s3.listarBucket();
-        s3.listarObj();
-        s3.downloadArquivos();
+//        S3Main s3 = new S3Main();
+//        s3.listarBucket();
+//        s3.listarObj();
+//        s3.downloadArquivos();
 
 
 
         // Arquivos a serem lidos
-        String nomeArquivo1 = "fipezap-serieshistoricas.xlsx";
-        String nomeArquivo2 = "Sidra.xlsx";
+        String nomeArquivo1 = "./fipezap-serieshistoricas.xlsx";
+        String nomeArquivo2 = "./Sidra.xlsx";
 
         System.out.println(nomeArquivo1);
         System.out.println(nomeArquivo2);
@@ -92,14 +94,19 @@ public class Main {
             logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
 
             // Persistência dos dados extraídos
-            logInfo("Iniciando a inserção de dados");
-            persistenciaService.insertIndice(indicesExtraidas);
-            persistenciaService.insertVariacao(variacoesExtraidas);
-            persistenciaService.insertPrecoMedio(precoMediosExtraidos);
-            persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
-            persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+//            logInfo("Iniciando a inserção de dados");
+//            persistenciaService.insertIndice(indicesExtraidas);
+//            persistenciaService.insertVariacao(variacoesExtraidas);
+//            persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+//            persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+//            persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
 
             System.out.println("Dados inseridos com sucesso!");
+
+            JSONObject json = new JSONObject();
+
+            json.put("text", "Novos dados estão disponíveis para vizualização na AP Data");
+            Slack.enviarMensagem(json);
 
         } catch (Exception e) {
             logInfo("Erro ao carregar ou processar os arquivos: " + e.getMessage());
