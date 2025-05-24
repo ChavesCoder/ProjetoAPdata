@@ -8,7 +8,11 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+school/sptech/notify
+C:\Users\Victor\Documents\2° Semestre ADS\ProjetoAPdata\APdataJava\src\main\java\school\sptech\notify
 src/main/java/school/sptech/notify/Slack.java
+Slack.java
+APdataJava/src/main/java/school/sptech/notify/Slack.java
 *.iws
 *.iml
 *.ipr
