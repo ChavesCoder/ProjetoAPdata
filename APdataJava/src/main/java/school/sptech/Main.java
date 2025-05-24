@@ -47,14 +47,13 @@ public class Main {
         s3.listarObj();
         s3.downloadArquivos();
 
-
-
         // Arquivos a serem lidos
         String nomeArquivo1 = "./fipezap-serieshistoricas.xlsx";
         String nomeArquivo2 = "./Sidra.xlsx";
 
         System.out.println(nomeArquivo1);
         System.out.println(nomeArquivo2);
+
         // Carregamento dos arquivos Excel
         try (Workbook workbook = carregarWorkbook(nomeArquivo1);
              Workbook workbookSidra = carregarWorkbook(nomeArquivo2)) {
