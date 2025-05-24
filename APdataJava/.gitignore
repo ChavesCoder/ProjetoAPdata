@@ -8,6 +8,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+src/main/java/school/sptech/notify/Slack.java
 *.iws
 *.iml
 *.ipr

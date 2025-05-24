@@ -24,28 +24,28 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-//        Conexao conexao = new Conexao();
-//        try (Connection conn = conexao.getConexao().getConnection()) {
-//            if (conn != null && !conn.isClosed()) {
-//                System.out.println("Conexão bem-sucedida!");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Uso do JdbcTemplate
-//        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
-//        logService = new LogService(template);
-//
-//        // Persistência de dados em banco
-//        PersistenciaService persistenciaService = new PersistenciaService(template);
+        Conexao conexao = new Conexao();
+        try (Connection conn = conexao.getConexao().getConnection()) {
+            if (conn != null && !conn.isClosed()) {
+                System.out.println("Conexão bem-sucedida!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Uso do JdbcTemplate
+        JdbcTemplate template = new JdbcTemplate(conexao.getConexao());
+        logService = new LogService(template);
+
+        // Persistência de dados em banco
+        PersistenciaService persistenciaService = new PersistenciaService(template);
 
         logInfo("Início - Iniciando o carregamento dos arquivos Excel.");
 
-//        S3Main s3 = new S3Main();
-//        s3.listarBucket();
-//        s3.listarObj();
-//        s3.downloadArquivos();
+        S3Main s3 = new S3Main();
+        s3.listarBucket();
+        s3.listarObj();
+        s3.downloadArquivos();
 
 
 
@@ -94,18 +94,18 @@ public class Main {
             logInfo("Resumo - Total de linhas extraídas: " + leitorExcel.getContadorLinhas());
 
             // Persistência dos dados extraídos
-//            logInfo("Iniciando a inserção de dados");
-//            persistenciaService.insertIndice(indicesExtraidas);
-//            persistenciaService.insertVariacao(variacoesExtraidas);
-//            persistenciaService.insertPrecoMedio(precoMediosExtraidos);
-//            persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
-//            persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
+            logInfo("Iniciando a inserção de dados");
+            persistenciaService.insertIndice(indicesExtraidas);
+            persistenciaService.insertVariacao(variacoesExtraidas);
+            persistenciaService.insertPrecoMedio(precoMediosExtraidos);
+            persistenciaService.insertSidraProprio(sidraPropriosExtraidos);
+            persistenciaService.insertSidraAlugado(sidraAlugadosExtraidos);
 
             System.out.println("Dados inseridos com sucesso!");
 
             JSONObject json = new JSONObject();
 
-            json.put("text", "Novos dados estão disponíveis para vizualização na AP Data");
+            json.put("text", "Novos dados estão disponíveis para vizualização na AP Data!");
             Slack.enviarMensagem(json);
 
         } catch (Exception e) {
