@@ -3,6 +3,9 @@ package school.sptech;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.banco.Conexao;
 import school.sptech.RegiaoUtils;
+import school.sptech.data.DadosIndice;
+import school.sptech.data.DadosPrecoMedio;
+import school.sptech.data.DadosVariacao;
 
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class PersistenciaService {
         this.template = template;
     }
 
-    public void insertIndice(List<Indice> indicesExtraidas){
+    public void insertIndice(List<DadosIndice> indicesExtraidas){
         for (int i = 0; i < indicesExtraidas.size(); i++) {
 
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(indicesExtraidas.get(i).getRegiao());
@@ -27,7 +30,7 @@ public class PersistenciaService {
             );
         }
     }
-    public void insertVariacao(List<Variacao> variacoesExtraidas){
+    public void insertVariacao(List<DadosVariacao> variacoesExtraidas){
         for (int i = 0; i < variacoesExtraidas.size(); i++) {
 
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(variacoesExtraidas.get(i).getRegiao());
@@ -40,7 +43,7 @@ public class PersistenciaService {
             );
         }
     }
-    public void insertPrecoMedio(List<PrecoMedio> precoMediosExtraidos){
+    public void insertPrecoMedio(List<DadosPrecoMedio> precoMediosExtraidos){
         for (int i = 0; i < precoMediosExtraidos.size(); i++) {
 
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(precoMediosExtraidos.get(i).getRegiao());

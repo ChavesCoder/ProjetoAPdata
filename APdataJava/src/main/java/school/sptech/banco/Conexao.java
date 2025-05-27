@@ -11,7 +11,7 @@ public class Conexao {
 
         DriverManagerDataSource driver  = new DriverManagerDataSource();
 
-        driver.setUrl("jdbc:mysql://localhost:3306/APDATABD");
+        driver.setUrl("jdbc:mysql://mysql:3306/APDATABD");
         driver.setUsername("root");
         driver.setPassword("urubu100");
         driver.setDriverClassName("com.mysql.cj.jdbc.Driver");

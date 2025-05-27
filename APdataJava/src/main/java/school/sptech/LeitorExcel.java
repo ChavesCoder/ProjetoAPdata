@@ -3,6 +3,9 @@ package school.sptech;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import school.sptech.data.DadosIndice;
+import school.sptech.data.DadosPrecoMedio;
+import school.sptech.data.DadosVariacao;
 //import org.apache.poi.ss.usermodel.*;
 
 
@@ -24,7 +27,7 @@ public class LeitorExcel {
     }
 
 
-    public List<Indice> extrairIndice(String nomeArquivo, Workbook workbook) {
+    public List<DadosIndice> extrairIndice(String nomeArquivo, Workbook workbook) {
 
         try {
             System.out.printf("\nIniciando leitura do arquivo %s\n%n", nomeArquivo);
@@ -39,7 +42,7 @@ public class LeitorExcel {
             // VARIÁVEL APENAS PARA FACILITAR A INSERÇÃO NO BANCO POSTERIORMENTE
             int incrementoID = 1000;
 
-            List<Indice> indicesExtraidas = new ArrayList<>();
+            List<DadosIndice> indicesExtraidas = new ArrayList<>();
 
 
             for (int i = paginaInicial; i < 19; i++) {
@@ -61,11 +64,10 @@ public class LeitorExcel {
                     }
 
 
-                    Indice indice = new Indice();
+                    DadosIndice indice = new DadosIndice();
 
                     try {
 
-                        indice.setId((j - 3) + incrementoID);
                         indice.setRegiao(regiao);
 
                         indice.setData(converterDate(row.getCell(1).getDateCellValue()));
@@ -121,7 +123,7 @@ public class LeitorExcel {
 
     }
 
-    public List<Variacao> extrairVariacao(String nomeArquivo, Workbook workbook){
+    public List<DadosVariacao> extrairVariacao(String nomeArquivo, Workbook workbook){
         try {
             System.out.printf("\nIniciando leitura do arquivo %s\n%n", nomeArquivo);
 
@@ -135,7 +137,7 @@ public class LeitorExcel {
             // VARIÁVEL APENAS PARA FACILITAR A INSERÇÃO NO BANCO POSTERIORMENTE
             int incrementoID = 1000;
 
-            List<Variacao> variacoesExtraidas = new ArrayList<>();
+            List<DadosVariacao> variacoesExtraidas = new ArrayList<>();
 
 
             for (int i = paginaInicial; i < 19; i++) {
@@ -157,11 +159,10 @@ public class LeitorExcel {
                     }
 
 
-                    Variacao variacao = new Variacao();
+                    DadosVariacao variacao = new DadosVariacao();
 
                     try {
 
-                        variacao.setId((j - 3) + incrementoID);
                         variacao.setRegiao(regiao);
 
                         variacao.setData(converterDate(row.getCell(1).getDateCellValue()));
@@ -216,7 +217,7 @@ public class LeitorExcel {
         }
 
     }
-    public List<PrecoMedio> extrairPrecoMedio(String nomeArquivo, Workbook workbook){
+    public List<DadosPrecoMedio> extrairPrecoMedio(String nomeArquivo, Workbook workbook){
         try {
             System.out.printf("\nIniciando leitura do arquivo %s\n%n", nomeArquivo);
 
@@ -230,7 +231,7 @@ public class LeitorExcel {
             // VARIÁVEL APENAS PARA FACILITAR A INSERÇÃO NO BANCO POSTERIORMENTE
             int incrementoID = 1000;
 
-            List<PrecoMedio> precoMediosExtraidos = new ArrayList<>();
+            List<DadosPrecoMedio> precoMediosExtraidos = new ArrayList<>();
 
 
             for (int i = paginaInicial; i < 19; i++) {
@@ -252,11 +253,10 @@ public class LeitorExcel {
                     }
 
 
-                    PrecoMedio precoMedio = new PrecoMedio();
+                    DadosPrecoMedio precoMedio = new DadosPrecoMedio();
 
                     try {
 
-                        precoMedio.setId((j - 3) + incrementoID);
                         precoMedio.setRegiao(regiao);
 
                         precoMedio.setData(converterDate(row.getCell(1).getDateCellValue()));

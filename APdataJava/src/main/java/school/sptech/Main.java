@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.banco.Conexao;
 import school.sptech.client.S3Provider;
+import school.sptech.data.DadosIndice;
+import school.sptech.data.DadosPrecoMedio;
+import school.sptech.data.DadosVariacao;
 import school.sptech.notify.Slack;
 
 import java.io.IOException;
@@ -63,14 +66,14 @@ public class Main {
             LeitorExcel leitorExcel = new LeitorExcel();
 
             logInfo("Extração - Iniciando extração dos dados de FIPEZAP.");
-            List<Indice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo1, workbook);
-            List<Variacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo1, workbook);
-            List<PrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo1, workbook);
+            List<DadosIndice> indicesExtraidas = leitorExcel.extrairIndice(nomeArquivo1, workbook);
+            List<DadosVariacao> variacoesExtraidas = leitorExcel.extrairVariacao(nomeArquivo1, workbook);
+            List<DadosPrecoMedio> precoMediosExtraidos = leitorExcel.extrairPrecoMedio(nomeArquivo1, workbook);
             logInfo("Extração - Dados de FIPEZAP extraídos com sucesso.");
 
 
             precoMediosExtraidos.stream()
-                    .map(PrecoMedio::getRegiao)
+                    .map(DadosPrecoMedio::getRegiao)
                     .distinct()
                     .forEach(regiao -> logInfo("Extração - Região '" + regiao + "' extraída com sucesso (FIPEZAP)."));
 
