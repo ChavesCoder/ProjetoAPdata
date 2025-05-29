@@ -1,9 +1,8 @@
-package school.sptech;
+package school.sptech.data;
 
 import java.time.LocalDate;
 
-public class PrecoMedio {
-    private Integer id;
+public class Dados {
     private String regiao;
     private LocalDate data;
     private Double total;
@@ -12,23 +11,20 @@ public class PrecoMedio {
     private Double d3;
     private Double d4;
 
-    public PrecoMedio() {
+
+    public Dados() {
     }
 
-    public PrecoMedio(Integer id, String regiao, LocalDate data) {
-        this.id = id;
+    public Dados(String regiao, LocalDate data, Double total, Double d1, Double d2, Double d3, Double d4) {
         this.regiao = regiao;
         this.data = data;
-
+        this.total = total;
+        this.d1 = d1;
+        this.d2 = d2;
+        this.d3 = d3;
+        this.d4 = d4;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getRegiao() {
         return regiao;
@@ -88,11 +84,14 @@ public class PrecoMedio {
 
     @Override
     public String toString() {
-        return "PrecoMedio {" +
-                "id=" + id +
-                ", regiao='" + regiao + '\'' +
+        return "Dados{" +
+                "regiao='" + regiao + '\'' +
                 ", data=" + data +
                 ", total=" + total +
+                ", d1=" + d1 +
+                ", d2=" + d2 +
+                ", d3=" + d3 +
+                ", d4=" + d4 +
                 '}';
     }
 }
