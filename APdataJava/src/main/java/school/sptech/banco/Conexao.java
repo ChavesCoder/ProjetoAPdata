@@ -11,16 +11,11 @@ public class Conexao {
 
         DriverManagerDataSource driver  = new DriverManagerDataSource();
 
-        driver.setUrl("jdbc:mysql://mysql:3306/APDATABD");
+        driver.setUrl("jdbc:mysql://mysql_container:3306/APDATABD");
         driver.setUsername("root");
         driver.setPassword("urubu100");
         driver.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-        // Abaixo tem uma conexao H2, um banco armazenado na memoria
-        //driver.setUsername("sa");
-        //driver.setPassword("");
-        //driver.setUrl("jdbc:h2:file:./banco-de-dados");
-        //driver.setDriverClassName("org.h2.Driver");
         this.conexao = driver;
     }
 
