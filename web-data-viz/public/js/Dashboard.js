@@ -86,6 +86,22 @@ const dadosPorCidade = {
 // Labels do gráfico
 const labels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
+
+function redirecionarCadastro() {
+    const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");
+  
+    if (!fkEmpresa) {
+      alert("Você precisa estar logado para continuar.");
+      window.location.href = "login.html";
+      return;
+    }
+  
+    if (fkEmpresa == "1") {
+      window.location.href = "cadastrarEmpresa.html";
+    } else {
+      window.location.href = "cadastrarUsuario.html";
+    }
+  };
 // Função para criar o gráfico inicial
 function criarGraficoInicial() {
     const cidadeSelecionada1 = document.getElementById('selectCidade1').value;

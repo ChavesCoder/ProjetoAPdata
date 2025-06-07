@@ -23,7 +23,17 @@ function cadastrar(nomeVar,emailVar,  senhaVar,  telefoneVar,  tipoVar, fkEmpres
     return database.executar(instrucaoSql);
 }
 
+function cadastrarUsuario(nome, email, senha, telefone, fkEmpresa) {
+    var instrucaoSql = `
+      INSERT INTO usuario (nome, email, senha, telefone, tipoUsuario, fkEmpresa)
+      VALUES ('${nome}', '${email}', '${senha}', '${telefone}','Administrador', ${fkEmpresa})
+    `;
+    return database.executar(instrucaoSql);
+  }
+
+  
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    cadastrarUsuario
 };

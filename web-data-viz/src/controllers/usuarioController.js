@@ -83,7 +83,27 @@ function cadastrar(req, res) {
     }
 }
 
+
+function verificarPermissaoCadastroEmpresa(req, res) {
+    const fkEmpresa = req.session.fkEmpresa;
+  
+    if (!fkEmpresa) {
+      return res.redirect("/entrar.html");
+    }
+  
+    if (fkEmpresa == 100) {
+      // Usuário interno: pode acessar o cadastro de empresa
+      res.sendFile(path.join(__dirname, "../public/cadastrarEmpresa.html"));
+    } else {
+      // Usuário comum: bloqueado
+      res.status(403).send("Acesso negado: você não tem permissão para cadastrar empresas.");
+    }
+}
+  
+  
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    verificarPermissaoCadastroEmpresa
 }

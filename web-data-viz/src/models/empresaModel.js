@@ -24,4 +24,25 @@ function cadastrar(razaoSocial, cnpj) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar };
+function cadastrarEmpresa(razao, fantasia, cnpj, telefone, email, endereco) {
+  const instrucaoSql = `
+    INSERT INTO empresa (razaoSocial, nomeFicticio, cnpj, telefone, email, endereco)
+    VALUES ('${razao}', '${fantasia}', '${cnpj}', '${telefone}', '${email}', '${endereco}')
+  `;
+  return database.executar(instrucaoSql);
+}
+
+function listarTodas() {
+  const instrucaoSql = `SELECT idEmpresa, razaoSocial, nomeFicticio, email FROM empresa`;
+  return database.executar(instrucaoSql);
+}
+
+function excluirEmpresaComUsuarios(id) {
+  const sqlExcluirUsuarios = `DELETE FROM usuario WHERE fkEmpresa = ${id}`;
+  const sqlExcluirEmpresa = `DELETE FROM empresa WHERE idEmpresa = ${id}`;
+
+  return database.executar(sqlExcluirUsuarios)
+    .then(() => database.executar(sqlExcluirEmpresa));
+}
+
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarEmpresa, listarTodas, excluirEmpresaComUsuarios};

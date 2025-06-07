@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/imgs/iconeLogo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <script src="./js/sessao.js"></script>
+    <script src="./js/cadastroEmpresa.js" ></script>
+    <link rel="stylesheet" href="css/styleCadastrarUsuario.css">
+    <title>apdata</title>
+</head>
+<script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
+data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
+
+<body onload="listarEmpresas()"> <!-- onload=" listarFunc()" -->
+    <main>
+        <div class="sidebar">
+            <img src="./assets/imgs/logoBranco-semfundo.png" style=" padding: 20px 20px 0px 20px;">
+            <!-- <button class="menu-toggle">&#9776;</button> -->
+    
+            <nav class="menu">
+                <a href="dashboard.html" class="menu-item">
+                    <span class="material-symbols-outlined">monitoring</span>
+                    <span>Dashboards</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    <span>Cadastrar</span>
+                </a>
+                <!-- <a href="#" class="menu-item">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>Perfil</span>
+                </a> -->
+                <a href="entrar.html" class="menu-item logout">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Sair</span>
+                </a> 
+            </nav>
+        </div>
+        <div class="class_cadastro">
+            <div class="class_CadastroFunc">
+                <h1>Cadastro de Empresa</h1>
+                <div class="class_iptsCadastroFunc">
+                    <div class="class_separacaoIpts">
+                        <input oninput="validacoes()" type="text" placeholder="Razão Social"
+                        id="inp_razao">
+                        <input oninput="validacoes()" type="text" placeholder="CNPJ"
+                        id="inp_CNPJ">
+                        <input oninput="validacoes()" type="tel" placeholder="Celular"
+                        id="inp_telefone">
+                    </div>
+                    <div class="class_separacaoIpts">
+                        <input oninput="validacoes()" type="text" placeholder="Nome Fantasia"
+                        id="inp_nomeFantasia">
+                        <input oninput="validacoes()" type="email" placeholder="Email"
+                        id="inp_email">
+                        <input oninput="validacoes()" type="text" placeholder="Endereço"
+                        id="inp_endereco">
+                    </div>
+                </div>
+                <div class="class_btnCadastroFunc">
+                    <!-- <button id="btn_buscarFunc"><img src="Imagens/ic--outline-search.png">Buscar</button> -->
+                    <button id="btn_CadastrarFunc" onclick="cadastrar2()" >
+                        <!-- <img src="Imagens/ic--round-plus.png">  -->
+                        Cadastrar</button>
+                </div>
+            </div>
+            <div class="container">
+                <h1>Empresas</h1>
+                <table>
+                    <thead id="tabelaFunc">
+                        <tr>
+                            <th>ID</th>
+                            <th>Razão Social</th>
+                            <th>Nome Fantasia</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableCampo">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

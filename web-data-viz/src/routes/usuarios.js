@@ -12,4 +12,7 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.get("/acesso-cadastro-empresa", usuarioController.verificarPermissaoCadastroEmpresa);
+
+
 module.exports = router;
