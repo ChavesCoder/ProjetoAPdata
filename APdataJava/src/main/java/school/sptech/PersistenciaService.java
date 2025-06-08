@@ -23,7 +23,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(indicesExtraidas.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO Indice (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO Indice (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     indicesExtraidas.get(i).getData(), indicesExtraidas.get(i).getTotal(), indicesExtraidas.get(i).getD1(),
                     indicesExtraidas.get(i).getD2(), indicesExtraidas.get(i).getD3(), indicesExtraidas.get(i).getD4(),
                     fkRegiao
@@ -36,7 +36,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(variacoesExtraidas.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO VarMensal (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO VarMensal (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     variacoesExtraidas.get(i).getData(), variacoesExtraidas.get(i).getTotal(), variacoesExtraidas.get(i).getD1(),
                     variacoesExtraidas.get(i).getD2(), variacoesExtraidas.get(i).getD3(), variacoesExtraidas.get(i).getD4(),
                     fkRegiao
@@ -49,7 +49,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(precoMediosExtraidos.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO PrecoMedio (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO PrecoMedio (periodo, total, umDormitorio, doisDormitorios, tresDormitorios, quatroDormitorios, fkRegiao) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     precoMediosExtraidos.get(i).getData(), precoMediosExtraidos.get(i).getTotal(), precoMediosExtraidos.get(i).getD1(),
                     precoMediosExtraidos.get(i).getD2(), precoMediosExtraidos.get(i).getD3(), precoMediosExtraidos.get(i).getD4(),
                     fkRegiao
@@ -62,7 +62,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(sidraPropriosExtraidos.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO SidraProprio (total, umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais, fkRegiao) VALUES (?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO SidraProprio (total, umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais, fkRegiao) VALUES (?, ?, ?, ?, ?, ?)",
                     sidraPropriosExtraidos.get(i).getTotal(), sidraPropriosExtraidos.get(i).getUmMorador(),
                     sidraPropriosExtraidos.get(i).getDoisMoradores(), sidraPropriosExtraidos.get(i).getTresMoradores(), sidraPropriosExtraidos.get(i).getQuatroMoradoresOuMais(),
                     fkRegiao
@@ -75,7 +75,7 @@ public class PersistenciaService {
             Integer fkRegiao = RegiaoUtils.obterFkRegiao(sidraAlugadosExtraidos.get(i).getRegiao());
 
             template.update(
-                    "INSERT INTO SidraAlugado (total, umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais, fkRegiao) VALUES (?, ?, ?, ?, ?, ?)",
+                    "INSERT IGNORE INTO SidraAlugado (total, umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais, fkRegiao) VALUES (?, ?, ?, ?, ?, ?)",
                     sidraAlugadosExtraidos.get(i).getTotal(), sidraAlugadosExtraidos.get(i).getUmMorador(),
                     sidraAlugadosExtraidos.get(i).getDoisMoradores(), sidraAlugadosExtraidos.get(i).getTresMoradores(), sidraAlugadosExtraidos.get(i).getQuatroMoradoresOuMais(),
                     fkRegiao
