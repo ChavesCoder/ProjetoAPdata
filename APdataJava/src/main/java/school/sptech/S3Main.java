@@ -13,7 +13,7 @@ import java.util.List;
 
 public class S3Main {
     S3Client s3Client = new S3Provider().getS3Client();
-    String bucketName = "apdata-bucket";
+    String bucketName = "projeto-apdata";
 
     public void listarBucket() {
         // *************************************
