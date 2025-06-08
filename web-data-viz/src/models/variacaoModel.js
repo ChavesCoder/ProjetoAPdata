@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarVariacao(ano, cidades) {
+function buscarVariacao(ano, cidade1, cidade2, cidade3, cidade4) {
     var instrucaoSql = `
         SELECT 
             r.municipio,
@@ -11,14 +11,13 @@ function buscarVariacao(ano, cidades) {
         JOIN 
             Regiao r ON v.fkRegiao = r.idRegiao
         WHERE 
-            YEAR(v.periodo) = ?
-            AND r.municipio IN (?)
+            YEAR(v.periodo) = ${ano}
+            AND r.municipio IN ('${cidade1}', '${cidade2}', '${cidade3}', '${cidade4}')
         ORDER BY 
             r.municipio, v.periodo;
     `;
 
-    console.log("Executando SQL: \n" + instrucaoSql);
-    return database.query(instrucaoSql, [ano, cidades]);
+    return database.executar(instrucaoSql);
 }
 
 module.exports = {
