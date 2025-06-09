@@ -160,7 +160,7 @@
 }
 .container-dormitorios{
     display: flex;
-    height: 80%;
+    height: 100%;
     align-items: center;
     gap: 12px;
 }
@@ -174,10 +174,19 @@
     background-color: #fff;
     height: 100%;
 }
-.dados-dormitorio h4{
-    font-size: 10px;
 
+.dados-dormitorio-2{
+    padding: 20px 10px 5px 10px;
+     display: flex;
+    width: 25%;
+    flex-direction: column;
+    background-color: #fff;
+    height: 100%;
 }
+.dados-dormitorio h4, .dados-dormitorio-2 h4{
+    font-size: 10px;
+}
+
 .container-kpi2-2 {
     width: 22%;
     height: 100%;

@@ -19,7 +19,7 @@
 <script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
     data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
 
-<body onload="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore();">
+<body onload="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore(), carregarDadosSidra();">
 <!-- <body onload="buscarDadosCidade(); buscarDados();"> -->
     <main>
         <div class="sidebar">
@@ -31,14 +31,14 @@
                     <span class="material-symbols-outlined">monitoring</span>
                     <span>Dashboards</span>
                 </a>
-                <a href="cadastrarUsuario.html" class="menu-item">
+                <a onclick="redirecionarCadastro()" class="menu-item" id="cadastroMenu">
                     <span class="material-symbols-outlined">add_circle</span>
                     <span>Cadastrar</span>
                 </a>
-                <!-- <a href="#" class="menu-item">
+                <a href="perfil.html" class="menu-item">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>Perfil</span>
-                </a> -->
+                </a>
                 <a href="entrar.html" class="menu-item logout">
                     <span class="material-symbols-outlined">logout</span>
                     <span>Sair</span>
@@ -50,7 +50,7 @@
                 <div class="kpis-S1">
                     <div class="kpi-1">
                         <span>Você está visualizando os dados de <span>
-                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore()" >
+                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore(), carregarDadosSidra()" >
                                     <option value="São Paulo">São Paulo</option>
                                     <option value="Barueri">Barueri</option>
                                     <option value="Campinas">Campinas</option>
@@ -80,9 +80,9 @@
                                     <h4>População Total</h4>
                                     <span id="populacao"></span>
                                 </div>
-                                <div class="dados-dormitorio">
+                                <div class="dados-dormitorio-2">
                                     <h4>População morando de aluguel</h4>
-                                    <canvas id="donutChartAluguel"></canvas>
+                                    <canvas id="donutChartAluguel" width="170" height="170" style="margin-top: -15px;"></canvas>
                                     
                                 </div>  
                                 <div class="container-kpi2-2">

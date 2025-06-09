@@ -1,4 +1,5 @@
 
+// Labels do gráfico
 const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 // Variável global para armazenar os dados da API
@@ -40,6 +41,10 @@ function calcularSoma(dadosPorCidade, nomeCidade, ano) {
     return dados.reduce((acc, val) => acc + val, 0);
 }
 
+
+if(sessionStorage.getItem("TIPO_USUARIO") == "Comum") {
+  document.getElementById("cadastroMenu").style.display = "none";
+}
 
 function redirecionarCadastro() {
     const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");

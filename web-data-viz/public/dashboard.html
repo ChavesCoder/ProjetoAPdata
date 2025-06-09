@@ -10,17 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
-    <!-- <script src="./js/sessao.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="css/dashboard.css">
     <title>apdata</title>
 </head>
 
-<script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
-    data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
-
-<body onload="buscarDadosCidade();">
-<!-- <body onload="buscarDadosCidade(); buscarDados();"> -->
+<body onload="buscarDadosCidade(); buscarDados();">
     <main>
         <div class="sidebar">
             <img src="./assets/imgs/logoBranco-semfundo.png" style=" padding: 20px 20px 0px 20px;">
@@ -31,14 +26,14 @@
                     <span class="material-symbols-outlined">monitoring</span>
                     <span>Dashboards</span>
                 </a>
-                <a onclick="redirecionarCadastro()" class="menu-item">
+                <a onclick="redirecionarCadastro()" class="menu-item" id="cadastroMenu">
                     <span class="material-symbols-outlined">add_circle</span>
                     <span>Cadastrar</span>
                 </a>
-                <!-- <a href="#" class="menu-item">
+                <a href="perfil.html" class="menu-item">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>Perfil</span>
-                </a> -->
+                </a>
                 <a href="entrar.html" class="menu-item logout">
                     <span class="material-symbols-outlined">logout</span>
                     <span>Sair</span>
@@ -108,7 +103,7 @@
             <div class="container-inferior">
                 <div class="container-selects">
                     <label for="">
-                        <select id="selectAno" >
+                        <select id="selectAno" onchange="buscarDados()">
                             <option value="2022">2022</option>
                             <option value="2023">2023</option>
                             <option value="2024">2024</option>
