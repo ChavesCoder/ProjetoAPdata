@@ -12,7 +12,23 @@ function buscarDadosKPIS(req, res) {
       res.status(500).json(erro.sqlMessage);
     });
 }
+
+
+function totalPrecoMedio(req, res) {
+  var cidade = req.params.cidade;
+
+  dashboardConstrutoraModel.totalPrecoMedio(cidade)
+    .then(function (resultado) {
+      res.json(resultado[0]); // ou só resultado, depende do que você quer
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+  
   
 module.exports = {
-buscarDadosKPIS
+buscarDadosKPIS,
+totalPrecoMedio
 };
