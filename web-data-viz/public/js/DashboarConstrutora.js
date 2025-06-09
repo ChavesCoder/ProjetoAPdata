@@ -307,8 +307,8 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
 
 let chart2; 
 
-function atualizarGraficoDomicilio(domicilioProprio) {
-    console.log('Atualizando gráfico de domicílio com:', domicilioProprio);
+function atualizarGraficoDomicilio(dadosSidra) {
+    console.log('Atualizando gráfico de domicílio com:', dadosSidra);
     
     const ctx2 = document.getElementById('donutChart2');
     
@@ -317,14 +317,17 @@ function atualizarGraficoDomicilio(domicilioProprio) {
         return;
     }
     
-    const percentualProprio = Number(domicilioProprio) || 0;
-    const percentualNaoProprio = 100 - percentualProprio;
+    // Extraindo os valores dos dados retornados pela query
+    const umMorador = Number(dadosSidra.umMorador) || 0;
+    const doisMoradores = Number(dadosSidra.doisMoradores) || 0;
+    const tresMoradores = Number(dadosSidra.tresMoradores) || 0;
+    const quatroMoradoresOuMais = Number(dadosSidra.quatroMoradoresOuMais) || 0;
     
     const data2 = {
-        labels: ['Com Domicílio Próprio', 'Sem Domicílio Próprio'],
+        labels: ['1 Morador', '2 Moradores', '3 Moradores', '4+ Moradores'],
         datasets: [{
-            data: [percentualProprio, percentualNaoProprio],
-            backgroundColor: ['#2896df', '#09629d'],
+            data: [umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais],
+            backgroundColor: ['#2896df', '#09629d', '#1e7ba8', '#0d4f73'],
             borderWidth: 1
         }]
     };
@@ -343,13 +346,13 @@ function atualizarGraficoDomicilio(domicilioProprio) {
                 },
                 title: {
                     display: true,
-                    text: 'Percentual de Residências Próprias',
+                    text: 'Distribuição de Moradores por Domicílio',
                 },
                 tooltip: {
                     enabled: true,
                     callbacks: {
                         label: function(context) {
-                            return context.label + ': ' + context.parsed + '%';
+                            return context.label + ': ' + context.parsed;
                         }
                     }
                 },
@@ -371,6 +374,59 @@ function atualizarGraficoDomicilio(domicilioProprio) {
     }
 }
 
+// Função para fazer a requisição e atualizar o gráfico
+function carregarDadosSidra(cidade) {
+    var cidadeEscolhida = document.getElementById("select_cidade").value;
+    console.log('=== DEBUG SIDRA ===');
+    console.log('Tipo da variável cidade:', typeof cidade);
+    console.log('Valor da variável cidade:', cidade);
+    console.log('Cidade está undefined?', cidade === undefined);
+    console.log('Cidade está null?', cidade === null);
+    console.log('Cidade está vazia?', cidade === '');
+    
+    if (!cidade) {
+        console.log('ERRO: Cidade não informada!');
+        return;
+    }
+    
+    const url = `/dashboardConstrutora/dadosSidraProprio/${cidade}`;
+    console.log('URL da requisição:', url);
+    
+    fetch(url)
+        .then(response => {
+            console.log('Status da resposta:', response.status);
+            console.log('Response OK?', response.ok);
+            console.log('Headers da resposta:', response.headers);
+            
+            if (!response.ok) {
+                throw new Error('Erro na requisição: ' + response.status);
+            }
+            
+            // Verificar se a resposta tem conteúdo antes de tentar fazer JSON
+            return response.text().then(text => {
+                console.log('Resposta como texto:', text);
+                if (!text) {
+                    throw new Error('Resposta vazia do servidor');
+                }
+                try {
+                    return JSON.parse(text);
+                } catch (error) {
+                    console.error('Erro ao fazer parse do JSON:', error);
+                    console.error('Texto recebido:', text);
+                    throw new Error('Resposta não é um JSON válido');
+                }
+            });
+        })
+        .then(dados => {
+            console.log('Dados recebidos do backend:', dados);
+            console.log('Tipo dos dados:', typeof dados);
+            atualizarGraficoDomicilio(dados);
+        })
+        .catch(error => {
+            console.error('Erro detalhado ao carregar dados do SIDRA:', error);
+            console.error('Stack trace:', error.stack);
+        });
+}
 // ============== FUNÇÃO PARA BUSCAR DADOS DA CIDADE - CORRIGIDA ==============
 
 function buscarDadosCidade() {

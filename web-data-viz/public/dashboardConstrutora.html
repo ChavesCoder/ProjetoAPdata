@@ -19,7 +19,7 @@
 <script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
     data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
 
-<body onload="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore();">
+<body onload="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore(), carregarDadosSidra();">
 <!-- <body onload="buscarDadosCidade(); buscarDados();"> -->
     <main>
         <div class="sidebar">
@@ -50,7 +50,7 @@
                 <div class="kpis-S1">
                     <div class="kpi-1">
                         <span>Você está visualizando os dados de <span>
-                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore()" >
+                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore(), carregarDadosSidra()" >
                                     <option value="São Paulo">São Paulo</option>
                                     <option value="Barueri">Barueri</option>
                                     <option value="Campinas">Campinas</option>
