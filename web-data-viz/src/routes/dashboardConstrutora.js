@@ -10,5 +10,9 @@ router.get("/dadosCidade/:cidade", function (req, res) {
   router.get("/dadosCidade/:cidade", function (req, res) {
     dashboardConstrutoraControllers.totalPrecoMedio(req, res);
   });
+  
+  router.get("/dadosSidraProprio/:cidade", function (req, res) {
+    dashboardConstrutoraControllers.sidraProprioChart(req, res);
+  });
 
 module.exports = router;

@@ -39,12 +39,26 @@ function totalPrecoMedio(cidade){
         ORDER BY periodo DESC
         LIMIT 1
     `
-     console.log("Executando a SQL: \n" + instrucaoSql);
+    console.log("Executando a SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
+}
+
+function sidraProprioChart(cidade){
+    var instrucaoSql = `
+    SELECT municipio, umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais 
+    FROM SidraProprio
+    JOIN Regiao
+    ON fkRegiao = (SELECT idRegiao FROM Regiao WHERE municipio = '${cidade}');
+    `
+    console.log("Executando a SQL: \n" + instrucaoSql);
+    console.log("Cidade recebida:", cidade);
+    return database.executar(instrucaoSql);
+
 }
 
 module.exports = {
     buscarDadosKPIS,
-    totalPrecoMedio
+    totalPrecoMedio,
+    sidraProprioChart
 };
 
