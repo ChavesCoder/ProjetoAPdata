@@ -1,4 +1,3 @@
-
 // Labels do gráfico
 const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
@@ -61,6 +60,7 @@ function redirecionarCadastro() {
       window.location.href = "cadastrarUsuario.html";
     }
   };
+
 // Função para criar o gráfico inicial
 async function criarGraficoInicial() {
     const cidadeSelecionada1 = document.getElementById('selectCidade1').value;
@@ -71,7 +71,20 @@ async function criarGraficoInicial() {
 
     try {
         const response = await fetch(`/variacao/${anoSelecionado}/${cidadeSelecionada1}/${cidadeSelecionada2}/${cidadeSelecionada3}/${cidadeSelecionada4}`);
-        const dadosPorCidade = await response.json();
+        
+        // FIX 1: Verificar se a resposta é válida
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // FIX 2: Verificar se há conteúdo antes de fazer parse
+        const text = await response.text();
+        if (!text.trim()) {
+            console.error('Resposta vazia da API');
+            return;
+        }
+
+        const dadosPorCidade = JSON.parse(text);
         
         // Armazenar dados globalmente para uso em outras funções
         dadosGlobais = dadosPorCidade;
@@ -212,7 +225,19 @@ async function buscarDados() {
     try {
         // Buscar novos dados da API
         const response = await fetch(`/variacao/${anoSelecionado}/${cidadeSelecionada1}/${cidadeSelecionada2}/${cidadeSelecionada3}/${cidadeSelecionada4}`);
-        const dadosPorCidade = await response.json();
+        
+        // FIX 3: Verificar resposta antes de fazer parse
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const text = await response.text();
+        if (!text.trim()) {
+            console.error('Resposta vazia da API ao atualizar');
+            return;
+        }
+
+        const dadosPorCidade = JSON.parse(text);
         
         // Atualizar dados globais
         dadosGlobais = dadosPorCidade;
@@ -303,27 +328,41 @@ function buscarDadosCidade() {
     })
     .then(function (resposta) {
         if (resposta.ok) {
-            resposta.json().then(function (dados) {
-                console.log(dados);
-                // Atualize o dashboard e os gráficos com os dados
-                atualizarDashboard(dados);
+            // FIX 4: Verificar se há conteúdo antes de fazer parse
+            return resposta.text().then(function(text) {
+                if (!text.trim()) {
+                    throw new Error('Resposta vazia da API');
+                }
+                return JSON.parse(text);
             });
         } else {
-            console.error("Erro ao buscar dados da cidade");
+            throw new Error(`HTTP error! status: ${resposta.status}`);
         }
+    })
+    .then(function (dados) {
+        console.log(dados);
+        // Atualize o dashboard e os gráficos com os dados
+        atualizarDashboard(dados);
     })
     .catch(function (erro) {
         console.error("Erro na requisição:", erro);
     });
 }
 
-// Função para atualizar o conteúdo do dashboard com os dados da cidade
+// FIX 5: Função para atualizar o conteúdo do dashboard com verificações de null
 function atualizarDashboard(dados) {
-    let mediaFormatada = Number(dados.mediaDomicilio);
-    let preco1quarto = dados.precoMedioUmDormitorio;
-    let preco2quarto = dados.precoMedioDoisDormitorios;
-    let preco3quarto = dados.precoMedioTresDormitorios;
-    let preco4quarto = dados.precoMedioQuatroDormitorios;
+    // Verificar se dados existe e tem as propriedades necessárias
+    if (!dados) {
+        console.error('Dados não fornecidos para atualizarDashboard');
+        return;
+    }
+
+    // FIX: Usar valores padrão caso os dados sejam null/undefined
+    let mediaFormatada = dados.mediaDomicilio != null ? Number(dados.mediaDomicilio) : 0;
+    let preco1quarto = dados.precoMedioUmDormitorio != null ? dados.precoMedioUmDormitorio : 0;
+    let preco2quarto = dados.precoMedioDoisDormitorios != null ? dados.precoMedioDoisDormitorios : 0;
+    let preco3quarto = dados.precoMedioTresDormitorios != null ? dados.precoMedioTresDormitorios : 0;
+    let preco4quarto = dados.precoMedioQuatroDormitorios != null ? dados.precoMedioQuatroDormitorios : 0;
     
     const mediaMoradoresElement = document.getElementById("mediaMoradores");
     const umDormitorioElement = document.getElementById("umDormitorio");
@@ -331,14 +370,26 @@ function atualizarDashboard(dados) {
     const tresDormitorioElement = document.getElementById("tresDormitorio");
     const quatroDormitorioElement = document.getElementById("quatroDormitorio");
     
-    if (mediaMoradoresElement) mediaMoradoresElement.innerText = mediaFormatada.toFixed(2);
-    if (umDormitorioElement) umDormitorioElement.innerText = "R$ " + preco1quarto.toFixed(2);
-    if (doisDormitorioElement) doisDormitorioElement.innerText = "R$ " + preco2quarto.toFixed(2);
-    if (tresDormitorioElement) tresDormitorioElement.innerText = "R$ " + preco3quarto.toFixed(2);
-    if (quatroDormitorioElement) quatroDormitorioElement.innerText = "R$ " + preco4quarto.toFixed(2);
+    // FIX: Verificar se os elementos existem E se os valores não são null antes de usar toFixed
+    if (mediaMoradoresElement && mediaFormatada != null) {
+        mediaMoradoresElement.innerText = mediaFormatada.toFixed(2);
+    }
+    if (umDormitorioElement && preco1quarto != null) {
+        umDormitorioElement.innerText = "R$ " + preco1quarto.toFixed(2);
+    }
+    if (doisDormitorioElement && preco2quarto != null) {
+        doisDormitorioElement.innerText = "R$ " + preco2quarto.toFixed(2);
+    }
+    if (tresDormitorioElement && preco3quarto != null) {
+        tresDormitorioElement.innerText = "R$ " + preco3quarto.toFixed(2);
+    }
+    if (quatroDormitorioElement && preco4quarto != null) {
+        quatroDormitorioElement.innerText = "R$ " + preco4quarto.toFixed(2);
+    }
     
     // Atualiza o gráfico de Domicílio Próprio
-    atualizarGraficoDomicilio(Number(dados.totalMoradoresProprio));
+    let totalMoradoresProprio = dados.totalMoradoresProprio != null ? Number(dados.totalMoradoresProprio) : 0;
+    atualizarGraficoDomicilio(totalMoradoresProprio);
 }
 
 // ============== INICIALIZAÇÃO ==============
