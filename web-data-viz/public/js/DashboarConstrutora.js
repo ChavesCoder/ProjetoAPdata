@@ -1,3 +1,7 @@
+// População total mockoda
+
+
+
 // Labels do gráfico
 const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
@@ -394,9 +398,18 @@ function buscarDadosCidade() {
     });
 }
 
+
 // ============== FUNÇÃO PARA ATUALIZAR DASHBOARD - CORRIGIDA ==============
 
 function atualizarDashboard(dados) {
+
+    let mediaFormatada = Number(dados.mediaDomicilio);
+    let preco1quarto = dados.precoMedioUmDormitorio;
+    let preco2quarto = dados.precoMedioDoisDormitorios;
+    let preco3quarto = dados.precoMedioTresDormitorios;
+    let preco4quarto = dados.precoMedioQuatroDormitorios
+
+    const totalQuarto = (dados.precoMedioUmDormitorio + dados.precoMedioDoisDormitorios + dados.precoMedioTresDormitorios + dados.precoMedioQuatroDormitorios) / 4;
     console.log('Atualizando dashboard com dados:', dados);
     
     // Verificar se os dados existem
@@ -409,31 +422,31 @@ function atualizarDashboard(dados) {
     const precoMedio = dados.precoMedio || dados.precoMedioUmDormitorio || 0;
     const populacaoTotal = dados.populacaoTotal || 0;
     const percentualDomicilioProprio = dados.totalMoradoresProprio || dados.domicilioProprio || dados.percentualDomicilioProprio || 0;
-    const scoreValue = dados.score || 0;
+    //const scoreValue = dados.score || 0;
     
     console.log('Valores extraídos:', {
         precoMedio,
         populacaoTotal,
         percentualDomicilioProprio,
-        scoreValue
+   //     scoreValue
     });
     
     // Atualizar elementos do HTML
-    const precoMedioElement = document.getElementById("umDormitorio");
+    const precoMedioElement = document.getElementById("totalDormitorio");
     const populacaoElement = document.getElementById("doisDormitorio");
-    const scoreElement = document.getElementById("score");
+  //  const scoreElement = document.getElementById("score");
     
     if (precoMedioElement) {
-        precoMedioElement.innerText = "R$ " + Number(precoMedio).toFixed(2);
+        precoMedioElement.innerText = "R$ " + Number(totalQuarto).toFixed(2);
     }
     
     if (populacaoElement) {
         populacaoElement.innerText = Number(populacaoTotal).toLocaleString('pt-BR');
     }
     
-    if (scoreElement) {
-        scoreElement.innerText = Number(scoreValue).toFixed(1);
-    }
+  //  if (scoreElement) {
+  //      scoreElement.innerText = Number(scoreValue).toFixed(1);
+  //  }
     
     // Converter para número de forma segura
     const percentualNumerico = Number(percentualDomicilioProprio) || 0;
@@ -482,3 +495,61 @@ document.addEventListener('DOMContentLoaded', function() {
     if (selectCidade3) selectCidade3.addEventListener('change', buscarDados);
     if (selectCidade4) selectCidade4.addEventListener('change', buscarDados);
 });
+
+
+
+function buscarPopulacao() {
+            const cidade = document.getElementById('select_cidade').value;
+
+            const populacoes = {
+                "São Paulo": 11696491,
+                "Barueri": 276982,
+                "Campinas": 1213792,
+                "Diadema": 426757,
+                "Guarujá": 322750,
+                "Guarulhos": 1392121,
+                "Osasco": 743212,
+                "Praia Grande": 330845,
+                "Ribeirão Preto": 720116,
+                "Santo André": 721368,
+                "Santos": 433311,
+                "São Bernardo do Campo": 844483,
+                "São Caetano do Sul": 165558,
+                "São José do Rio Preto": 484752,
+                "São José dos Campos": 737310,
+                "São Vicente": 368355
+            };
+
+            const populacao = populacoes[cidade];
+
+            document.getElementById('populacao').textContent = populacao.toLocaleString('pt-BR') + " habitantes";
+        }
+
+
+
+function buscarScore() {
+            const cidade = document.getElementById('select_cidade').value;
+
+            const scores = {
+                "Santos": 0.948,
+                "Praia Grande": 0.813,
+                "São José dos Campos": 0.702,
+                "Barueri": 0.651,
+                "Osasco": 0.595,
+                "Campinas": 0.583,
+                "Guarujá": 0.576,
+                "Ribeirão Preto": 0.42,
+                "São Bernardo do Campo": 0.417,
+                "Guarulhos": 0.41,
+                "São Vicente": 0.4,
+                "Diadema": 0.372,
+                "São Caetano do Sul": 0.346,
+                "Santo André": 0.326,
+                "São Paulo": 0.595,
+                "São José do Rio Preto": 0.22
+            };
+            const score = scores[cidade] * 10;
+
+            document.getElementById('score').textContent = score.toLocaleString('pt-BR') + "";
+        }
+

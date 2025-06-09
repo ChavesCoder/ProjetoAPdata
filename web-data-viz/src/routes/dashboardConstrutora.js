@@ -7,4 +7,8 @@ router.get("/dadosCidade/:cidade", function (req, res) {
     dashboardConstrutoraControllers.buscarDadosKPIS(req, res);
   });
 
+  router.get("/dadosCidade/:cidade", function (req, res) {
+    dashboardConstrutoraControllers.totalPrecoMedio(req, res);
+  });
+
 module.exports = router;

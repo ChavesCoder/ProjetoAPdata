@@ -31,7 +31,20 @@ WHERE
     return database.executar(instrucaoSql);
 }
 
+function totalPrecoMedio(cidade){
+    var instrucaoSql = `
+    SELECT total
+        FROM PrecoMedio
+        WHERE fkRegiao = (SELECT idRegiao FROM Regiao WHERE municipio = '${cidade}')
+        ORDER BY periodo DESC
+        LIMIT 1
+    `
+     console.log("Executando a SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-    buscarDadosKPIS
+    buscarDadosKPIS,
+    totalPrecoMedio
 };
 

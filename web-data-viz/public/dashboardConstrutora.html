@@ -19,7 +19,7 @@
 <script data-jsd-embedded data-key="c1c8f828-306c-4170-bbb7-1b74655c36af"
     data-base-url="https://jsd-widget.atlassian.com" src="https://jsd-widget.atlassian.com/assets/embed.js"></script>
 
-<body onload="buscarDadosCidade(), atualizarGraficoAlugado();">
+<body onload="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore();">
 <!-- <body onload="buscarDadosCidade(); buscarDados();"> -->
     <main>
         <div class="sidebar">
@@ -50,7 +50,7 @@
                 <div class="kpis-S1">
                     <div class="kpi-1">
                         <span>Você está visualizando os dados de <span>
-                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado()">
+                                <select id="select_cidade" onchange="buscarDadosCidade(), atualizarGraficoAlugado(), buscarPopulacao(), buscarScore()" >
                                     <option value="São Paulo">São Paulo</option>
                                     <option value="Barueri">Barueri</option>
                                     <option value="Campinas">Campinas</option>
@@ -73,16 +73,17 @@
                         <div class="container-kpi2-1">
                             <div class="container-dormitorios">
                                 <div class="dados-dormitorio">
-                                    <h4>1 Preço Médio por m²</h4>
-                                    <span id="umDormitorio"></span>
+                                    <h4>Total Preço Médio por m²</h4>
+                                    <span id="totalDormitorio"></span>
                                 </div>
                                 <div class="dados-dormitorio">
                                     <h4>População Total</h4>
-                                    <span id="doisDormitorio"></span>
+                                    <span id="populacao"></span>
                                 </div>
                                 <div class="dados-dormitorio">
                                     <h4>População morando de aluguel</h4>
                                     <canvas id="donutChartAluguel"></canvas>
+                                    
                                 </div>  
                                 <div class="container-kpi2-2">
                                     <h3>Score</h3>
