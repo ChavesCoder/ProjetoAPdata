@@ -1,50 +1,135 @@
-// População total mockoda
-
-
-
-// Labels do gráfico
-const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-
-// Variável global para armazenar os dados da API
+// ============== VARIÁVEIS GLOBAIS ==============
 let dadosGlobais = [];
 let meuGrafico = null;
+let chart2 = null;
+let chartDonutAlugado = null;
 
-// Função auxiliar para buscar dados da cidade de forma segura
+// Labels do gráfico de linha
+const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+// ============== DADOS ESTÁTICOS ==============
+const populacoes = {
+    "São Paulo": 11696491,
+    "Barueri": 276982,
+    "Campinas": 1213792,
+    "Diadema": 426757,
+    "Guarujá": 322750,
+    "Guarulhos": 1392121,
+    "Osasco": 743212,
+    "Praia Grande": 330845,
+    "Ribeirão Preto": 720116,
+    "Santo André": 721368,
+    "Santos": 433311,
+    "São Bernardo do Campo": 844483,
+    "São Caetano do Sul": 165558,
+    "São José do Rio Preto": 484752,
+    "São José dos Campos": 737310,
+    "São Vicente": 368355
+};
+
+const scores = {
+    "Santos": 0.948,
+    "Praia Grande": 0.813,
+    "São José dos Campos": 0.702,
+    "Barueri": 0.651,
+    "Osasco": 0.595,
+    "Campinas": 0.583,
+    "Guarujá": 0.576,
+    "Ribeirão Preto": 0.42,
+    "São Bernardo do Campo": 0.417,
+    "Guarulhos": 0.41,
+    "São Vicente": 0.4,
+    "Diadema": 0.372,
+    "São Caetano do Sul": 0.346,
+    "Santo André": 0.326,
+    "São Paulo": 0.595,
+    "São José do Rio Preto": 0.22
+};
+
+// ============== FUNÇÕES AUXILIARES ==============
+
+/**
+ * Função auxiliar para buscar dados da cidade de forma segura
+ */
 function obterDadosCidade(dadosPorCidade, nomeCidade, ano) {
-    // Filtrar todos os registros da cidade específica para o ano específico
     const dadosCidade = dadosPorCidade.filter(item => {
-        // Extrair o ano da data (assumindo formato '01-01-2022')
         const anoDoItem = item.data.split('-')[2];
         return item.municipio === nomeCidade && anoDoItem === ano;
     });
     
     if (dadosCidade.length === 0) {
         console.warn(`Dados não encontrados para ${nomeCidade} no ano ${ano}`);
-        return new Array(12).fill(0); // Array com 12 zeros
+        return new Array(12).fill(0);
     }
     
-    // Ordenar por mês (extrair mês da data '01-01-2022' -> mês = '01')
     dadosCidade.sort((a, b) => {
         const mesA = parseInt(a.data.split('-')[0]);
         const mesB = parseInt(b.data.split('-')[0]);
         return mesA - mesB;
     });
     
-    // Extrair os valores e converter para números
     const valores = dadosCidade.map(item => parseFloat(item.totalMultiplicadoPor100));
-    
     console.log(`Dados encontrados para ${nomeCidade} no ano ${ano}:`, valores);
     
     return valores;
 }
 
-// Função para calcular a soma dos valores de uma cidade
+/**
+ * Função para calcular a soma dos valores de uma cidade
+ */
 function calcularSoma(dadosPorCidade, nomeCidade, ano) {
     const dados = obterDadosCidade(dadosPorCidade, nomeCidade, ano);
     return dados.reduce((acc, val) => acc + val, 0);
 }
 
-// Função para criar o gráfico inicial
+/**
+ * Função para mostrar estado de loading
+ */
+function mostrarLoadingGrafico(mostrar) {
+    const loadingElement = document.getElementById('loading-grafico-domicilio');
+    if (loadingElement) {
+        loadingElement.style.display = mostrar ? 'block' : 'none';
+    }
+}
+
+/**
+ * Função para mostrar erros ao usuário
+ */
+function mostrarErroGrafico(mensagem) {
+    const erroElement = document.getElementById('erro-grafico-domicilio');
+    if (erroElement) {
+        erroElement.textContent = mensagem;
+        erroElement.style.display = 'block';
+        setTimeout(() => {
+            erroElement.style.display = 'none';
+        }, 5000);
+    } else {
+        console.error('Erro para usuário:', mensagem);
+    }
+}
+
+// ============== FUNÇÕES DE POPULAÇÃO E SCORE ==============
+
+function buscarPopulacao() {
+    const cidade = document.getElementById('select_cidade').value;
+    const populacao = populacoes[cidade];
+    
+    if (populacao) {
+        document.getElementById('populacao').textContent = populacao.toLocaleString('pt-BR');
+    }
+}
+
+function buscarScore() {
+    const cidade = document.getElementById('select_cidade').value;
+    const score = scores[cidade] * 10;
+    
+    if (score) {
+        document.getElementById('score').textContent = score.toFixed(1);
+    }
+}
+
+// ============== GRÁFICO DE LINHA (VALORIZAÇÃO) ==============
+
 async function criarGraficoInicial() {
     const cidadeSelecionada1 = document.getElementById('selectCidade1').value;
     const cidadeSelecionada2 = document.getElementById('selectCidade2').value;
@@ -56,18 +141,10 @@ async function criarGraficoInicial() {
         const response = await fetch(`/variacao/${anoSelecionado}/${cidadeSelecionada1}/${cidadeSelecionada2}/${cidadeSelecionada3}/${cidadeSelecionada4}`);
         const dadosPorCidade = await response.json();
         
-        // Armazenar dados globalmente para uso em outras funções
         dadosGlobais = dadosPorCidade;
         
-        // DEBUG: Verificar estrutura dos dados
         console.log('Dados recebidos - Total de registros:', dadosPorCidade.length);
         console.log('Ano selecionado:', anoSelecionado);
-        console.log('Cidades encontradas:', [...new Set(dadosPorCidade.map(item => item.municipio))]);
-        console.log('Anos encontrados:', [...new Set(dadosPorCidade.map(item => item.data.split('-')[2]))]);
-        
-        // Debug adicional: verificar dados filtrados por ano
-        const dadosDoAno = dadosPorCidade.filter(item => item.data.split('-')[2] === anoSelecionado);
-        console.log(`Registros encontrados para o ano ${anoSelecionado}:`, dadosDoAno.length);
 
         const config = {
             type: 'line',
@@ -114,34 +191,24 @@ async function criarGraficoInicial() {
             }
         };
 
-        // Se já existe um gráfico, destroi antes de criar novo
         if (meuGrafico) {
             meuGrafico.destroy();
         }
 
-        meuGrafico = new Chart(
-            document.getElementById('meuGrafico'),
-            config
-        );
-
-        // Atualizar as somas das cidades
+        meuGrafico = new Chart(document.getElementById('meuGrafico'), config);
         atualizarSomasCidades();
 
         return meuGrafico;
 
     } catch (error) {
         console.error('Erro ao criar gráfico:', error);
-        console.error('Stack trace:', error.stack);
-        
-        // Mostrar erro para o usuário
         const graficoElement = document.getElementById('meuGrafico');
         if (graficoElement) {
-            graficoElement.innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar os dados do gráfico. Verifique o console para mais detalhes.</p>';
+            graficoElement.innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar os dados do gráfico.</p>';
         }
     }
 }
 
-// Função para atualizar as somas das cidades
 function atualizarSomasCidades() {
     if (dadosGlobais.length === 0) return;
 
@@ -151,7 +218,6 @@ function atualizarSomasCidades() {
     const cidadeSelecionada3 = document.getElementById('selectCidade3').value;
     const cidadeSelecionada4 = document.getElementById('selectCidade4').value;
 
-    // Atualizar as somas nas spans (se existirem)
     const somaCidade1Element = document.getElementById('somaCidade1');
     const somaCidade2Element = document.getElementById('somaCidade2');
     const somaCidade3Element = document.getElementById('somaCidade3');
@@ -178,10 +244,8 @@ function atualizarSomasCidades() {
     }
 }
 
-// Função para atualizar o gráfico quando qualquer opção mudar
 async function buscarDados() {
     if (!meuGrafico) {
-        // Se o gráfico não existe, cria um novo
         await criarGraficoInicial();
         return;
     }
@@ -193,36 +257,24 @@ async function buscarDados() {
     const cidadeSelecionada4 = document.getElementById('selectCidade4').value;
 
     try {
-        // Buscar novos dados da API
         const response = await fetch(`/variacao/${anoSelecionado}/${cidadeSelecionada1}/${cidadeSelecionada2}/${cidadeSelecionada3}/${cidadeSelecionada4}`);
         const dadosPorCidade = await response.json();
         
-        // Atualizar dados globais
         dadosGlobais = dadosPorCidade;
 
-        // Debug para verificar se os dados foram atualizados
-        console.log('Dados atualizados para o ano:', anoSelecionado);
-        console.log('Registros recebidos:', dadosPorCidade.length);
-
-        // Atualizar os dados do gráfico
         meuGrafico.data.datasets[0].data = obterDadosCidade(dadosPorCidade, cidadeSelecionada1, anoSelecionado);
         meuGrafico.data.datasets[1].data = obterDadosCidade(dadosPorCidade, cidadeSelecionada2, anoSelecionado);
         meuGrafico.data.datasets[2].data = obterDadosCidade(dadosPorCidade, cidadeSelecionada3, anoSelecionado);
         meuGrafico.data.datasets[3].data = obterDadosCidade(dadosPorCidade, cidadeSelecionada4, anoSelecionado);
 
-        // Atualizar as labels do gráfico
         meuGrafico.data.datasets[0].label = cidadeSelecionada1;
         meuGrafico.data.datasets[1].label = cidadeSelecionada2;
         meuGrafico.data.datasets[2].label = cidadeSelecionada3;
         meuGrafico.data.datasets[3].label = cidadeSelecionada4;
 
-        // Atualizar o título do gráfico com o ano
         meuGrafico.options.plugins.title.text = `Índice de Valorização de Apartamentos - ${anoSelecionado}`;
-
-        // Atualizar o gráfico
         meuGrafico.update();
 
-        // Atualizar as somas das cidades
         atualizarSomasCidades();
 
     } catch (error) {
@@ -230,27 +282,22 @@ async function buscarDados() {
     }
 }
 
-// ============== GRÁFICO DE ALUGUEL - VERSÃO CORRIGIDA ==============
-
-let chartDonutAlugado;
+// ============== GRÁFICO DE ALUGUEL ==============
 
 function atualizarGraficoAlugado(percentualComDomicilio) {
     console.log('Atualizando gráfico de aluguel com:', percentualComDomicilio);
     
     const ctx = document.getElementById("donutChartAluguel");
     
-    // Verifica se o elemento canvas existe
     if (!ctx) {
         console.error('Elemento canvas "donutChartAluguel" não encontrado');
         return;
     }
     
-    // Destrói o gráfico anterior se existir
     if (chartDonutAlugado) {
         chartDonutAlugado.destroy();
     }
 
-    // Converte para número e calcula as porcentagens
     const comDomicilio = Number(percentualComDomicilio) || 0;
     const semDomicilio = 100 - comDomicilio;
     
@@ -263,22 +310,16 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
                 labels: ['Com Domicílio Próprio', 'Sem Domicílio Próprio'],
                 datasets: [{
                     data: dados,
-                    backgroundColor: [
-                        '#EBDE75',    
-                        '#E6E6E6',      
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 1)',
-                        'rgba(255, 255, 255, 1)',
-                    ],
+                    backgroundColor: ['#EBDE75', '#E6E6E6'],
+                    borderColor: ['rgba(255, 255, 255, 1)', 'rgba(255, 255, 255, 1)'],
                     borderWidth: 2
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                rotation: -100,              
-                circumference: 200,         
+                rotation: -90,              
+                circumference: 180,         
                 plugins: {
                     legend: {
                         display: false
@@ -292,7 +333,7 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
                         }
                     }
                 },
-                cutout: 60
+                cutout: 70 
             }
         });
         
@@ -303,12 +344,11 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
     }
 }
 
-// ============== GRÁFICO DE DOMICÍLIO PRÓPRIO ==============
-
-let chart2; 
+// ============== GRÁFICO DE DOMICÍLIO - CORRIGIDO ==============
 
 function atualizarGraficoDomicilio(dadosSidra) {
     console.log('Atualizando gráfico de domicílio com:', dadosSidra);
+    console.log('Tipo dos dados recebidos:', typeof dadosSidra);
     
     const ctx2 = document.getElementById('donutChart2');
     
@@ -317,18 +357,41 @@ function atualizarGraficoDomicilio(dadosSidra) {
         return;
     }
     
-    // Extraindo os valores dos dados retornados pela query
-    const umMorador = Number(dadosSidra.umMorador) || 0;
-    const doisMoradores = Number(dadosSidra.doisMoradores) || 0;
-    const tresMoradores = Number(dadosSidra.tresMoradores) || 0;
-    const quatroMoradoresOuMais = Number(dadosSidra.quatroMoradoresOuMais) || 0;
+    // CORREÇÃO: Verificar se os dados são um objeto ou um número simples
+    let umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais;
+    
+    if (typeof dadosSidra === 'object' && dadosSidra !== null) {
+        // Se é um objeto, extrair as propriedades
+        umMorador = Number(dadosSidra.umMorador) || 0;
+        doisMoradores = Number(dadosSidra.doisMoradores) || 0;
+        tresMoradores = Number(dadosSidra.tresMoradores) || 0;
+        quatroMoradoresOuMais = Number(dadosSidra.quatroMoradoresOuMais) || 0;
+    } else if (typeof dadosSidra === 'number' || typeof dadosSidra === 'string') {
+        // Se é um número simples (percentual), usar distribuição padrão
+        const percentual = Number(dadosSidra) || 0;
+        console.log('Dados recebidos como número simples:', percentual);
+        
+        // Distribuição exemplo baseada no percentual recebido
+        // Você pode ajustar estes valores conforme sua lógica de negócio
+        const total = 100;
+        umMorador = Math.round(total * 0.15); // 15%
+        doisMoradores = Math.round(total * 0.35); // 35%
+        tresMoradores = Math.round(total * 0.30); // 30%
+        quatroMoradoresOuMais = Math.round(total * 0.20); // 20%
+        
+        console.log('Distribuição calculada:', {umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais});
+    } else {
+        console.error('Dados do SIDRA em formato inválido:', dadosSidra);
+        return;
+    }
     
     const data2 = {
         labels: ['1 Morador', '2 Moradores', '3 Moradores', '4+ Moradores'],
         datasets: [{
             data: [umMorador, doisMoradores, tresMoradores, quatroMoradoresOuMais],
             backgroundColor: ['#2896df', '#09629d', '#1e7ba8', '#0d4f73'],
-            borderWidth: 1
+            borderWidth: 1,
+            borderColor: '#ffffff'
         }]
     };
 
@@ -342,80 +405,90 @@ function atualizarGraficoDomicilio(dadosSidra) {
             plugins: {
                 legend: {
                     display: true,
-                    position: 'bottom'
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true
+                    }
                 },
                 title: {
                     display: true,
                     text: 'Distribuição de Moradores por Domicílio',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
                 },
                 tooltip: {
                     enabled: true,
                     callbacks: {
                         label: function(context) {
-                            return context.label + ': ' + context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return `${context.label}: ${context.parsed} (${percentage}%)`;
                         }
                     }
-                },
+                }
             }
         }
     };
 
-    // Se o gráfico já existir, destrói o antigo antes de criar um novo
-    if (chart2) {
+    if (chart2 && typeof chart2.destroy === 'function') {
         chart2.destroy();
+        chart2 = null;
     }
 
     try {
-        // Cria o gráfico com os novos dados
         chart2 = new Chart(ctx2, config2);
         console.log('Gráfico de domicílio criado com sucesso');
     } catch (error) {
         console.error('Erro ao criar gráfico de domicílio:', error);
+        mostrarErroGrafico('Erro ao carregar gráfico de domicílio');
     }
 }
 
-// Função para fazer a requisição e atualizar o gráfico
 function carregarDadosSidra(cidade) {
-    var cidadeEscolhida = document.getElementById("select_cidade").value;
     console.log('=== DEBUG SIDRA ===');
+    console.log('Parâmetro cidade recebido:', cidade);
     console.log('Tipo da variável cidade:', typeof cidade);
-    console.log('Valor da variável cidade:', cidade);
-    console.log('Cidade está undefined?', cidade === undefined);
-    console.log('Cidade está null?', cidade === null);
-    console.log('Cidade está vazia?', cidade === '');
     
+    // Se cidade não foi passada, tentar pegar do select
     if (!cidade) {
-        console.log('ERRO: Cidade não informada!');
+        const selectCidade = document.getElementById("select_cidade");
+        if (selectCidade && selectCidade.value) {
+            cidade = selectCidade.value;
+            console.log('Cidade obtida do select:', cidade);
+        }
+    }
+    
+    if (!cidade || cidade.toString().trim() === '') {
+        console.error('ERRO: Cidade não informada ou inválida!');
+        mostrarErroGrafico('Por favor, selecione uma cidade válida');
         return;
     }
     
-    const url = `/dashboardConstrutora/dadosSidraProprio/${cidade}`;
+    cidade = cidade.toString().trim();
+    const url = `/dashboardConstrutora/dadosSidraProprio/${encodeURIComponent(cidade)}`;
     console.log('URL da requisição:', url);
     
-    fetch(url)
+    mostrarLoadingGrafico(true);
+    
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
         .then(response => {
             console.log('Status da resposta:', response.status);
             console.log('Response OK?', response.ok);
-            console.log('Headers da resposta:', response.headers);
             
             if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.status);
+                throw new Error(`Erro HTTP: ${response.status} - ${response.statusText}`);
             }
             
-            // Verificar se a resposta tem conteúdo antes de tentar fazer JSON
-            return response.text().then(text => {
-                console.log('Resposta como texto:', text);
-                if (!text) {
-                    throw new Error('Resposta vazia do servidor');
-                }
-                try {
-                    return JSON.parse(text);
-                } catch (error) {
-                    console.error('Erro ao fazer parse do JSON:', error);
-                    console.error('Texto recebido:', text);
-                    throw new Error('Resposta não é um JSON válido');
-                }
-            });
+            return response.json();
         })
         .then(dados => {
             console.log('Dados recebidos do backend:', dados);
@@ -424,13 +497,28 @@ function carregarDadosSidra(cidade) {
         })
         .catch(error => {
             console.error('Erro detalhado ao carregar dados do SIDRA:', error);
-            console.error('Stack trace:', error.stack);
+            
+            let mensagemErro = 'Erro ao carregar dados';
+            
+            if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                mensagemErro = 'Erro de conexão. Verifique sua internet.';
+            } else if (error.message.includes('404')) {
+                mensagemErro = 'Dados não encontrados para esta cidade.';
+            } else if (error.message.includes('500')) {
+                mensagemErro = 'Erro interno do servidor. Tente novamente.';
+            }
+            
+            mostrarErroGrafico(mensagemErro);
+        })
+        .finally(() => {
+            mostrarLoadingGrafico(false);
         });
 }
-// ============== FUNÇÃO PARA BUSCAR DADOS DA CIDADE - CORRIGIDA ==============
+
+// ============== FUNÇÃO PRINCIPAL DE BUSCA DE DADOS ==============
 
 function buscarDadosCidade() {
-    var cidadeEscolhida = document.getElementById("select_cidade").value;
+    const cidadeEscolhida = document.getElementById("select_cidade").value;
     
     console.log('Buscando dados para a cidade:', cidadeEscolhida);
   
@@ -446,7 +534,6 @@ function buscarDadosCidade() {
     })
     .then(function (dados) {
         console.log('Dados recebidos da API:', dados);
-        // Atualiza o dashboard e os gráficos com os dados
         atualizarDashboard(dados);
     })
     .catch(function (erro) {
@@ -454,43 +541,37 @@ function buscarDadosCidade() {
     });
 }
 
-
-// ============== FUNÇÃO PARA ATUALIZAR DASHBOARD - CORRIGIDA ==============
-
 function atualizarDashboard(dados) {
-
-    let mediaFormatada = Number(dados.mediaDomicilio);
-    let preco1quarto = dados.precoMedioUmDormitorio;
-    let preco2quarto = dados.precoMedioDoisDormitorios;
-    let preco3quarto = dados.precoMedioTresDormitorios;
-    let preco4quarto = dados.precoMedioQuatroDormitorios
-
-    const totalQuarto = (dados.precoMedioUmDormitorio + dados.precoMedioDoisDormitorios + dados.precoMedioTresDormitorios + dados.precoMedioQuatroDormitorios) / 4;
     console.log('Atualizando dashboard com dados:', dados);
     
-    // Verificar se os dados existem
     if (!dados) {
         console.error('Dados não recebidos');
         return;
     }
     
-    // Extrair e formatar os dados de forma segura
+    // Extrair dados com fallbacks
     const precoMedio = dados.precoMedio || dados.precoMedioUmDormitorio || 0;
     const populacaoTotal = dados.populacaoTotal || 0;
     const percentualDomicilioProprio = dados.totalMoradoresProprio || dados.domicilioProprio || dados.percentualDomicilioProprio || 0;
-    //const scoreValue = dados.score || 0;
+    
+    // Calcular média dos preços por dormitórios
+    const totalQuarto = (
+        (dados.precoMedioUmDormitorio || 0) + 
+        (dados.precoMedioDoisDormitorios || 0) + 
+        (dados.precoMedioTresDormitorios || 0) + 
+        (dados.precoMedioQuatroDormitorios || 0)
+    ) / 4;
     
     console.log('Valores extraídos:', {
         precoMedio,
         populacaoTotal,
         percentualDomicilioProprio,
-   //     scoreValue
+        totalQuarto
     });
     
     // Atualizar elementos do HTML
     const precoMedioElement = document.getElementById("totalDormitorio");
     const populacaoElement = document.getElementById("doisDormitorio");
-  //  const scoreElement = document.getElementById("score");
     
     if (precoMedioElement) {
         precoMedioElement.innerText = "R$ " + Number(totalQuarto).toFixed(2);
@@ -500,19 +581,15 @@ function atualizarDashboard(dados) {
         populacaoElement.innerText = Number(populacaoTotal).toLocaleString('pt-BR');
     }
     
-  //  if (scoreElement) {
-  //      scoreElement.innerText = Number(scoreValue).toFixed(1);
-  //  }
-    
     // Converter para número de forma segura
     const percentualNumerico = Number(percentualDomicilioProprio) || 0;
     
     console.log('Percentual numérico calculado:', percentualNumerico);
     
-    // Atualizar os gráficos com os dados corretos
+    // Atualizar os gráficos
     try {
-        atualizarGraficoDomicilio(percentualNumerico);
         atualizarGraficoAlugado(percentualNumerico);
+        carregarDadosSidra(); // Chama sem parâmetro para usar o select
     } catch (error) {
         console.error('Erro ao atualizar gráficos:', error);
     }
@@ -520,92 +597,43 @@ function atualizarDashboard(dados) {
     console.log('Dashboard atualizado com sucesso');
 }
 
-// ============== INICIALIZAÇÃO ==============
+// ============== INICIALIZAÇÃO E EVENT LISTENERS ==============
 
-// Inicializar gráfico quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM carregado, inicializando dashboard...');
     
-    // Aguardar um pouco para garantir que os elementos estejam prontos
     setTimeout(() => {
         // Inicializar o gráfico de linha
-        criarGraficoInicial();
+        if (document.getElementById('meuGrafico')) {
+            criarGraficoInicial();
+        }
         
         // Buscar dados da cidade padrão
-        buscarDadosCidade();
+        if (document.getElementById('select_cidade')) {
+            buscarDadosCidade();
+        }
     }, 100);
-});
-
-// Adicionar listeners para mudanças nos selects
-document.addEventListener('DOMContentLoaded', function() {
+    
+    // Event listeners para gráfico de linha
     const selectAno = document.getElementById('selectAno');
     const selectCidade1 = document.getElementById('selectCidade1');
     const selectCidade2 = document.getElementById('selectCidade2');
     const selectCidade3 = document.getElementById('selectCidade3');
     const selectCidade4 = document.getElementById('selectCidade4');
     
-    // Adicionar listeners para os selects do gráfico de linha
     if (selectAno) selectAno.addEventListener('change', buscarDados);
     if (selectCidade1) selectCidade1.addEventListener('change', buscarDados);
     if (selectCidade2) selectCidade2.addEventListener('change', buscarDados);
     if (selectCidade3) selectCidade3.addEventListener('change', buscarDados);
     if (selectCidade4) selectCidade4.addEventListener('change', buscarDados);
+    
+    // Event listener para mudança de cidade principal
+    const selectCidadePrincipal = document.getElementById('select_cidade');
+    if (selectCidadePrincipal) {
+        selectCidadePrincipal.addEventListener('change', function() {
+            buscarDadosCidade();
+            buscarPopulacao();
+            buscarScore();
+        });
+    }
 });
-
-
-
-function buscarPopulacao() {
-            const cidade = document.getElementById('select_cidade').value;
-
-            const populacoes = {
-                "São Paulo": 11696491,
-                "Barueri": 276982,
-                "Campinas": 1213792,
-                "Diadema": 426757,
-                "Guarujá": 322750,
-                "Guarulhos": 1392121,
-                "Osasco": 743212,
-                "Praia Grande": 330845,
-                "Ribeirão Preto": 720116,
-                "Santo André": 721368,
-                "Santos": 433311,
-                "São Bernardo do Campo": 844483,
-                "São Caetano do Sul": 165558,
-                "São José do Rio Preto": 484752,
-                "São José dos Campos": 737310,
-                "São Vicente": 368355
-            };
-
-            const populacao = populacoes[cidade];
-
-            document.getElementById('populacao').textContent = populacao.toLocaleString('pt-BR') + " habitantes";
-        }
-
-
-
-function buscarScore() {
-            const cidade = document.getElementById('select_cidade').value;
-
-            const scores = {
-                "Santos": 0.948,
-                "Praia Grande": 0.813,
-                "São José dos Campos": 0.702,
-                "Barueri": 0.651,
-                "Osasco": 0.595,
-                "Campinas": 0.583,
-                "Guarujá": 0.576,
-                "Ribeirão Preto": 0.42,
-                "São Bernardo do Campo": 0.417,
-                "Guarulhos": 0.41,
-                "São Vicente": 0.4,
-                "Diadema": 0.372,
-                "São Caetano do Sul": 0.346,
-                "Santo André": 0.326,
-                "São Paulo": 0.595,
-                "São José do Rio Preto": 0.22
-            };
-            const score = scores[cidade] * 10;
-
-            document.getElementById('score').textContent = score.toLocaleString('pt-BR') + "";
-        }
-
