@@ -64,11 +64,60 @@ function validacoes() {
 }
 var senhaAleatoria = []
 
+function listarFuncionarios() {
+  const fkEmpresa = sessionStorage.FK_EMPRESA;
+
+  fetch(`/usuarios/listar-funcionarios?fkEmpresa=${fkEmpresa}`)
+    .then(res => res.json())
+    .then(dados => {
+      const tbody = document.getElementById("tableCampo");
+      tbody.innerHTML = ""; // limpa tabela
+
+      dados.forEach(func => {
+        tbody.innerHTML += `
+                    <tr>
+                        <td>${func.idUsuario}</td>
+                        <td>${func.tipoUsuario}</td>
+                        <td>${func.nome}</td>
+                        <td>${func.email}</td>
+                        <td>${func.telefone}</td>
+                        <td>
+               <button class="delete-btn" onclick="deletarPerfil(${func.idUsuario})">
+                <span class="material-symbols-outlined">delete</span>
+               </button>
+            </td>
+                    </tr>
+                `;
+      });
+    })
+    .catch(erro => console.error("Erro ao listar funcionários:", erro));
+}
+
+function deletarPerfil(idUsuario) {
+  if (!confirm("Tem certeza que deseja excluir o usuário?")) return;
+
+  fetch(`/usuarios/deletar/${idUsuario}`, {
+    method: 'DELETE'
+  })
+    .then(res => {
+      if (res.ok) {
+        alert("Usuário excluído com sucesso!");
+        listarFuncionarios(); // recarrega a tabela
+      } else {
+        return res.json().then(err => { throw new Error(err.erro || "Erro desconhecido"); });
+      }
+    })
+    .catch(err => {
+      console.error("Erro ao excluir usuário:", err);
+      alert("Erro ao excluir usuário.");
+    });
+}
+
 function cadastrar2() {
 
   var TipoUser = inp_tipo.value;
 
- 
+
   var letras = 'abcdefghijklmnopqrstuvwxyz';
 
   for (var contador = 1; contador <= 10; contador++) {
@@ -91,14 +140,7 @@ function cadastrar2() {
     cadastrar()
     alert(`Usuário cadastrado com sucesso!\n\nNome: ${Nome}\nEmail: ${Email}\nSenha: ${senhaFinal}`)
 
-    tabelaFunc.innerHTML += ` <tr>
-    <td>${idUser}</td>
-    <td>${TipoUser}</td>
-    <td>${Nome}</td>
-    <td>${Email}</td>
-    <td>${Telefone}</td>
-    <td><button class="delete-btn"><span class="material-symbols-outlined">delete</span></button></td>
-</tr>`
+    listarFuncionarios();
 
     // window.location.reload()
 

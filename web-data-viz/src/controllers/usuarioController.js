@@ -99,11 +99,56 @@ function verificarPermissaoCadastroEmpresa(req, res) {
       res.status(403).send("Acesso negado: você não tem permissão para cadastrar empresas.");
     }
 }
-  
-  
+
+// Atualizar perfil
+function atualizarPerfil(req, res) {
+    const { idUsuario, nome, email, telefone, senha } = req.body;
+
+    if (!idUsuario || !nome || !email || !telefone || !senha) {
+        return res.status(400).send("Campos obrigatórios faltando.");
+    }
+
+    usuarioModel.atualizar(idUsuario, nome, email, telefone, senha)
+        .then(() => res.status(200).send("Perfil atualizado com sucesso!"))
+        .catch(erro => {
+            console.error("Erro no controller ao atualizar:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+// Deletar perfil
+function deletarPerfil(req, res) {
+  const idUsuario = req.params.id;
+
+  if (!idUsuario) {
+    return res.status(400).json({ erro: "ID do usuário não fornecido." });
+  }
+
+  usuarioModel.deletar(idUsuario)
+    .then(() => res.status(200).json({ mensagem: "Perfil deletado com sucesso." }))
+    .catch(erro => {
+      console.error("Erro no controller ao deletar:", erro.sqlMessage || erro);
+      res.status(500).json({ erro: erro.sqlMessage || "Erro interno" });
+    });
+}
+
+
+function listarFuncionarios(req, res) {
+    const fkEmpresa = req.query.fkEmpresa;
+
+    usuarioModel.listarFuncionarios(fkEmpresa)
+        .then(resultado => res.json(resultado))
+        .catch(erro => {
+            console.error("Erro ao listar funcionários:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    verificarPermissaoCadastroEmpresa
+    verificarPermissaoCadastroEmpresa,
+    atualizarPerfil,
+    deletarPerfil,
+    listarFuncionarios
 }

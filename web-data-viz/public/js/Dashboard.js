@@ -87,6 +87,10 @@ const dadosPorCidade = {
 const labels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
 
+if(sessionStorage.getItem("TIPO_USUARIO") == "Comum") {
+  document.getElementById("cadastroMenu").style.display = "none";
+}
+
 function redirecionarCadastro() {
     const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");
   

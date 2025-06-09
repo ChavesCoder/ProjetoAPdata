@@ -1,47 +1,3 @@
-// carregamento (loading)
-//function aguardar() {
-//    var divAguardar = document.getElementById("div_aguardar");
-//    divAguardar.style.display = "flex";
-//}
-//
-//function finalizarAguardar(texto) {
-//    var divAguardar = document.getElementById("div_aguardar");
-//    divAguardar.style.display = "none";
-//
-//    var divErrosLogin = document.getElementById("div_erros_login");
-//    if (texto) {
-//        divErrosLogin.style.display = "flex";
-//        divErrosLogin.innerHTML = texto;
-//    }
-//}
-
-
-   
-//   function validarEmail() {
-//     const email = document.getElementById('email_input');
-//     const erro = document.getElementById('erro');
-//     
-//     // Validação do e-mail
-//     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     const emailValido = emailRegex.test(email.value);
-//     
-//     if (email.value === "") {
-//         // Campo vazio - remove estilos de erro/validação
-//         email.classList.remove('error');
-//         email.classList.remove('valid');
-//         erro.style.display = 'none';
-//     } else if (!emailValido) {
-//         // E-mail inválido
-//         email.classList.add('error');
-//         email.classList.remove('valid');
-//         erro.style.display = 'block';
-//     } else {
-//         // E-mail válido
-//         email.classList.remove('error');
-//         email.classList.add('valid');
-//         erro.style.display = 'none';
-//     }
-// }
 
 function entrar() {
     const email = document.getElementById('email_input');
@@ -95,6 +51,9 @@ function entrar() {
                 sessionStorage.NOME_USUARIO = json.nome;
                 sessionStorage.ID_USUARIO = json.idUsuario;
                 sessionStorage.FK_EMPRESA = json.fkEmpresa;
+                sessionStorage.TELEFONE_USUARIO = json.telefone;
+                sessionStorage.SENHA_USUARIO = json.senha;
+                sessionStorage.TIPO_USUARIO = json.tipoUsuario;
                 
                 setTimeout(function () {
                     window.location = "../dashboard.html";

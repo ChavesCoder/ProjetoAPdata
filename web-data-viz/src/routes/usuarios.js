@@ -14,5 +14,12 @@ router.post("/autenticar", function (req, res) {
 
 router.get("/acesso-cadastro-empresa", usuarioController.verificarPermissaoCadastroEmpresa);
 
+// Atualizar perfil
+router.put("/atualizar", usuarioController.atualizarPerfil);
+
+// Deletar perfil
+router.delete("/deletar/:id", usuarioController.deletarPerfil);
+
+router.get("/listar-funcionarios", usuarioController.listarFuncionarios);
 
 module.exports = router;
