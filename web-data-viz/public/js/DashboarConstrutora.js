@@ -68,28 +68,34 @@ function redirecionarCadastro() {
     }
   };
 
+function normalizarTexto(texto) {
+    return texto.trim().toLowerCase().replace(/\s*\(.*\)/g, '');
+}
+
 function obterDadosCidade(dadosPorCidade, nomeCidade, ano) {
     const dadosCidade = dadosPorCidade.filter(item => {
         const anoDoItem = item.data.split('-')[2];
-        return item.municipio === nomeCidade && anoDoItem === ano;
+        return normalizarTexto(item.municipio) === normalizarTexto(nomeCidade)
+            && anoDoItem === ano;
     });
-    
+
     if (dadosCidade.length === 0) {
-        console.warn(`Dados não encontrados para ${nomeCidade} no ano ${ano}`);
+        console.warn(`⚠️ Dados não encontrados para ${nomeCidade} no ano ${ano}`);
         return new Array(12).fill(0);
     }
-    
+
     dadosCidade.sort((a, b) => {
         const mesA = parseInt(a.data.split('-')[0]);
         const mesB = parseInt(b.data.split('-')[0]);
         return mesA - mesB;
     });
-    
+
     const valores = dadosCidade.map(item => parseFloat(item.totalMultiplicadoPor100));
-    console.log(`Dados encontrados para ${nomeCidade} no ano ${ano}:`, valores);
-    
+    console.log(`✅ Dados encontrados para ${nomeCidade} no ano ${ano}:`, valores);
+
     return valores;
 }
+
 
 /**
  * Função para calcular a soma dos valores de uma cidade

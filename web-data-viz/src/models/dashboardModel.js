@@ -3,14 +3,19 @@ var database = require("../database/config");
 function buscarDadosKPIS(cidade) {
     var instrucaoSql = `
    SELECT 
-    (sp.umMorador * 1 + sp.doisMoradores * 2 + sp.tresMoradores * 3 + sp.quatroMoradoresOuMais * 4) / sp.total AS mediaDomicilio,
+    (
+        IFNULL(sp.umMorador, 0) * 1 +
+        IFNULL(sp.doisMoradores, 0) * 2 +
+        IFNULL(sp.tresMoradores, 0) * 3 +
+        IFNULL(sp.quatroMoradoresOuMais, 0) * 4
+    ) / NULLIF(IFNULL(sp.total, 0), 0) AS mediaDomicilio,
     
-    pm.umDormitorio AS precoMedioUmDormitorio,
-    pm.doisDormitorios AS precoMedioDoisDormitorios,
-    pm.tresDormitorios AS precoMedioTresDormitorios,
-    pm.quatroDormitorios AS precoMedioQuatroDormitorios,
+    IFNULL(pm.umDormitorio, 0) AS precoMedioUmDormitorio,
+    IFNULL(pm.doisDormitorios, 0) AS precoMedioDoisDormitorios,
+    IFNULL(pm.tresDormitorios, 0) AS precoMedioTresDormitorios,
+    IFNULL(pm.quatroDormitorios, 0) AS precoMedioQuatroDormitorios,
     
-    sp.total AS totalMoradoresProprio
+    IFNULL(sp.total, 0) AS totalMoradoresProprio
 
 FROM 
     SidraProprio sp

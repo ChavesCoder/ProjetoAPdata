@@ -5,32 +5,31 @@ const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', '
 let dadosGlobais = [];
 let meuGrafico = null;
 
-// Função auxiliar para buscar dados da cidade de forma segura
+function normalizarTexto(texto) {
+    return texto.trim().toLowerCase().replace(/\s*\(.*\)/g, '');
+}
+
 function obterDadosCidade(dadosPorCidade, nomeCidade, ano) {
-    // Filtrar todos os registros da cidade específica para o ano específico
     const dadosCidade = dadosPorCidade.filter(item => {
-        // Extrair o ano da data (assumindo formato '01-01-2022')
         const anoDoItem = item.data.split('-')[2];
-        return item.municipio === nomeCidade && anoDoItem === ano;
+        return normalizarTexto(item.municipio) === normalizarTexto(nomeCidade)
+            && anoDoItem === ano;
     });
-    
+
     if (dadosCidade.length === 0) {
-        console.warn(`Dados não encontrados para ${nomeCidade} no ano ${ano}`);
-        return new Array(12).fill(0); // Array com 12 zeros
+        console.warn(`⚠️ Dados não encontrados para ${nomeCidade} no ano ${ano}`);
+        return new Array(12).fill(0);
     }
-    
-    // Ordenar por mês (extrair mês da data '01-01-2022' -> mês = '01')
+
     dadosCidade.sort((a, b) => {
         const mesA = parseInt(a.data.split('-')[0]);
         const mesB = parseInt(b.data.split('-')[0]);
         return mesA - mesB;
     });
-    
-    // Extrair os valores e converter para números
+
     const valores = dadosCidade.map(item => parseFloat(item.totalMultiplicadoPor100));
-    
-    console.log(`Dados encontrados para ${nomeCidade} no ano ${ano}:`, valores);
-    
+    console.log(`✅ Dados encontrados para ${nomeCidade} no ano ${ano}:`, valores);
+
     return valores;
 }
 
