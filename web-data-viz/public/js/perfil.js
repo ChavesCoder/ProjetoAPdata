@@ -6,6 +6,23 @@ window.onload = () => {
     }
 };
 
+function redirecionarDash() {
+    const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");
+  
+    if (!fkEmpresa) {
+      alert("Você precisa estar logado para continuar.");
+      window.location.href = "login.html";
+      return;
+    }
+  
+    if (fkEmpresa > "6") {
+      window.location.href = "dashboardConstrutora.html";
+    } else {
+      window.location.href = "dashboard.html";
+    }
+  };
+
+
 
 function carregarPerfil() {
     const nome = sessionStorage.NOME_USUARIO;

@@ -51,6 +51,23 @@ const scores = {
 /**
  * Função auxiliar para buscar dados da cidade de forma segura
  */
+
+function redirecionarCadastro() {
+    const fkEmpresa = sessionStorage.getItem("FK_EMPRESA");
+  
+    if (!fkEmpresa) {
+      alert("Você precisa estar logado para continuar.");
+      window.location.href = "login.html";
+      return;
+    }
+  
+    if (fkEmpresa == "1") {
+      window.location.href = "cadastrarEmpresa.html";
+    } else {
+      window.location.href = "cadastrarUsuario.html";
+    }
+  };
+
 function obterDadosCidade(dadosPorCidade, nomeCidade, ano) {
     const dadosCidade = dadosPorCidade.filter(item => {
         const anoDoItem = item.data.split('-')[2];
@@ -316,7 +333,7 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
                 }]
             },
             options: {
-                responsive: true,
+                responsive: false,
                 maintainAspectRatio: false,
                 rotation: -90,              
                 circumference: 180,         
@@ -333,7 +350,7 @@ function atualizarGraficoAlugado(percentualComDomicilio) {
                         }
                     }
                 },
-                cutout: 70 
+                cutout: 60 
             }
         });
         
@@ -407,7 +424,7 @@ function atualizarGraficoDomicilio(dadosSidra) {
                     display: true,
                     position: 'bottom',
                     labels: {
-                        padding: 20,
+                        padding: 12,
                         usePointStyle: true
                     }
                 },
@@ -415,7 +432,7 @@ function atualizarGraficoDomicilio(dadosSidra) {
                     display: true,
                     text: 'Distribuição de Moradores por Domicílio',
                     font: {
-                        size: 16,
+                        size: 12,
                         weight: 'bold'
                     }
                 },
